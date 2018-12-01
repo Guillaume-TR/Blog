@@ -19,7 +19,7 @@ class PostManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	/** Get one posts
+	/** Get one post
 	 * @param $idPost
 	 * @return bool|false|\PDOStatement
 	 */
@@ -53,4 +53,23 @@ class PostManager extends DatabaseManager
 		return $requestGet;
 	}
 
+	/** Delete a post
+	 * @param $data
+	 * @return mixed
+	 */
+	public function deletePost($data) {
+		extract($data);
+		/** @var string $id */
+		$statement = 'SELECT * FROM posts WHERE id = ?';
+		$request = $this->getSql($statement, 'App\app\model\Post', [$id]);
+		$countGet = $request->rowCount();
+		$requestGet = false;
+
+		if ($countGet === 1) {
+			$statement = 'DELETE FROM posts WHERE id = ?';
+			$requestGet = $this->getSql($statement, 'App\app\model\Post', [$id]);
+		}
+
+		return $requestGet;
+	}
 }

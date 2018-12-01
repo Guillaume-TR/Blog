@@ -90,4 +90,48 @@ class BackController
 			'message' => $message
 		], true);
 	}
+
+	/** Get the admin deletepost page
+	 * @param $data
+	 */
+	public function deletePost($data) {
+		$message = null;
+		if (isset($_POST['submit'])) {
+			$request = new PostManager();
+			$requestGet = $request->deletePost($data);
+			$message = 'L\'article a été supprimé !';
+			if ($requestGet === false) {
+				$message = 'L\'article n\'a pas été supprimé, un problème est survenu !';
+			}
+		}
+		$requestPosts = $this->postManage->getAllPosts();
+		$this->view->render('deletePost', [
+			'post' => $data,
+			'posts' => $requestPosts,
+			'message' => $message
+		], true);
+	}
+
+
+
+	/** Get the admin deleteaccount page
+	 * @param $data
+	 */
+	public function deleteAccount($data) {
+		$message = null;
+		if (isset($_POST['submit'])) {
+			$request = new AccountManager();
+			$requestGet = $request->deleteAccount($data);
+			$message = 'Le compte a été supprimé !';
+			if ($requestGet === false) {
+				$message = 'Le compte n\'a pas été supprimé, un problème est survenu !';
+			}
+		}
+		$requestAccounts = $this->accountManage->getAllAccounts();
+		$this->view->render('deleteAccount', [
+			'account' => $data,
+			'accounts' => $requestAccounts,
+			'message' => $message
+		], true);
+	}
 }

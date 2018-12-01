@@ -3,16 +3,52 @@
 namespace App\app\manager;
 
 
+/** Manage the accounts
+ * Class AccountManager
+ * @package App\app\model
+ */
 class AccountManager extends DatabaseManager
 {
-	private $session;
+	/** Get all accounts
+	 * @return array
+	 */
+	public function getAllAccounts() {
+		$statement = 'SELECT * FROM accounts ORDER BY id DESC';
+		$request = $this->getSql($statement, 'App\app\model\Account');
+		$requestGet = $request->fetchAll();
+		return $requestGet;
+	}
+
+	/** Get one account
+	 * @param $data
+	 * @return int
+	 */
+	public function getAccount($data) {
+		extract($data);
+		/** @var string $username */
+		/** @var string $password */
+		$statement = 'SELECT * FROM accounts WHERE username = ?';
+		$request = $this->getSql($statement, 'App\app\model\Account', [$username]);
+		$countGet = $request->rowCount();
+
+		if ($countGet === 1) {
+			$requestGet = $request->fetch();
+			$passwordCheck = password_verify($password, $requestGet->getPass());
+
+			if ($passwordCheck) {
+				$_SESSION['id'] = $requestGet->getId();
+				$_SESSION['username'] = $requestGet->getUser();
+				$_SESSION['level'] = $requestGet->getLevel();
+				return $requestGet;
+			}
+		}
+	}
 
 	/** Add a account
 	 * @param $data
 	 * @return mixed
 	 */
-	public function addAccount($data)
-	{
+	public function addAccount($data) {
 		extract($data);
 		/** @var string $username */
 		/** @var string $password */
@@ -32,29 +68,23 @@ class AccountManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	/** Get a account
+	/** Delete a account
 	 * @param $data
-	 * @return int
+	 * @return mixed
 	 */
-	public function getAccount($data)
-	{
+	public function deleteAccount($data) {
 		extract($data);
-		/** @var string $username */
-		/** @var string $password */
-		$statement = 'SELECT * FROM accounts WHERE username = ?';
-		$request = $this->getSql($statement, 'App\app\model\Account', [$username]);
+		/** @var string $id */
+		$statement = 'SELECT * FROM accounts WHERE id = ?';
+		$request = $this->getSql($statement, 'App\app\model\Account', [$id]);
 		$countGet = $request->rowCount();
+		$requestGet = false;
 
 		if ($countGet === 1) {
-			$requestGet = $request->fetch();
-			$passwordCheck = password_verify($password, $requestGet->getPass());
-
-			if ($passwordCheck) {
-				$_SESSION['id'] = $requestGet->getId();
-				$_SESSION['username'] = $requestGet->getUser();
-				$_SESSION['level'] = $requestGet->getLevel();
-				return $requestGet;
-			}
+			$statement = 'DELETE FROM accounts WHERE id = ?';
+			$requestGet = $this->getSql($statement, 'App\app\model\Account', [$id]);
 		}
+
+		return $requestGet;
 	}
 }

@@ -43,6 +43,12 @@ class Router
 									break;
 								case 'addAccount': $this->backController->addAccount($_POST);
 									break;
+								case 'deletePost': $this->backController->deletePost($_POST);
+									break;
+								case 'deleteComment': $this->backController->deleteComment($_POST);
+									break;
+								case 'deleteAccount': $this->backController->deleteAccount($_POST);
+									break;
 								default: $this->backController->admin();
 									break;
 							}
