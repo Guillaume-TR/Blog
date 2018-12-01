@@ -16,9 +16,14 @@ class View
 	 * @param $view
 	 * @param array $data
 	 */
-	public function render($view, $data = []) {
-		$view = 'frontend/' . $view;
-		$template = 'public';
+	public function render($view, $data = [], $backend = false) {
+		if ($backend) {
+			$view = 'backend/' . $view;
+			$template = 'admin';
+		} else {
+			$view = 'frontend/' . $view;
+			$template = 'public';
+		}
 		$this->file = '../view/' . $view . '.php';
 		$content = $this->renderFile($this->file, $data);
 		$view = $this->renderFile('../view/' . $template . '_template.php', [

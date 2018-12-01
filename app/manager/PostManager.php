@@ -40,8 +40,15 @@ class PostManager extends DatabaseManager
 		/** @var string $title */
 		/** @var string $content */
 		/** @var string $author */
-		$statement = 'INSERT INTO posts(title, content, author, creation_date) VALUES(?, ?, ?, NOW())';
-		$requestGet = $this->getSql($statement, 'App\app\model\Post', [$title, $content, $author]);
+		$statement = 'SELECT * FROM posts WHERE title = ?';
+		$request = $this->getSql($statement, 'App\app\model\Post', [$title]);
+		$countGet = $request->rowCount();
+		$requestGet = false;
+
+		if ($countGet === 0) {
+			$statement = 'INSERT INTO posts(title, content, author, creation_date) VALUES(?, ?, ?, NOW())';
+			$requestGet = $this->getSql($statement, 'App\app\model\Post', [$title, $content, $author]);
+		}
 
 		return $requestGet;
 	}

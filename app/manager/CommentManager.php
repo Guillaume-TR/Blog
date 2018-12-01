@@ -20,4 +20,19 @@ class CommentManager extends DatabaseManager
 
 		return $requestGet;
 	}
+
+	/** Add a comment
+	 * @param $data
+	 * @return mixed
+	 */
+	public function addComment($data) {
+		extract($data);
+		/** @var string $content */
+		/** @var string $author */
+		/** @var string $post_id */
+		$statement = 'INSERT INTO comments(content, author, post_id, creation_date) VALUES(?, ?, ?, NOW())';
+		$requestGet = $this->getSql($statement, 'App\app\model\Comment', [$content, $author, $post_id]);
+
+		return $requestGet;
+	}
 }
