@@ -35,6 +35,10 @@ class Router
 					break;
 					case 'post': $this->frontController->post($_GET['id']);
 					break;
+					case 'connection': $this->frontController->connection($_POST);
+					break;
+					case 'disconnect': $this->frontController->disconnect();
+					break;
 					default: $this->errorController->notFound();
 					break;
 					}
