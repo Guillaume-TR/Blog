@@ -31,4 +31,19 @@ class PostManager extends DatabaseManager
 		return $requestGet;
 	}
 
+	/** Add a post
+	 * @param $data
+	 * @return mixed
+	 */
+	public function addPost($data) {
+		extract($data);
+		/** @var string $title */
+		/** @var string $content */
+		/** @var string $author */
+		$statement = 'INSERT INTO posts(title, content, author, creation_date) VALUES(?, ?, ?, NOW())';
+		$requestGet = $this->getSql($statement, 'App\app\model\Post', [$title, $content, $author]);
+
+		return $requestGet;
+	}
+
 }

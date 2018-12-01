@@ -33,6 +33,8 @@ class Router
 				switch ($_GET['page']) {
 					case 'home': $this->frontController->home();
 					break;
+					case 'post': $this->frontController->post($_GET['id']);
+					break;
 					default: $this->errorController->notFound();
 					break;
 					}
