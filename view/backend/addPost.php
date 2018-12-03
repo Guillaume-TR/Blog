@@ -4,8 +4,19 @@
 	echo $message;
 } ?>
 <form method="post" action="">
-    <p><input type="text" id="title" name="title" placeholder="Titre de l'article" aria-label="title"/></p>
-    <p><input type="text" id="author" name="author" placeholder="Auteur" aria-label="author"/></p>
-    <p><textarea id="content" name="content" placeholder="Contenu de l'article"></textarea></p>
-    <p><input type="submit" id="submit" name="submit" value="Ajouter"/></p>
+    <div class="post-content">
+        <div class="post-data-content">
+            <div class="post-header">
+                <input type="text" id="title" name="title" placeholder="Titre de l'article" aria-label="title" required/>
+            </div>
+            <div class="post-message">
+                <textarea id="content" name="content" placeholder="Contenu de l'article ..." required></textarea>
+            </div>
+        </div>
+        <div class="post-button">
+            <div class="post-button-add">
+                <input type="submit" id="submit" name="submit" value="Ajouter"/>
+            </div>
+        </div>
+    </div>
 </form>

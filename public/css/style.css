@@ -1,0 +1,279 @@
+/* RESET */ /* START */
+* {
+    box-sizing: border-box !important;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+/* RESET */ /* END */
+
+/* NAV */ /* START */
+.nav-title {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    font-size: 23px;
+    text-align: center;
+    color: #3E3E3E;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #FFF;
+}
+nav {
+    z-index: 99;
+    position: sticky;
+    top: 0;
+    font-size: 18px;
+    background-color: #333;
+}
+nav form {
+    width: 100%;
+    margin: 20px 10px 10px;
+}
+nav form input,
+nav form button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    color: #333;
+    font-weight: bold;
+    background-color: #CCC;
+    border: none;
+    border-radius: 5px;
+}
+nav > div {
+    display: flex;
+}
+nav > div a.btn-admin,
+nav > div a.btn-disconnect {
+    display: inline-block;
+    width: 100%;
+    margin: 10px 10px 10px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #FFF;
+    font-size: 16px;
+    text-decoration: none;
+    background-color: #CCC;
+    border-radius: 5px;
+}
+nav > div a.btn-disconnect{
+    background-color: #942b13;
+}
+nav > div a.btn-admin{
+    background-color: #294C92;
+}
+nav form input::placeholder {
+    color: #000;
+}
+nav form button {
+    font-size: 16px;
+    color: #FFF;
+    background-color: #609817;
+}
+/* NAV */ /* END */
+
+/* MENU ADMIN */ /* START */
+#menu-admin {
+    z-index: 100;
+}
+#menu-admin input {
+    display: none;
+}
+#menu-admin a {
+    text-decoration: none;
+}
+#menu-admin .menu-btn > label span {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    color: #FFF;
+    background-color: #3E3E3E;
+}
+#menu-admin .menu-content label span,
+#menu-admin .menu-content > li a {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 0 10px 10px;
+    color: #333;
+    background-color: #CCC;
+}
+#menu-admin .menu-sub-sub li a {
+    color: #FFF;
+    background-color: #333;
+}
+#menu-admin .menu-content > li {
+    overflow: hidden;
+    opacity: 0;
+    height: 0;
+    animation: linear both menu-admin-first-sub-inset .5s;
+}
+#menu-admin .menu-content .menu-sub-sub li {
+    overflow: hidden;
+    opacity: 0;
+    height: 0;
+    transition: all .5s;
+}
+#menu-admin #menu-btn:checked + .menu-content > li {
+    overflow: visible;
+    height: auto;
+    opacity: 1;
+    animation: linear both menu-admin-first-sub .5s;
+}
+#menu-admin .menu-sub input:checked + .menu-sub-sub li {
+    overflow: visible;
+    height: 41px;
+    opacity: 1;
+    transition: all .5s;
+}
+#menu-admin #menu-btn:checked + .menu-content span {
+    border-radius: 0;
+}
+@keyframes menu-admin-first-sub {
+    0% {
+        overflow: hidden;
+        opacity: 0;
+        height: 0;
+    }
+    99% {
+        overflow: hidden;
+        height: 41px;
+    }
+    100% {
+        overflow: visible;
+        opacity: 1;
+        height: auto;
+    }
+}
+@keyframes menu-admin-first-sub-inset {
+    0% {
+        overflow: visible;
+        opacity: 1;
+        height: auto;
+    }
+    1% {
+        overflow: hidden;
+        height: 41px;
+    }
+    100% {
+        overflow: hidden;
+        opacity: 0;
+        height: 0;
+    }
+}
+/* MENU ADMIN */ /* END */
+
+/* GENERAL */ /* START */
+.container {
+    background-color: #EFEFEF;
+}
+.content {
+    padding: 0 15px 15px;
+}
+.content a {
+    color: #000;
+    text-decoration: none;
+}
+#info-message {
+    text-align: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    color: #942b13;
+    border-radius: 5px;
+}
+#info-message.error {
+    color: #942b13;
+    background-color: rgba(200, 50, 50, .3);
+}
+#info-message.confirm {
+    color: #4A801B;
+    background-color: rgba(50, 200, 50, .3);
+}
+/* GENERAL */ /* END */
+
+/* POST *//* START */
+#id-disabled {
+    display: none;
+}
+.content hr {
+    height: 1px;
+    margin: 15px 0 5px;
+    border: 0;
+    background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+    background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+    background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+    background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+}
+.content h2 {
+    padding: 20px 0;
+    color: #333;
+}
+/* POST *//* END */
+
+/** POST STYLE **/ /* START */
+.post-content .post-data-content {
+    background-color: #CCC;
+    border-radius: 5px;
+    box-shadow: rgba(30, 30, 30, .6) 0 0 6px 0;
+}
+.post-content .post-data-content .post-header {
+    padding: 10px 10px;
+    color: #EEE;
+    background-color: #333;
+    border-radius: 5px 5px 0 0;
+}
+.post-content .post-data-content .post-header h2 {
+    color: #CCC;
+    margin: 0;
+    padding: 5px 0 10px 0;
+    font-size: 23px;
+    font-weight: bold;
+}
+.post-content .post-data-content .post-header input {
+    width: 100%;
+    margin: 0;
+    padding: 0 5px;
+    color: #FFF;
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+}
+.post-content .post-data-content .post-header input {
+    font-size: 20px;
+    font-weight: bold;
+}
+.post-content .post-data-content .post-header input:focus { background-color: #3F3F3F; }
+.post-content .post-data-content .post-message p { padding: 10px 10px; }
+.post-content .post-data-content .post-message textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 10px 10px;
+    background-color: #CCC;
+    border: none;
+}
+.post-content .post-data-content .post-message textarea:focus { background-color: #E5E5E5; }
+
+.post-content .post-button {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0px;
+}
+.post-content .post-button input {
+    font-size: 18px;
+    width: 100%;
+    padding: 10px 30px;
+    color: #FFF;
+    border: none;
+    border-radius: 5px;
+}
+.post-content .post-button > div {
+    width: 100%;
+    margin: 0 10px 0 10px;
+}
+.post-content .post-button .post-button-add input { background-color: #609817; }
+.post-content .post-button .post-button-edit input { background-color: #92730c; }
+.post-content .post-button .post-button-delete input { background-color: #942b13; }
+/** POST STYLE **/ /* END */

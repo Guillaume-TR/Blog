@@ -8,9 +8,7 @@ $this->title = htmlspecialchars($post->getTitle());  ?>
     <h1><?= htmlspecialchars($post->getTitle()) ?></h1>
 	<p><?= htmlspecialchars($post->getContent()) ?></p>
 	<p><em>Créé le : <?= htmlspecialchars($post->getCreationDate()) ?></em></p>
-	<p><em><strong> Par <?= htmlspecialchars($post->getAuthor()) ?></strong></em></p><?php
 
-	?>
 <hr>
 <h3>Commentaires</h3>
 <?php foreach ($comments as $comment):?>
