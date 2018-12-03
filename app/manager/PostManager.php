@@ -13,7 +13,7 @@ class PostManager extends DatabaseManager
 	 * @return array
 	 */
 	public function getAllPosts() {
-		$statement = 'SELECT * FROM posts ORDER BY creation_date DESC';
+		$statement = 'SELECT * FROM posts ORDER BY creation_date';
 		$request = $this->getSql($statement, 'App\app\model\Post');
 		$requestGet = $request->fetchAll();
 		return $requestGet;
@@ -39,15 +39,36 @@ class PostManager extends DatabaseManager
 		extract($data);
 		/** @var string $title */
 		/** @var string $content */
-		/** @var string $author */
 		$statement = 'SELECT * FROM posts WHERE title = ?';
 		$request = $this->getSql($statement, 'App\app\model\Post', [$title]);
 		$countGet = $request->rowCount();
 		$requestGet = false;
 
 		if ($countGet === 0) {
-			$statement = 'INSERT INTO posts(title, content, author, creation_date) VALUES(?, ?, ?, NOW())';
-			$requestGet = $this->getSql($statement, 'App\app\model\Post', [$title, $content, $author]);
+			$statement = 'INSERT INTO posts(title, content, creation_date) VALUES(?, ?, NOW())';
+			$requestGet = $this->getSql($statement, 'App\app\model\Post', [$title, $content]);
+		}
+
+		return $requestGet;
+	}
+
+	/** Edit a post
+	 * @param $data
+	 * @return mixed
+	 */
+	public function editPost($data) {
+		extract($data);
+		/** @var string $id */
+		$statement = 'SELECT * FROM posts WHERE id = ?';
+		$request = $this->getSql($statement, 'App\app\model\Post', [$id]);
+		$countGet = $request->rowCount();
+		$requestGet = false;
+
+		if ($countGet === 1) {
+			/** @var string $title */
+			/** @var string $content */
+			$statement = 'UPDATE posts SET title = ?, content = ? WHERE id = ?';
+			$requestGet = $this->getSql($statement, 'App\app\model\Post', [$title, $content, $id]);
 		}
 
 		return $requestGet;

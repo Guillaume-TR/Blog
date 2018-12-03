@@ -68,6 +68,29 @@ class AccountManager extends DatabaseManager
 		return $requestGet;
 	}
 
+	/** Edit a account
+	 * @param $data
+	 * @return mixed
+	 */
+	public function editAccount($data) {
+		extract($data);
+		/** @var string $id */
+		$statement = 'SELECT * FROM accounts WHERE id = ?';
+		$request = $this->getSql($statement, 'App\app\model\Account', [$id]);
+		$countGet = $request->rowCount();
+		$requestGet = false;
+
+		if ($countGet === 1) {
+			/** @var string $username */
+			/** @var string $password */
+			$password = password_hash($password);
+			$statement = 'UPDATE posts SET title = ?, content = ? WHERE id = ?';
+			$requestGet = $this->getSql($statement, 'App\app\model\Account', [$username, $password, $id]);
+		}
+
+		return $requestGet;
+	}
+
 	/** Delete a account
 	 * @param $data
 	 * @return mixed

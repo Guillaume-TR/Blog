@@ -39,15 +39,11 @@ class Router
 							switch ($_GET['action']) {
 								case 'addPost': $this->backController->addPost($_POST);
 									break;
-								case 'addComment': $this->backController->addComment($_POST);
+								case 'editPost': $this->backController->editPost($_POST);
 									break;
 								case 'addAccount': $this->backController->addAccount($_POST);
 									break;
-								case 'deletePost': $this->backController->deletePost($_POST);
-									break;
-								case 'deleteComment': $this->backController->deleteComment($_POST);
-									break;
-								case 'deleteAccount': $this->backController->deleteAccount($_POST);
+								case 'editAccount': $this->backController->editAccount($_POST);
 									break;
 								default: $this->backController->admin();
 									break;

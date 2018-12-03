@@ -6,7 +6,6 @@ use App\app\manager\PostManager;
 use App\app\manager\CommentManager;
 use App\app\manager\AccountManager;
 use App\app\model\View;
-
 /**
  * Class BackController
  * @package App\app\controller
@@ -18,7 +17,7 @@ class BackController
 	private $accountManage;
 	private $view;
 
-	/** Get a view
+	/** Get all views
 	 * BackController constructor.
 	 */
 	public function __construct() {
@@ -35,103 +34,139 @@ class BackController
 		$this->view->render('home', [], true);
 	}
 
-	/** Get the admin addpost page
+	/** Get for the admin panel, add post page
 	 * @param $data
 	 */
 	public function addPost($data) {
 		$message = null;
+		$messageType = null;
 		if (isset($_POST['submit'])) {
 			$request = new PostManager();
 			$requestGet = $request->addPost($data);
 			$message = 'L\'article a été ajouté !';
+			$messageType = 'confirm';
 			if ($requestGet === false) {
 				$message = 'L\'article n\'a pas été ajouté, un problème est survenu !';
+				$messageType = 'error';
 			}
 		}
 		$this->view->render('addPost', [
 			'post' => $data,
-			'message' => $message
-		], true);
-	}
-
-	/** Get the admin addcomment page
-	 * @param $data
-	 */
-	public function addComment($data) {
-		$message = null;
-		if (isset($_POST['submit'])) {
-			$request = new CommentManager();
-			$request->addComment($data);
-			$message = 'Le commentaire a été ajouté !';
-		}
-		$requestPosts = $this->postManage->getAllPosts();
-		$this->view->render('addComment', [
-			'comment' => $data,
 			'message' => $message,
-			'posts' => $requestPosts
+			'messageType' => $messageType
 		], true);
 	}
 
-	/** Get the admin addaccount page
+	/** Get for the admin panel, add account page
 	 * @param $data
 	 */
 	public function addAccount($data) {
 		$message = null;
+		$messageType = null;
 		if (isset($_POST['submit'])) {
 			$request = new AccountManager();
 			$requestGet = $request->addAccount($data);
-			$message = 'Le compte a été ajouté !';
+			$message = 'Le compte à bien été ajouté !';
+			$messageType = 'confirm';
 			if ($requestGet === false) {
-				$message = 'Le compte n\'a pas été ajouté, un problème est survenu !';
+				$message = 'Un problème est survenu ! Réessayez.';
+				$messageType = 'error';
 			}
 		}
 		$this->view->render('addAccount', [
 			'account' => $data,
-			'message' => $message
+			'message' => $message,
+			'messageType' => $messageType
 		], true);
 	}
 
-	/** Get the admin deletepost page
+	/** Get for the admin panel, add comment page
 	 * @param $data
 	 */
-	public function deletePost($data) {
+	public function addComment($data) {
 		$message = null;
+		$messageType = null;
 		if (isset($_POST['submit'])) {
-			$request = new PostManager();
-			$requestGet = $request->deletePost($data);
-			$message = 'L\'article a été supprimé !';
-			if ($requestGet === false) {
-				$message = 'L\'article n\'a pas été supprimé, un problème est survenu !';
-			}
+			$request = new CommentManager();
+			$request->addComment($data);
+			$message = 'Le commentaire à bien été ajouté !';
+			$messageType = 'confirm';
 		}
 		$requestPosts = $this->postManage->getAllPosts();
-		$this->view->render('deletePost', [
-			'post' => $data,
+		$this->view->render('addComment', [
+			'comment' => $data,
 			'posts' => $requestPosts,
-			'message' => $message
+			'message' => $message,
+			'messageType' => $messageType
 		], true);
 	}
 
-
-
-	/** Get the admin deleteaccount page
+	/** Get for the admin panel, edit post page
 	 * @param $data
 	 */
-	public function deleteAccount($data) {
+	public function editPost($data) {
 		$message = null;
-		if (isset($_POST['submit'])) {
+		$messageType = null;
+		if (isset($_POST['delete-post'])) {
+			$request = new PostManager();
+			$requestGet = $request->deletePost($data);
+			$message = 'L\'article à bien été supprimé !';
+			$messageType = 'confirm';
+			if ($requestGet === false) {
+				$message = 'Un problème est survenu pendant la suppression ! Réessayez.';
+				$messageType = 'error';
+			}
+		} elseif (isset($_POST['edit-post'])) {
+			$request = new PostManager();
+			$requestGet = $request->editPost($data);
+			$message = 'L\'article à bien été modifié !';
+			$messageType = 'confirm';
+			if ($requestGet === false) {
+				$message = 'Un problème est survenu pendant la modification ! Réessayez.';
+				$messageType = 'error';
+			}
+		}
+
+		$requestPosts = $this->postManage->getAllPosts();
+		$this->view->render('editPost', [
+			'post' => $data,
+			'posts' => $requestPosts,
+			'message' => $message,
+			'messageType' => $messageType
+		], true);
+	}
+
+	/** Get for the admin panel, edit account page
+	 * @param $data
+	 */
+	public function editAccount($data) {
+		$message = null;
+		$messageType = null;
+		if (isset($_POST['delete-account'])) {
 			$request = new AccountManager();
 			$requestGet = $request->deleteAccount($data);
-			$message = 'Le compte a été supprimé !';
+			$message = 'Le compte à bien été supprimé !';
+			$messageType = 'confirm';
 			if ($requestGet === false) {
-				$message = 'Le compte n\'a pas été supprimé, un problème est survenu !';
+				$message = 'Un problème est survenu pendant la suppression ! Réessayez.';
+				$messageType = 'error';
+			}
+		} elseif (isset($_POST['edit-account'])) {
+			$request = new AccountManager();
+			$requestGet = $request->editAccount($data);
+			$message = 'L\'article à bien été modifié !';
+			$messageType = 'confirm';
+			if ($requestGet === false) {
+				$message = 'Un problème est survenu pendant la modification ! Réessayez.';
+				$messageType = 'error';
 			}
 		}
 		$requestAccounts = $this->accountManage->getAllAccounts();
 		$this->view->render('deleteAccount', [
 			'account' => $data,
 			'accounts' => $requestAccounts,
-			'message' => $message
+			'message' => $message,
+			'messageType' => $messageType
 		], true);
 	}
 }

@@ -15,6 +15,7 @@ class View
 	/** Set the view
 	 * @param $view
 	 * @param array $data
+	 * @param bool $backend
 	 */
 	public function render($view, $data = [], $backend = false) {
 		if ($backend) {
