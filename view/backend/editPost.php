@@ -1,5 +1,5 @@
 <?php $this->title = 'Modifier un article'; ?>
-<h2>Modifier un article</h2>
+<h2><?= $this->title ?></h2>
 <?php if (isset($message) && isset($messageType)) {
 	?>
     <div id="info-message"<?= ' class="' . $messageType . '"' ?>><?= $message ?></div>
@@ -14,7 +14,7 @@
                 <input type="text" id="title" name="title" placeholder="Titre de l'article" aria-label="title" value="<?= htmlspecialchars($post->getTitle()) ?>" required/>
             </div>
             <div class="post-message">
-                <textarea id="content" name="content" placeholder="Contenu de l'article ..." required><?= $post->getContent() ?></textarea>
+                <textarea id="content" name="content" placeholder="Contenu de l'article ..." aria-label="content" required><?= $post->getContent() ?></textarea>
             </div>
         </div>
         <div class="post-button">

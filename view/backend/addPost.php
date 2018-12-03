@@ -1,7 +1,9 @@
 <?php $this->title = 'Ajouter un article'; ?>
-<h2>Ajouter un nouvel article</h2>
-<?php if (isset($message)) {
-	echo $message;
+<h2><?= $this->title ?></h2>
+<?php if (isset($message) && isset($messageType)) {
+	?>
+    <div id="info-message"<?= ' class="' . $messageType . '"' ?>><?= $message ?></div>
+	<?php
 } ?>
 <form method="post" action="">
     <div class="post-content">
