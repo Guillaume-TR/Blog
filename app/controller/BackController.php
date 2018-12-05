@@ -22,7 +22,7 @@ class BackController
 
 	public function admin() {
 		$requestBooks = $this->bookManage->getAllBooks(false);
-		$requestEpisodes = $this->bookManage->getAll();
+		$requestEpisodes = $this->bookManage->getAllEpisodes();
 		$this->view->render('home', [
 			'books' => $requestBooks,
 			'episodes' => $requestEpisodes
@@ -37,10 +37,10 @@ class BackController
 			if (isset($_POST['title']) && strlen($_POST['title']) > 0) {
 				if (isset($_POST['content']) && strlen($_POST['content']) > 0) {
 					$requestGet = $this->bookManage->addEpisode($data, $idBook);
-					$message = 'L\'episode a été ajouté !';
+					$message = 'L\'épisode a été ajouté !';
 					$messageType = 'success';
 				} else {
-					$message = 'Le contenu de l\'episode ne doit pas être vide.';
+					$message = 'Le contenu de l\'épisode ne doit pas être vide.';
 					$messageType = 'danger';
 				}
 			} else {
@@ -65,10 +65,10 @@ class BackController
 			if (isset($_POST['title']) && strlen($_POST['title']) > 0) {
 				if (isset($_POST['content']) && strlen($_POST['content']) > 0) {
 					$requestGet = $this->bookManage->editEpisode($data, $idEpisode);
-					$message = 'L\'episode a été modifié !';
+					$message = 'L\'épisode a été modifié !';
 					$messageType = 'success';
 				} else {
-					$message = 'Le contenu de l\'episode ne doit pas être vide.';
+					$message = 'Le contenu de l\'épisode ne doit pas être vide.';
 					$messageType = 'danger';
 				}
 			} else {
@@ -76,13 +76,44 @@ class BackController
 				$messageType = 'danger';
 			}
 		}
-		$requestEpisode = $this->bookManage->getEpisode($idEpisode);
+		$request = $this->bookManage->getEpisode($idEpisode);
+		$requestEpisode = $request->fetch();
 		$this->view->render('editEpisode', [
 			'episodeEdit' => $data,
 			'episode' => $requestEpisode,
 			'message' => $message,
 			'messageType' => $messageType
 		], true);
+	}
+
+	public function deleteEpisode($data) {
+		extract($data);
+		$message = null;
+		$messageType = null;
+		$idEpisode = (int)$_GET['id'];
+
+		$request = $this->bookManage->getEpisode($idEpisode);
+		$requestCount = $request->rowCount();
+		if ($requestCount === 1) {
+			$requestEpisode = $request->fetch();
+			if (isset($_POST['submit'])) {
+				if ($_POST['title'] === $requestEpisode->getTitle()) {
+					$requestGet = $this->bookManage->deleteEpisode($idEpisode);
+					$message = 'L\'épisode a été supprimé !';
+					$messageType = 'success';
+				} else {
+					$message = 'Le titre n\'est pas le même.';
+					$messageType = 'warning';
+				}
+			}
+			$this->view->render('deleteEpisode', [
+				'episode' => $requestEpisode,
+				'message' => $message,
+				'messageType' => $messageType
+			], true);
+		} else {
+			$this->admin();
+		}
 	}
 
 	public function addAccount($data) {
@@ -100,24 +131,6 @@ class BackController
 		}
 		$this->view->render('addAccount', [
 			'account' => $data,
-			'message' => $message,
-			'messageType' => $messageType
-		], true);
-	}
-
-	public function addComment($data) {
-		$message = null;
-		$messageType = null;
-		if (isset($_POST['submit'])) {
-			$request = new CommentManager();
-			$request->addComment($data);
-			$message = 'Le commentaire à bien été ajouté !';
-			$messageType = 'confirm';
-		}
-		$requestPosts = $this->postManage->getAllPosts();
-		$this->view->render('addComment', [
-			'comment' => $data,
-			'posts' => $requestPosts,
 			'message' => $message,
 			'messageType' => $messageType
 		], true);

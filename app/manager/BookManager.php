@@ -25,17 +25,7 @@ class BookManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	public function getAllEpisodes($idBook)
-	{
-		$statement = 'SELECT * FROM episodes WHERE book_id = ?';
-		$request = $this->getSql($statement, 'App\app\model\Episode', [$idBook]);
-		$requestGet = $request->fetchAll();
-
-		return $requestGet;
-	}
-
-
-	public function getAll()
+	public function getAllEpisodes()
 	{
 		$statement = 'SELECT * FROM episodes';
 		$request = $this->getSql($statement, 'App\app\model\Episode');
@@ -44,11 +34,19 @@ class BookManager extends DatabaseManager
 		return $requestGet;
 	}
 
+	public function getAllEpisodesBook($idBook)
+	{
+		$statement = 'SELECT * FROM episodes WHERE book_id = ? ORDER BY id';
+		$request = $this->getSql($statement, 'App\app\model\Episode', [$idBook]);
+		$requestGet = $request->fetchAll();
+
+		return $requestGet;
+	}
+
 	public function getEpisode($idEpisode)
 	{
 		$statement = 'SELECT * FROM episodes WHERE id = ?';
-		$request = $this->getSql($statement, 'App\app\model\Episode', [$idEpisode]);
-		$requestGet = $request->fetch();
+		$requestGet = $this->getSql($statement, 'App\app\model\Episode', [$idEpisode]);
 
 		return $requestGet;
 	}
@@ -63,12 +61,20 @@ class BookManager extends DatabaseManager
 
 		return $requestGet;
 	}
+
 	public function editEpisode($data, $idEpisode) {
 		extract($data);
 		/** @var string $title */
 		/** @var string $content */
 		$statement = 'UPDATE episodes SET title = ?, content = ? WHERE id = ?';
 		$requestGet = $this->getSql($statement, 'App\app\model\Episode', [$title, $content, $idEpisode]);
+
+		return $requestGet;
+	}
+
+	public function deleteEpisode($idEpisode) {
+		$statement = 'DELETE FROM episodes WHERE id = ?';
+		$requestGet = $this->getSql($statement, 'App\app\model\Episode', [$idEpisode]);
 
 		return $requestGet;
 	}

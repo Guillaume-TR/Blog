@@ -56,7 +56,7 @@ class FrontController
 			$messageType = 'info';
 		}
 		$requestBooks = $this->bookManage->getBook($idBook);
-		$requestEpisodes = $this->bookManage->getAllEpisodes($idBook);
+		$requestEpisodes = $this->bookManage->getAllEpisodesBook($idBook);
 		$requestComments = $this->commentManage->getAllComments();
 		$this->view->render('episodes', [
 			'episodes' => $requestEpisodes,

@@ -12,6 +12,7 @@ $this->title = 'Toutes les publications'; ?>
 <ul class="nav nav-pills mb-3 py-2" id="pills-tab" role="tablist">
     <?php
     $active = true;
+	$number = 1;
 	foreach ($episodes as $episode): ?>
         <li class="nav-item">
             <a class="nav-link<?php
@@ -21,11 +22,12 @@ $this->title = 'Toutes les publications'; ?>
 			} ?>" id="pills-<?= $episode->getId() ?>-tab" data-toggle="pill"
                href="#pills-<?= $episode->getId() ?>" role="tab"
                aria-controls="pills-<?= $episode->getId() ?>" aria-selected="true">
-                <?= $episode->getTitle() ?>
+                <?= $number . '. ' . $episode->getTitle() ?>
             </a>
         </li>
-
-    <?php endforeach; ?>
+    <?php
+        $number++;
+    endforeach; ?>
 </ul>
 <div class="tab-content" id="pills-tabContent">
     <?php

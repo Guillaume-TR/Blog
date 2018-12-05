@@ -27,9 +27,9 @@ $this->title = 'Panel d\'administration';
 		$active = false;
 	} ?>" id="nav-book<?= $book->getId() ?>" role="tabpanel" aria-labelledby="nav-book<?= $book->getId() ?>-tab">
         <div class="pb-3 pl-2">
-            <a class="btn btn-success" href="index.php?page=admin&action=addEpisode&id=<?= $book->getId() ?>">Ajouter un episode</a>
+            <a class="btn btn-success" href="index.php?page=admin&action=addEpisode&id=<?= $book->getId() ?>">Ajouter un épisode</a>
         </div>
-        <table class="table table-hover">
+        <table class="table table-hover table-bordered">
             <thead class="thead-dark">
             <tr>
                 <th scope="col">id</th>
@@ -44,8 +44,8 @@ $this->title = 'Panel d\'administration';
                 <tr>
                     <th scope="row"><?= $episode->getId() ?></th>
                     <td><?= $episode->getTitle() ?></td>
-                    <td><?= substr($episode->getContent(), 0, 50) . '...' ?></td>
-                    <td>
+                    <td><?= substr($episode->getContent(), 0, 150) . '...' ?></td>
+                    <td class="text-center">
                         <a class="btn btn-primary mb-2" href="index.php?page=admin&action=editEpisode&id=<?= $episode->getId() ?>">Modifier</a><br>
                         <a class="btn btn-danger" href="index.php?page=admin&action=deleteEpisode&id=<?= $episode->getId() ?>">Supprimer</a>
                     </td>

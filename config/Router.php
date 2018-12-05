@@ -28,11 +28,13 @@ class Router
 						if (isset($_GET['action']) && isset($_GET['id'])) {
 							switch ($_GET['action']) {
 								case 'addEpisode': $this->backController->addEpisode($_POST);
-								break;
+								    break;
 								case 'editEpisode': $this->backController->editEpisode($_POST);
-								break;
+								    break;
+								case 'deleteEpisode': $this->backController->deleteEpisode($_POST);
+								     break;
 								default: $this->errorController->notFound();
-								break;
+								     break;
 							}
 						} else {
 							$this->backController->admin();

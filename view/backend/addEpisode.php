@@ -1,4 +1,4 @@
-<?php $this->title = 'Ajouter un article'; ?>
+<?php $this->title = 'Ajouter un épisode'; ?>
 <h2 class="text-center my-2"><?= $book->getName(); ?></h2>
 <?php if (isset($message)) {
 	?><div class="alert alert-<?= $messageType ?>" role="alert">
@@ -8,7 +8,7 @@
 <form class="my-3" method="post" action="">
     <div class="form-group">
         <label for="title">Titre</label>
-        <input type="text" class="form-control" id="title" name="title" placeholder="Titre de l'episode"<?php
+        <input type="text" class="form-control" id="title" name="title" placeholder="Titre de l'épisode"<?php
          if (isset($_POST['title'])) {
 			echo ' value="' . $_POST['title'] . '"';
 		} ?>>
@@ -19,5 +19,5 @@
             echo $_POST['content'];
             } ?></textarea>
     </div>
-    <input type="submit" name="submit" class="btn btn-primary" value="Ajouter l'episode">
+    <input type="submit" name="submit" class="btn btn-primary" value="Ajouter l'épisode">
 </form>

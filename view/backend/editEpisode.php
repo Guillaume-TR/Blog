@@ -1,4 +1,4 @@
-<?php $this->title = 'Modifier l\'episode'; ?>
+<?php $this->title = 'Modifier l\'épisode'; ?>
 <?php if (isset($message)) {
 	?><div class="alert alert-<?= $messageType ?> mt-3" role="alert">
 	<?= $message ?>
@@ -7,7 +7,7 @@
 <form class="my-3" method="post" action="">
     <div class="form-group">
         <label for="title">Titre</label>
-        <input type="text" class="form-control" id="title" name="title" placeholder="Titre de l'episode"<?php
+        <input type="text" class="form-control" id="title" name="title" placeholder="Titre de l'épisode"<?php
 		if (isset($_POST['title'])) {
 			echo ' value="' . $_POST['title'] . '"';
 		} else {
@@ -22,5 +22,5 @@
 				echo $episode->getContent();
 			} ?></textarea>
     </div>
-    <input type="submit" name="submit" class="btn btn-primary" value="Modifier l'episode">
+    <input type="submit" name="submit" class="btn btn-primary" value="Modifier l'épisode">
 </form>
