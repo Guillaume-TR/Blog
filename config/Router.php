@@ -33,6 +33,8 @@ class Router
 								    break;
 								case 'deleteEpisode': $this->backController->deleteEpisode($_POST);
 								     break;
+								case 'deleteComment': $this->backController->deleteComment($_POST);
+									break;
 								default: $this->errorController->notFound();
 								     break;
 							}

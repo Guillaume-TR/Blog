@@ -23,9 +23,13 @@ class BackController
 	public function admin() {
 		$requestBooks = $this->bookManage->getAllBooks(false);
 		$requestEpisodes = $this->bookManage->getAllEpisodes();
+		$requestReportComments = $this->commentManage->getReportComments();
+		$requestAllComments = $this->commentManage->getAllComments();
 		$this->view->render('home', [
 			'books' => $requestBooks,
-			'episodes' => $requestEpisodes
+			'episodes' => $requestEpisodes,
+			'reportComments' => $requestReportComments,
+			'comments' => $requestAllComments
 		], true);
 	}
 
@@ -108,6 +112,36 @@ class BackController
 			}
 			$this->view->render('deleteEpisode', [
 				'episode' => $requestEpisode,
+				'message' => $message,
+				'messageType' => $messageType
+			], true);
+		} else {
+			$this->admin();
+		}
+	}
+
+	public function deleteComment($data) {
+		extract($data);
+		$message = null;
+		$messageType = null;
+		$idComment = (int) $_GET['id'];
+
+		$request = $this->commentManage->getComment($idComment);
+		$requestCount = $request->rowCount();
+		if ($requestCount === 1) {
+			$requestComment = $request->fetch();
+			if (isset($_POST['submit'])) {
+				if ($_POST['id'] === $requestComment->getId()) {
+					$requestGet = $this->commentManage->deleteComment($idComment);
+					$message = 'Le commentaire a été supprimé !';
+					$messageType = 'success';
+				} else {
+					$message = 'L\'identifiant du commentaire n\'est pas le même.';
+					$messageType = 'warning';
+				}
+			}
+			$this->view->render('deleteComment', [
+				'comment' => $requestComment,
 				'message' => $message,
 				'messageType' => $messageType
 			], true);
