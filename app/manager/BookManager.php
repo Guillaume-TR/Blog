@@ -34,11 +34,32 @@ class BookManager extends DatabaseManager
 		return $requestGet;
 	}
 
+
+	public function getAll()
+	{
+		$statement = 'SELECT * FROM episodes';
+		$request = $this->getSql($statement, 'App\app\model\Episode');
+		$requestGet = $request->fetchAll();
+
+		return $requestGet;
+	}
+
 	public function getEpisode($idEpisode)
 	{
 		$statement = 'SELECT * FROM episodes WHERE id = ?';
 		$request = $this->getSql($statement, 'App\app\model\Episode', [$idEpisode]);
 		$requestGet = $request->fetch();
+
+		return $requestGet;
+	}
+
+	public function addEpisode($data, $idBook)
+	{
+		extract($data);
+		/** @var string $title */
+		/** @var string $content */
+		$statement = 'INSERT INTO episodes(title, content, book_id, publication_date) VALUES(?,?,?, NOW())';
+		$requestGet = $this->getSql($statement, 'App\app\model\Episode', [$title, $content,$idBook]);
 
 		return $requestGet;
 	}

@@ -79,7 +79,7 @@ class FrontController
 			$countGet = $request->rowCount();
 
 			if (isset($countGet) && $countGet === 1) {
-				$requestGet = $request->fetch();
+				$requestConnection = $request->fetch();
 				/** @var string $password */
 				$passwordCheck = password_verify($password, $requestConnection->getPass());
 

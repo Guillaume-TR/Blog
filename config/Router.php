@@ -25,22 +25,29 @@ class Router
 			if (isset($_GET['page'])) {
 				if ($_GET['page'] === 'admin') {
 					if (isset($_SESSION)) {
-
+						if (isset($_GET['action']) && isset($_GET['id'])) {
+							switch ($_GET['action']) {
+								case 'addEpisode': $this->backController->addEpisode($_POST);
+								break;
+								default: $this->errorController->notFound();
+								break;
+							}
+						} else {
+							$this->backController->admin();
+						}
 					}
 				} else {
 					switch ($_GET['page']) {
 						case 'home': $this->frontController->home();
-							break;
+						break;
 						case 'book': $this->frontController->episodes($_GET['id']);
-							break;
+						break;
 						case 'connection': $this->frontController->connection($_POST);
-							break;
-						case 'addAccount': $this->backController->addAccount($_POST);
-							break;
+						break;
 						case 'disconnect': $this->frontController->disconnect();
-							break;
+						break;
 						default: $this->errorController->notFound();
-							break;
+						break;
 					}
 				}
 			} else {

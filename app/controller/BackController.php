@@ -2,64 +2,61 @@
 
 namespace App\app\controller;
 
-use App\app\manager\PostManager;
+use App\app\manager\BookManager;
 use App\app\manager\CommentManager;
 use App\app\manager\AccountManager;
 use App\app\model\View;
-/**
- * Class BackController
- * @package App\app\controller
- */
 class BackController
 {
-	private $postManage;
+	private $bookManage;
 	private $commentManage;
 	private $accountManage;
 	private $view;
 
-	/** Get all views
-	 * BackController constructor.
-	 */
 	public function __construct() {
-		$this->postManage = new PostManager();
+		$this->bookManage = new BookManager();
 		$this->commentManage = new CommentManager();
 		$this->accountManage = new AccountManager();
 		$this->view = new View;
 	}
 
-	/** Get the admin home page
-	 *
-	 */
 	public function admin() {
-		$this->view->render('home', [], true);
+		$requestBooks = $this->bookManage->getAllBooks(false);
+		$requestEpisodes = $this->bookManage->getAll();
+		$this->view->render('home', [
+			'books' => $requestBooks,
+			'episodes' => $requestEpisodes
+		], true);
 	}
 
-	/** Get for the admin panel, add post page
-	 * @param $data
-	 */
-	public function addPost($data) {
+	public function addEpisode($data) {
 		$message = null;
 		$messageType = null;
+		$idBook = (int) $_GET['id'];
 		if (isset($_POST['submit'])) {
-			$request = new PostManager();
-			$requestGet = $request->addPost($data);
-			$message = 'L\'article a été ajouté !';
-			$messageType = 'confirm';
-			if ($requestGet === false) {
-				$message = 'L\'article n\'a pas été ajouté, un problème est survenu !';
-				$messageType = 'error';
+			if (isset($_POST['title']) && strlen($_POST['title']) > 0) {
+				if (isset($_POST['content']) && strlen($_POST['content']) > 0) {
+					$requestGet = $this->bookManage->addEpisode($data, $idBook);
+					$message = 'L\'episode a été ajouté !';
+					$messageType = 'success';
+				} else {
+					$message = 'Le contenu de l\'episode ne doit pas être vide.';
+					$messageType = 'danger';
+				}
+			} else {
+				$message = 'Veuillez entrer un titre';
+				$messageType = 'danger';
 			}
 		}
-		$this->view->render('addPost', [
-			'post' => $data,
+		$requestBook = $this->bookManage->getBook($idBook);
+		$this->view->render('addEpisode', [
+			'episode' => $data,
+			'book' => $requestBook,
 			'message' => $message,
 			'messageType' => $messageType
 		], true);
 	}
 
-	/** Get for the admin panel, add account page
-	 * @param $data
-	 */
 	public function addAccount($data) {
 		$message = null;
 		$messageType = null;
@@ -67,10 +64,10 @@ class BackController
 			$request = new AccountManager();
 			$requestGet = $request->addAccount($data);
 			$message = 'Le compte à bien été ajouté !';
-			$messageType = 'confirm';
+			$messageType = 'success';
 			if ($requestGet === false) {
 				$message = 'Un problème est survenu ! Réessayez.';
-				$messageType = 'error';
+				$messageType = 'danger';
 			}
 		}
 		$this->view->render('addAccount', [
@@ -80,9 +77,6 @@ class BackController
 		], true);
 	}
 
-	/** Get for the admin panel, add comment page
-	 * @param $data
-	 */
 	public function addComment($data) {
 		$message = null;
 		$messageType = null;
@@ -101,14 +95,11 @@ class BackController
 		], true);
 	}
 
-	/** Get for the admin panel, edit post page
-	 * @param $data
-	 */
 	public function editPost($data) {
 		$message = null;
 		$messageType = null;
 		if (isset($_POST['delete-post'])) {
-			$request = new PostManager();
+			$request = new EpisodeManager();
 			$requestGet = $request->deletePost($data);
 			$message = 'L\'article à bien été supprimé !';
 			$messageType = 'confirm';
@@ -117,7 +108,7 @@ class BackController
 				$messageType = 'error';
 			}
 		} elseif (isset($_POST['edit-post'])) {
-			$request = new PostManager();
+			$request = new EpisodeManager();
 			$requestGet = $request->editPost($data);
 			$message = 'L\'article à bien été modifié !';
 			$messageType = 'confirm';
@@ -136,9 +127,6 @@ class BackController
 		], true);
 	}
 
-	/** Get for the admin panel, edit account page
-	 * @param $data
-	 */
 	public function editAccount($data) {
 		$message = null;
 		$messageType = null;

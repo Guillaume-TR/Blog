@@ -1,15 +1,14 @@
 <?php $this->title = 'Se connection';
-var_dump($_SESSION);
 if (isset($message)) { ?>
 
-<div class="my-2 alert alert-<?= $messageType ?>" role="alert">
+<div class="mt-3 alert alert-<?= $messageType ?>" role="alert">
     <?= $message ?>
 </div>
 
 <?php }
 if (!isset($_SESSION['id'])) { ?>
 
-<form class="mb-2" method="post" action="">
+<form class="my-3" method="post" action="">
     <div class="form-group">
         <label for="username">Nom d'utilisateur</label>
         <input type="text" class="form-control" id="username" name="username" placeholder="Nom d'utilisateur">

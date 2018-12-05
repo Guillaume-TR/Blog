@@ -23,16 +23,25 @@
                         Livres
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <?php foreach ($books as $book): ?>
-                        <a class="dropdown-item" href="index.php?page=book&id=<?= $book->getId() ?>"><?= $book->getName() ?></a>
-                        <?php endforeach; ?>
+						<?php foreach ($books as $book): ?>
+                            <a class="dropdown-item" href="index.php?page=book&id=<?= $book->getId() ?>"><?= $book->getName() ?></a>
+						<?php endforeach; ?>
                     </div>
                 </li>
             </ul>
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?page=connection">Connection</a>
-                </li>
+                <?php if (isset($_SESSION['id'])) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?page=admin">Espace admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?page=disconnect">Se déconnecter</a>
+                    </li>
+                <?php } else { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?page=connection">Se connecter</a>
+                    </li>
+                <?php } ?>
             </ul>
         </div>
     </nav>
@@ -40,7 +49,7 @@
 <body>
 <div class="container">
     <div class="content">
-        <?= $content ?>
+		<?= $content ?>
     </div>
 </div>
 <!-- Bootstrap -->
