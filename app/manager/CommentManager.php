@@ -9,6 +9,13 @@ use \PDO;
  */
 class CommentManager extends DatabaseManager
 {
+	public function getAllComments() {
+		$statement = 'SELECT * FROM comments ORDER BY creation_date DESC';
+		$request = $this->getSql($statement, 'App\app\model\Comment');
+		$requestGet = $request->fetchAll();
+
+		return $requestGet;
+	}
 	/**
 	 * @param $idPost
 	 * @return array
@@ -29,9 +36,20 @@ class CommentManager extends DatabaseManager
 		extract($data);
 		/** @var string $content */
 		/** @var string $author */
-		/** @var string $post_id */
-		$statement = 'INSERT INTO comments(content, author, post_id, creation_date) VALUES(?, ?, ?, NOW())';
-		$requestGet = $this->getSql($statement, 'App\app\model\Comment', [$content, $author, $post_id]);
+		/** @var string $episode_id */
+		$statement = 'INSERT INTO comments(content, author, episode_id, creation_date) VALUES(?, ?, ?, NOW())';
+		$requestGet = $this->getSql($statement, 'App\app\model\Comment', [$content, $author, $episode_id]);
+
+		return $requestGet;
+	}
+
+	/** Add a comment
+	 * @param $commentId
+	 * @return mixed
+	 */
+	public function reportComment($commentId) {
+		$statement = 'UPDATE comments SET report = ? WHERE id = ?';
+		$requestGet = $this->getSql($statement, 'App\app\model\Comment', [true ,$commentId]);
 
 		return $requestGet;
 	}

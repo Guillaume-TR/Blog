@@ -2,7 +2,7 @@
 
 namespace App\app\model;
 
-
+use \App\app\manager\BookManager;
 /**
  * Class View
  * @package App\app\model
@@ -27,9 +27,12 @@ class View
 		}
 		$this->file = '../view/' . $view . '.php';
 		$content = $this->renderFile($this->file, $data);
+		$books = new BookManager();
+		$books = $books->getAllBooks(false);
 		$view = $this->renderFile('../view/' . $template . '_template.php', [
 			'title' => $this->title,
-			'content' => $content
+			'content' => $content,
+			'books' => $books
 		]);
 		echo $view;
 	}

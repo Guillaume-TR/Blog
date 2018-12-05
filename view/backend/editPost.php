@@ -14,7 +14,7 @@
                 <input type="text" id="title" name="title" placeholder="Titre de l'article" aria-label="title" value="<?= htmlspecialchars($post->getTitle()) ?>" required/>
             </div>
             <div class="post-message">
-                <textarea id="content" name="content" placeholder="Contenu de l'article ..." aria-label="content" required><?= $post->getContent() ?></textarea>
+                <textarea id="content" name="content" placeholder="Contenu de l'article ..." aria-label="content"><?= $post->getContent() ?></textarea>
             </div>
         </div>
         <div class="post-button">

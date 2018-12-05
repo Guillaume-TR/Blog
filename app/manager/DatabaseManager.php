@@ -12,7 +12,7 @@ use \Exception;
 abstract class DatabaseManager
 {
 	const DB_HOST = 'host=localhost;';
-	const DB_NAME = 'dbname=blog';
+	const DB_NAME = 'dbname=jf-blog';
 	const DB_USER = 'root';
 	const DB_PASS = '';
 	const PDO_STATEMENT = 'mysql:charset=utf8;' . self::DB_HOST . self::DB_NAME;

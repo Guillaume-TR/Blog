@@ -6,19 +6,12 @@ use App\app\controller\FrontController;
 use App\app\controller\BackController;
 use App\app\controller\ErrorController;
 
-/** Manage the routing
- * Class Router
- * @package App\config
- */
 class Router
 {
 	private $frontController;
 	private $backController;
 	private $errorController;
 
-	/**
-	 * Router constructor.
-	 */
 	public function __construct()
 	{
 		$this->frontController = new FrontController();
@@ -26,41 +19,23 @@ class Router
 		$this->errorController = new ErrorController();
 	}
 
-	/**
-	 *
-	 */
 	public function run()
 	{
 		try {
 			if (isset($_GET['page'])) {
 				if ($_GET['page'] === 'admin') {
-					if (isset($_SESSION['level']) && $_SESSION['level'] === '2') {
-						if (isset($_GET['action'])) {
-							switch ($_GET['action']) {
-								case 'addPost': $this->backController->addPost($_POST);
-									break;
-								case 'editPost': $this->backController->editPost($_POST);
-									break;
-								case 'addAccount': $this->backController->addAccount($_POST);
-									break;
-								case 'editAccount': $this->backController->editAccount($_POST);
-									break;
-								default: $this->backController->admin();
-									break;
-							}
-						} else {
-							$this->backController->admin();
-						}
-					} else {
-						$this->frontController->home();
+					if (isset($_SESSION)) {
+
 					}
 				} else {
 					switch ($_GET['page']) {
 						case 'home': $this->frontController->home();
 							break;
-						case 'post': $this->frontController->post($_GET['id']);
+						case 'book': $this->frontController->episodes($_GET['id']);
 							break;
 						case 'connection': $this->frontController->connection($_POST);
+							break;
+						case 'addAccount': $this->backController->addAccount($_POST);
 							break;
 						case 'disconnect': $this->frontController->disconnect();
 							break;

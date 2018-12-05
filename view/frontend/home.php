@@ -1,12 +1,8 @@
-<?php
-/** @var object $post */
-/** @var object $posts */
+<?php $this->title = 'Accueil'; ?>
 
-$this->title = 'Toutes les publications';
-
-foreach ($posts as $post): ?>
-    <h1><a href="index.php?page=post&id=<?= htmlspecialchars($post->getId()) ?>"><?= htmlspecialchars($post->getTitle()) ?></a></h1>
-	<p class="post-content-view" style="text-align: justify;"><?= $post->getContent() ?></p>
-	<p class="post-date-view"><em>Publié le <?= htmlspecialchars($post->getCreationDate()) ?></em></p>
-    <hr>
-<?php endforeach;
+<h3 class="text-center my-3">Bienvenue !</h3>
+<div class="d-flex flex-column">
+	<?php foreach ($books as $book): ?>
+        <a class="btn-book btn btn-success my-2 py-3" href="index.php?page=book&id=<?= $book->getId() ?>"><?= $book->getName() ?></a>
+	<?php endforeach;?>
+</div>
