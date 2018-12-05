@@ -63,4 +63,13 @@ class BookManager extends DatabaseManager
 
 		return $requestGet;
 	}
+	public function editEpisode($data, $idEpisode) {
+		extract($data);
+		/** @var string $title */
+		/** @var string $content */
+		$statement = 'UPDATE episodes SET title = ?, content = ? WHERE id = ?';
+		$requestGet = $this->getSql($statement, 'App\app\model\Episode', [$title, $content, $idEpisode]);
+
+		return $requestGet;
+	}
 }

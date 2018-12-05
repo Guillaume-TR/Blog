@@ -24,10 +24,12 @@ class Router
 		try {
 			if (isset($_GET['page'])) {
 				if ($_GET['page'] === 'admin') {
-					if (isset($_SESSION)) {
+					if (isset($_SESSION['id'])) {
 						if (isset($_GET['action']) && isset($_GET['id'])) {
 							switch ($_GET['action']) {
 								case 'addEpisode': $this->backController->addEpisode($_POST);
+								break;
+								case 'editEpisode': $this->backController->editEpisode($_POST);
 								break;
 								default: $this->errorController->notFound();
 								break;
@@ -35,6 +37,8 @@ class Router
 						} else {
 							$this->backController->admin();
 						}
+					} else {
+						$this->frontController->connection($_POST);
 					}
 				} else {
 					switch ($_GET['page']) {
