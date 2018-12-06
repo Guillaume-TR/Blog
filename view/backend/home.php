@@ -37,7 +37,7 @@ $this->title = 'Panel d\'administration';
             <table class="table table-hover table-bordered">
                 <thead class="thead-dark">
                 <tr>
-                    <th scope="col">id</th>
+                    <th scope="col">Id</th>
                     <th scope="col">Titre</th>
                     <th scope="col">Contenu</th>
                     <th scope="col">Action</th>
@@ -117,11 +117,11 @@ $this->title = 'Panel d\'administration';
                                  data-parent="#accordion">
                                 <div class="card-body">
 									<?php
-                                    $countComments = 0;
-                                    foreach ($comments as $comment):
+									$countComments = 0;
+									foreach ($comments as $comment):
 										if ($comment->getEpisode() === $episode->getId()) {
 											$countComments++;
-										    ?>
+											?>
                                             <div class="comment-content d-flex bd-highlight py-2">
                                                 <div class="p-2 flex-grow-1 bd-highlight">
                                                     <p><strong><?= htmlspecialchars($comment->getAuthor()) ?></strong>
@@ -136,7 +136,7 @@ $this->title = 'Panel d\'administration';
                                                 </div>
                                             </div>
 										<?php }
-										endforeach;
+									endforeach;
 									if ($countComments < 1) { ?>
                                         <div class="alert alert-info" role="alert">
                                             Il n'y a aucun commentaire.
@@ -158,5 +158,36 @@ $this->title = 'Panel d\'administration';
             <a class="btn btn-success" href="index.php?page=admin&action=addAccount">Ajouter
                 un utilisateur</a>
         </div>
+        <table class="table table-hover table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nom d'utilisateur</th>
+                <th scope="col">Permission</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+			<?php foreach ($accounts as $account):
+				if ($account->getLevel() === '1') {
+					$accountLevel = 'Utilisateur';
+				} elseif ($account->getLevel() === '2') {
+					$accountLevel = 'Administrateur';
+				}
+				?>
+                <tr>
+                    <th scope="row"><?= $account->getId() ?></th>
+                    <td><?= $account->getUser() ?></td>
+                    <td><?= $accountLevel ?></td>
+                    <td class="text-center">
+                        <a class="btn btn-primary mb-2"
+                           href="index.php?page=admin&action=editAccount&id=<?= $account->getId() ?>">Modifier</a><br>
+                        <a class="btn btn-danger"
+                           href="index.php?page=admin&action=deleteAccount&id=<?= $account->getId() ?>">Supprimer</a>
+                    </td>
+                </tr>
+			<?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
 </div>

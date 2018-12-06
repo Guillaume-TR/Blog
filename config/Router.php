@@ -33,9 +33,6 @@ class Router
 									case 'addEpisode':
 										$this->backController->addEpisode($_POST);
 										break;
-									case 'addAccount':
-										$this->backController->addAccount($_POST);
-										break;
 									case 'editEpisode':
 										$this->backController->editEpisode($_POST);
 										break;
@@ -47,6 +44,9 @@ class Router
 										break;
 									case 'deleteComment':
 										$this->backController->deleteComment($_POST);
+										break;
+									case 'editAccount':
+										$this->backController->editAccount($_POST);
 										break;
 									default:
 										$this->errorController->notFound();

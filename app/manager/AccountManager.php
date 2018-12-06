@@ -9,6 +9,14 @@ class AccountManager extends DatabaseManager
 		$statement = 'SELECT * FROM accounts ORDER BY id DESC';
 		$request = $this->getSql($statement, 'App\app\model\Account');
 		$requestGet = $request->fetchAll();
+
+		return $requestGet;
+	}
+
+	public function getAccount($idAccount) {
+		$statement = 'SELECT * FROM accounts WHERE id = ?';
+		$requestGet = $this->getSql($statement, 'App\app\model\Account', [$idAccount]);
+
 		return $requestGet;
 	}
 
@@ -16,6 +24,7 @@ class AccountManager extends DatabaseManager
 		$statement = 'SELECT * FROM accounts WHERE username = ?';
 		$request = $this->getSql($statement, 'App\app\model\Account', [$username]);
 		$requestGet = $request->rowCount();
+
 		return $requestGet;
 	}
 
@@ -31,21 +40,13 @@ class AccountManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	public function editAccount($data) {
+	public function editAccount($data, $idAccount) {
 		extract($data);
-		/** @var string $id */
-		$statement = 'SELECT * FROM accounts WHERE id = ?';
-		$request = $this->getSql($statement, 'App\app\model\Account', [$id]);
-		$countGet = $request->rowCount();
-		$requestGet = false;
-
-		if ($countGet === 1) {
-			/** @var string $username */
-			/** @var string $password */
-			$password = password_hash($password);
-			$statement = 'UPDATE posts SET title = ?, content = ? WHERE id = ?';
-			$requestGet = $this->getSql($statement, 'App\app\model\Account', [$username, $password, $id]);
-		}
+		/** @var string $password */
+		/** @var string $level */
+		$password = password_hash($password, PASSWORD_DEFAULT);
+		$statement = 'UPDATE accounts SET password = ?, level = ? WHERE id = ?';
+		$requestGet = $this->getSql($statement, 'App\app\model\Account', [$password, $level, $idAccount]);
 
 		return $requestGet;
 	}
