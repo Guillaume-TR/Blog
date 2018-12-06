@@ -50,18 +50,9 @@ class AccountManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	public function deleteAccount($data) {
-		extract($data);
-		/** @var string $id */
-		$statement = 'SELECT * FROM accounts WHERE id = ?';
-		$request = $this->getSql($statement, 'App\app\model\Account', [$id]);
-		$countGet = $request->rowCount();
-		$requestGet = false;
-
-		if ($countGet === 1) {
-			$statement = 'DELETE FROM accounts WHERE id = ?';
-			$requestGet = $this->getSql($statement, 'App\app\model\Account', [$id]);
-		}
+	public function deleteAccount($idAccount) {
+		$statement = 'DELETE FROM accounts WHERE id = ?';
+		$requestGet = $this->getSql($statement, 'App\app\model\Account', [$idAccount]);
 
 		return $requestGet;
 	}

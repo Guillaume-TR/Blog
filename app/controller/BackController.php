@@ -217,6 +217,36 @@ class BackController
 		}
 	}
 
+	public function deleteAccount($data) {
+		extract($data);
+		$message = null;
+		$messageType = null;
+		$idAccount = (int)$_GET['id'];
+
+		$request = $this->accountManage->getAccount($idAccount);
+		$requestCount = $request->rowCount();
+		if ($requestCount === 1) {
+			$requestAccount = $request->fetch();
+			if (isset($_POST['submit'])) {
+				if ($_POST['username'] === $requestAccount->getUser()) {
+					$requestGet = $this->accountManage->deleteAccount($idAccount);
+					$message = 'L\'utilisateur a été supprimé !';
+					$messageType = 'success';
+				} else {
+					$message = 'Le nom d\'utilisateur n\'est pas le même.';
+					$messageType = 'warning';
+				}
+			}
+			$this->view->render('deleteAccount', [
+				'account' => $requestAccount,
+				'message' => $message,
+				'messageType' => $messageType
+			], true);
+		} else {
+			$this->admin();
+		}
+	}
+
 	public function deleteComment($data) {
 		extract($data);
 		$message = null;
@@ -246,4 +276,5 @@ class BackController
 			$this->admin();
 		}
 	}
+
 }

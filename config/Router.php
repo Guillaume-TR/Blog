@@ -48,6 +48,9 @@ class Router
 									case 'editAccount':
 										$this->backController->editAccount($_POST);
 										break;
+									case 'deleteAccount':
+										$this->backController->deleteAccount($_POST);
+										break;
 									default:
 										$this->errorController->notFound();
 										break;
