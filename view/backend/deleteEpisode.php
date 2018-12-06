@@ -3,9 +3,6 @@
 	<p class="mb-0">Vous êtes sur le point de <strong>supprimer définitivement</strong> un épisode.<br>
 	Veuillez noter le nom de l'épisode pour confirmer la suppression.</p>
 </div>
-<div class="alert alert-primary" role="alert">
-    <strong>Nom de l'épisode : </strong><?= $episode->getTitle() ?>
-</div>
 <?php
 if (isset($message)) {
     if ($messageType === 'success') { ?>

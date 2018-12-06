@@ -74,7 +74,8 @@ class BackController
 					if (isset($_POST['level']) && $_POST['level'] === '1' || $_POST['level'] === '2') {
 						$username = $_POST['username'];
 						$requestGet = $this->accountManage->checkAccount($username);
-						if ($requestGet === 0) {
+						$countGet = $requestGet->rowCount();
+						if ($countGet === 0) {
 							$requestGet = $this->accountManage->addAccount($data);
 							$message = 'Le compte a été ajouté.';
 							$messageType = 'success';

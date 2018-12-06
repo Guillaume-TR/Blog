@@ -22,8 +22,7 @@ class AccountManager extends DatabaseManager
 
 	public function checkAccount($username) {
 		$statement = 'SELECT * FROM accounts WHERE username = ?';
-		$request = $this->getSql($statement, 'App\app\model\Account', [$username]);
-		$requestGet = $request->rowCount();
+		$requestGet = $this->getSql($statement, 'App\app\model\Account', [$username]);
 
 		return $requestGet;
 	}

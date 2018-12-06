@@ -24,7 +24,7 @@ class Router
 		try {
 			if (isset($_GET['page'])) {
 				if ($_GET['page'] === 'admin') {
-					if (isset($_SESSION['id'])) {
+					if (isset($_SESSION['level']) && $_SESSION['level'] === '2') {
 						if (isset($_GET['action'])) {
 							if ($_GET['action'] === 'addAccount') {
 								$this->backController->addAccount($_POST);
@@ -59,7 +59,7 @@ class Router
 							$this->backController->admin();
 						}
 					} else {
-						$this->frontController->connection($_POST);
+						$this->frontController->home();
 					}
 				} else {
 					switch ($_GET['page']) {
