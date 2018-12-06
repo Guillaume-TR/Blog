@@ -46,6 +46,15 @@ class CommentManager extends DatabaseManager
 		return $requestGet;
 	}
 
+	public function editComment($data, $idComment) {
+		extract($data);
+		/** @var string $content */
+		$statement = 'UPDATE comments SET content = ?, edited = ? WHERE id = ?';
+		$requestGet = $this->getSql($statement, 'App\app\model\Comment', [$content, true, $idComment]);
+
+		return $requestGet;
+	}
+
 	public function deleteComment($idComment) {
 		$statement = 'DELETE FROM comments WHERE id = ?';
 		$requestGet = $this->getSql($statement, 'App\app\model\Comment', [$idComment]);

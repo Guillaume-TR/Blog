@@ -67,7 +67,7 @@ $this->title = 'Panel d\'administration';
         <div class="accordion" id="accordion">
             <div class="card">
                 <div class="card-header" id="heading1">
-                    <h5 class="mb-0">
+                    <h5 class="mb-0 text-center">
                         <button class="btn btn-danger" type="button" data-toggle="collapse" data-target="#collapse1"
                                 aria-expanded="true" aria-controls="collapse1">
                             Commentaires signalé
@@ -83,6 +83,8 @@ $this->title = 'Panel d\'administration';
                                     <p class="mb-0"><?= htmlspecialchars($reportComment->getContent()) ?></p>
                                 </div>
                                 <div class="p-2 bd-highlight align-self-center">
+                                    <a class="btn btn-danger"
+                                       href="index.php?page=admin&action=editComment&id=<?= $reportComment->getId() ?>">Modifier</a>
                                     <a class="btn btn-danger"
                                        href="index.php?page=admin&action=deleteComment&id=<?= $reportComment->getId() ?>">Supprimer</a>
                                 </div>
@@ -103,7 +105,7 @@ $this->title = 'Panel d\'administration';
 					if ($episode->getBook() === $book->getId()) { ?>
                         <div class="card">
                             <div class="card-header" id="heading<?= $count ?>">
-                                <h5 class="mb-0">
+                                <h5 class="mb-0 text-center">
                                     <button class="btn btn-light collapsed" type="button" data-toggle="collapse"
                                             data-target="#collapse<?= $count ?>" aria-expanded="false"
                                             aria-controls="collapse<?= $count ?>">
@@ -126,7 +128,9 @@ $this->title = 'Panel d\'administration';
                                                     </p>
                                                     <p class="mb-0"><?= htmlspecialchars($comment->getContent()) ?></p>
                                                 </div>
-                                                <div class="p-2 bd-highlight align-self-center">
+                                                <div class="p-2 d-flex flex-column align-self-center">
+                                                    <a class="mb-2 btn btn-primary"
+                                                       href="index.php?page=admin&action=editComment&id=<?= $comment->getId() ?>">Modifier</a>
                                                     <a class="btn btn-danger"
                                                        href="index.php?page=admin&action=deleteComment&id=<?= $comment->getId() ?>">Supprimer</a>
                                                 </div>

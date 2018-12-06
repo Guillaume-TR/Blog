@@ -59,10 +59,13 @@ $this->title = 'Toutes les publications'; ?>
                                     <div class="p-2">
                                         <p><strong><?= htmlspecialchars($comment->getAuthor()) ?></strong></p>
 										<?= htmlspecialchars($comment->getContent()) ?>
+                                        <?php if ($comment->getEdited()) { ?>
+                                            <div class="comment-edited">Commentaire édité par l'admin</div>
+                                       <?php } ?>
                                     </div>
-                                    <div class="d-flex justify-content-between">
-                                        <a href="index.php?page=book&id=<?= $book->getId(); ?>&report=<?= $comment->getId() ?>">Signaler</a>
+                                    <div class="d-flex justify-content-between my-2">
                                         <em><?= $comment->getDate() ?></em>
+                                        <a href="index.php?page=book&id=<?= $book->getId(); ?>&report=<?= $comment->getId() ?>" title="Signaler"><i class="fas fa-exclamation-circle"></i></a>
                                     </div>
                                 </div>
 								<?php

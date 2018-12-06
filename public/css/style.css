@@ -4,10 +4,12 @@
 .comment-content div:first-child {
     background-color: #F3F3F3;
     border-radius: 5px;
+    margin-top: 0;
 }
 .comment-content div:last-child {
     text-align: right;
     font-size: 14px;
+    margin-bottom: 0;
 }
 .btn-book {
     font-weight: bold;
@@ -22,4 +24,8 @@
 }
 #heading1 {
     background-color: #dc3545;
+}
+.comment-content .fas {
+    font-size: 20px;
+    color: #ff2400;
 }

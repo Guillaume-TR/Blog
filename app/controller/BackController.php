@@ -90,6 +90,30 @@ class BackController
 		], true);
 	}
 
+	public function editComment($data) {
+		$message = null;
+		$messageType = null;
+		$idComment = (int) $_GET['id'];
+		if (isset($_POST['submit'])) {
+			if (isset($_POST['content']) && strlen($_POST['content']) > 0) {
+				$requestGet = $this->commentManage->editComment($data, $idComment);
+				$message = 'Le commentaire a été modifié !';
+				$messageType = 'success';
+			} else {
+				$message = 'Le contenu du commentaire ne doit pas être vide.';
+				$messageType = 'danger';
+			}
+		}
+		$request = $this->commentManage->getComment($idComment);
+		$requestComment = $request->fetch();
+		$this->view->render('editComment', [
+			'commentEdit' => $data,
+			'comment' => $requestComment,
+			'message' => $message,
+			'messageType' => $messageType
+		], true);
+	}
+
 	public function deleteEpisode($data) {
 		extract($data);
 		$message = null;
