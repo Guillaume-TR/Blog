@@ -153,5 +153,10 @@ $this->title = 'Panel d\'administration';
 			endforeach; ?>
         </div>
     </div>
-    <div class="tab-pane fade" id="nav-accounts" role="tabpanel" aria-labelledby="nav-accounts-tab">...</div>
+    <div class="tab-pane fade" id="nav-accounts" role="tabpanel" aria-labelledby="nav-accounts-tab">
+        <div class="pb-3 pl-2">
+            <a class="btn btn-success" href="index.php?page=admin&action=addAccount">Ajouter
+                un utilisateur</a>
+        </div>
+    </div>
 </div>

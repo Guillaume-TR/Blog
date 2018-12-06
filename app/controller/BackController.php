@@ -178,12 +178,31 @@ class BackController
 		$message = null;
 		$messageType = null;
 		if (isset($_POST['submit'])) {
-			$request = new AccountManager();
-			$requestGet = $request->addAccount($data);
-			$message = 'Le compte à bien été ajouté !';
-			$messageType = 'success';
-			if ($requestGet === false) {
-				$message = 'Un problème est survenu ! Réessayez.';
+			if (isset($_POST['username']) && strlen($_POST['username']) >= 5) {
+				if (isset($_POST['password']) && isset($_POST['confirm'])
+					&& strlen($_POST['password']) >= 5
+					&& $_POST['password'] === $_POST['confirm'] ) {
+					if (isset($_POST['level']) && $_POST['level'] === '1' || $_POST['level'] === '2') {
+						$username = $_POST['username'];
+						$requestGet = $this->accountManage->checkAccount($username);
+						if ($requestGet === 0) {
+							$requestGet = $this->accountManage->addAccount($data);
+							$message = 'Le compte a été ajouté.';
+							$messageType = 'success';
+						} else {
+							$message = 'Ce nom d\'utilisateur existe déjà.';
+							$messageType = 'danger';
+						}
+					} else {
+						$message = 'Choisissez un niveau de permission.';
+						$messageType = 'danger';
+					}
+				} else {
+					$message = 'Verifiez que les mots de passe contient au moin 5 caractères et qu\'ils sont identique.';
+					$messageType = 'danger';
+				}
+			} else {
+				$message = 'Verifiez que le nom d\'utilisateur contient au moin 5 caractères';
 				$messageType = 'danger';
 			}
 		}
