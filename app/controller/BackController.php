@@ -184,28 +184,22 @@ class BackController
 		], true);
 	}
 
-	/** Edit comment page
+	/** Approve comment page
 	 * @param $data
 	 */
-	public function editComment($data)
+	public function approveComment($data)
 	{
 		$message = null;
 		$messageType = null;
 		$idComment = (int)$_GET['id'];
 		if (isset($_POST['submit'])) {
-			if (isset($_POST['content']) && strlen($_POST['content']) > 0) {
-				$requestGet = $this->commentManage->editComment($data, $idComment);
-				$message = 'Le commentaire a été modifié !';
-				$messageType = 'success';
-			} else {
-				$message = 'Le contenu du commentaire ne doit pas être vide.';
-				$messageType = 'danger';
-			}
+			$requestGet = $this->commentManage->approveComment($data, $idComment);
+			$message = 'Le commentaire a été approuvé !';
+			$messageType = 'success';
 		}
 		$request = $this->commentManage->getComment($idComment);
 		$requestComment = $request->fetch();
-		$this->view->render('editComment', [
-			'commentEdit' => $data,
+		$this->view->render('approveComment', [
 			'comment' => $requestComment,
 			'message' => $message,
 			'messageType' => $messageType

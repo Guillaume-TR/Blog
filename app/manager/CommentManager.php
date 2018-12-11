@@ -73,17 +73,16 @@ class CommentManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	/** Edite comment on the database
+	/** Approve comment on the database
 	 * @param $data
 	 * @param $idComment
 	 * @return bool|false|\PDOStatement
 	 */
-	public function editComment($data, $idComment)
+	public function approveComment($data, $idComment)
 	{
 		extract($data);
-		/** @var string $content */
-		$statement = 'UPDATE comments SET content = ?, edited = ? WHERE id = ?';
-		$requestGet = $this->getSql($statement, 'App\app\model\Comment', [$content, true, $idComment]);
+		$statement = 'UPDATE comments SET report = false WHERE id = ?';
+		$requestGet = $this->getSql($statement, 'App\app\model\Comment', [$idComment]);
 
 		return $requestGet;
 	}

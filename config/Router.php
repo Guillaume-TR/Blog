@@ -41,8 +41,8 @@ class Router
 									case 'deleteEpisode':
 										$this->backController->deleteEpisode($_POST);
 										break;
-									case 'editComment':
-										$this->backController->editComment($_POST);
+									case 'approveComment':
+										$this->backController->approveComment($_POST);
 										break;
 									case 'deleteComment':
 										$this->backController->deleteComment($_POST);

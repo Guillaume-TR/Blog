@@ -83,8 +83,8 @@ $this->title = 'Panel d\'administration';
                                     <p class="mb-0"><?= htmlspecialchars($reportComment->getContent()) ?></p>
                                 </div>
                                 <div class="p-2 d-flex flex-column align-self-center">
-                                    <a class="mb-2 btn btn-primary"
-                                       href="index.php?page=admin&action=editComment&id=<?= $reportComment->getId() ?>">Modifier</a>
+                                    <a class="mb-2 btn btn-success"
+                                       href="index.php?page=admin&action=approveComment&id=<?= $reportComment->getId() ?>">Approuver</a>
                                     <a class="btn btn-danger"
                                        href="index.php?page=admin&action=deleteComment&id=<?= $reportComment->getId() ?>">Supprimer</a>
                                 </div>
@@ -127,8 +127,6 @@ $this->title = 'Panel d\'administration';
                                                     <p class="mb-0"><?= htmlspecialchars($comment->getContent()) ?></p>
                                                 </div>
                                                 <div class="p-2 d-flex flex-column align-self-center">
-                                                    <a class="mb-2 btn btn-primary"
-                                                       href="index.php?page=admin&action=editComment&id=<?= $comment->getId() ?>">Modifier</a>
                                                     <a class="btn btn-danger"
                                                        href="index.php?page=admin&action=deleteComment&id=<?= $comment->getId() ?>">Supprimer</a>
                                                 </div>
