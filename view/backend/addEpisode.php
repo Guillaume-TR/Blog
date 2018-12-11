@@ -1,5 +1,4 @@
 <?php $this->title = 'Ajouter un épisode'; ?>
-<h2 class="text-center my-2"><?= $book->getName(); ?></h2>
 <?php if (isset($message)) {
 	?><div class="alert alert-<?= $messageType ?>" role="alert">
 	<?= $message ?>

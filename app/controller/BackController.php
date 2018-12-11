@@ -2,7 +2,6 @@
 
 namespace App\app\controller;
 
-use App\app\manager\BookManager;
 use App\app\manager\EpisodeManager;
 use App\app\manager\CommentManager;
 use App\app\manager\AccountManager;
@@ -14,7 +13,6 @@ use App\app\model\View;
  */
 class BackController
 {
-	private $bookManage;
 	private $episodeManage;
 	private $commentManage;
 	private $accountManage;
@@ -22,7 +20,6 @@ class BackController
 
 	public function __construct()
 	{
-		$this->bookManage = new BookManager();
 		$this->episodeManage = new EpisodeManager();
 		$this->commentManage = new CommentManager();
 		$this->accountManage = new AccountManager();
@@ -34,13 +31,11 @@ class BackController
 	 */
 	public function admin()
 	{
-		$requestBooks = $this->bookManage->getAllBooks(false);
-		$requestEpisodes = $this->episodeManage->getAllEpisodes();
+		$requestEpisodes = $this->episodeManage->getEpisodes();
 		$requestReportComments = $this->commentManage->getReportComments();
 		$requestAllComments = $this->commentManage->getAllComments();
 		$requestAllAccounts = $this->accountManage->getAllAccounts();
 		$this->view->render('home', [
-			'books' => $requestBooks,
 			'episodes' => $requestEpisodes,
 			'reportComments' => $requestReportComments,
 			'comments' => $requestAllComments,
@@ -55,11 +50,10 @@ class BackController
 	{
 		$message = null;
 		$messageType = null;
-		$idBook = (int)$_GET['id'];
 		if (isset($_POST['submit'])) {
 			if (isset($_POST['title']) && strlen($_POST['title']) > 0) {
 				if (isset($_POST['content']) && strlen($_POST['content']) > 0) {
-					$requestGet = $this->episodeManage->addEpisode($data, $idBook);
+					$requestGet = $this->episodeManage->addEpisode($data);
 					$message = 'L\'épisode a été ajouté !';
 					$messageType = 'success';
 				} else {
@@ -71,10 +65,8 @@ class BackController
 				$messageType = 'danger';
 			}
 		}
-		$requestBook = $this->bookManage->getBook($idBook);
 		$this->view->render('addEpisode', [
 			'episode' => $data,
-			'book' => $requestBook,
 			'message' => $message,
 			'messageType' => $messageType
 		], true);

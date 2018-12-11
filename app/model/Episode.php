@@ -12,7 +12,6 @@ class Episode
 	private $id;
 	private $title;
 	private $content;
-	private $book_id;
 	private $publication_date;
 
 	// GETTER
@@ -29,11 +28,6 @@ class Episode
 	public function getContent()
 	{
 		return $this->content;
-	}
-
-	public function getBook()
-	{
-		return $this->book_id;
 	}
 
 	public function getDate()
@@ -55,11 +49,6 @@ class Episode
 	public function setContent($content)
 	{
 		$this->content = $content;
-	}
-
-	public function setBook($book_id)
-	{
-		$this->book_id = $book_id;
 	}
 
 	public function setDate($publication_date)

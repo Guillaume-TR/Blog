@@ -8,5 +8,5 @@ ob_start();
 <?php
 $content = ob_get_clean();
 
-require '../view/public_template.php';
+require '../view/template.php';
 ?>

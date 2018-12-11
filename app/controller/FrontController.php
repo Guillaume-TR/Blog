@@ -2,7 +2,6 @@
 
 namespace App\app\controller;
 
-use App\app\manager\BookManager;
 use App\app\manager\EpisodeManager;
 use App\app\manager\CommentManager;
 use App\app\manager\AccountManager;
@@ -10,7 +9,6 @@ use App\app\model\View;
 
 class FrontController
 {
-	private $bookManage;
 	private $episodeManage;
 	private $commentManage;
 	private $accountManage;
@@ -18,28 +16,24 @@ class FrontController
 
 	public function __construct()
 	{
-		$this->bookManage = new BookManager();
 		$this->episodeManage = new EpisodeManager();
 		$this->commentManage = new CommentManager();
 		$this->accountManage = new AccountManager();
 		$this->view = new View();
 	}
 
-	/** Book page
+	/** Home page
 	 *
 	 */
 	public function home()
 	{
-		$requestBooks = $this->bookManage->getAllBooks(false);
-		$this->view->render('home', [
-			'books' => $requestBooks
-		]);
+		$this->view->render('home', []);
 	}
 
-	/** Episodes book page
-	 * @param $idBook
+	/** Episodes page
+	 *
 	 */
-	public function episodes($idBook)
+	public function episodes()
 	{
 		$message = null;
 		$messageType = null;
@@ -67,12 +61,10 @@ class FrontController
 			$message = 'Le commentaire à bien été signalé !';
 			$messageType = 'info';
 		}
-		$requestBooks = $this->bookManage->getBook($idBook);
-		$requestEpisodes = $this->episodeManage->getAllEpisodesBook($idBook);
+		$requestEpisodes = $this->episodeManage->getEpisodes();
 		$requestComments = $this->commentManage->getAllComments();
 		$this->view->render('episodes', [
 			'episodes' => $requestEpisodes,
-			'book' => $requestBooks,
 			'comments' => $requestComments,
 			'message' => $message,
 			'messageType' => $messageType

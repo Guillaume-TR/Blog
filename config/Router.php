@@ -31,11 +31,10 @@ class Router
 						if (isset($_GET['action'])) {
 							if ($_GET['action'] === 'addAccount') {
 								$this->backController->addAccount($_POST);
+							} else if ($_GET['action'] === 'addEpisode') {
+								$this->backController->addEpisode($_POST);
 							} else if (isset($_GET['id'])) {
 								switch ($_GET['action']) {
-									case 'addEpisode':
-										$this->backController->addEpisode($_POST);
-										break;
 									case 'editEpisode':
 										$this->backController->editEpisode($_POST);
 										break;
@@ -72,8 +71,8 @@ class Router
 						case 'home':
 							$this->frontController->home();
 							break;
-						case 'book':
-							$this->frontController->episodes($_GET['id']);
+						case 'episodes':
+							$this->frontController->episodes();
 							break;
 						case 'connection':
 							$this->frontController->connection($_POST);

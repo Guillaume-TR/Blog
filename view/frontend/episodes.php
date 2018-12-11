@@ -1,14 +1,12 @@
 <?php
-/** @var object $books
- ** @var object $book
- ** @var object $episodes
+/** @var object $episodes
  ** @var object $episode
  ** @var object $comments
  ** @var object $comment
  **/
 $this->title = 'Toutes les publications'; ?>
 
-<h2 class="text-center py-2"><?= $book->getName(); ?></h2>
+<h2 class="text-center py-2">Billet simple pour l'Alaska</h2>
 <ul class="nav nav-pills mb-3 py-2" id="pills-tab" role="tablist">
 	<?php
 	$active = true;
@@ -66,7 +64,7 @@ $this->title = 'Toutes les publications'; ?>
                                     </div>
                                     <div class="d-flex justify-content-between my-2">
                                         <em><?= $comment->getDate() ?></em>
-                                        <a href="index.php?page=book&id=<?= $book->getId(); ?>&report=<?= $comment->getId() ?>"
+                                        <a href="index.php?page=episodes&report=<?= $comment->getId() ?>"
                                            title="Signaler"><i class="fas fa-exclamation-circle"></i></a>
                                     </div>
                                 </div>
@@ -91,7 +89,7 @@ $this->title = 'Toutes les publications'; ?>
 				}
 				?>
                 <h3 class="py-2">Ajouter un commentaire</h3>
-                <form class="mb-3" method="post" action="index.php?page=book&id=<?= $book->getId(); ?>">
+                <form class="mb-3" method="post" action="index.php?page=episodes">
                     <div class="form-group">
                         <label for="author">Prénom</label>
                         <input type="text" class="form-control" id="author" name="author" placeholder="Votre prénom">

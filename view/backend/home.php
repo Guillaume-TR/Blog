@@ -1,8 +1,5 @@
 <?php
 /** Variables
- * @var array $books
- * @var array $book
- *
  * @var array $episodes
  * @var array $episode
  *
@@ -21,17 +18,8 @@ $this->title = 'Panel d\'administration';
 
 <div class="mt-3">
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-		<?php $active = true;
-		foreach ($books as $book): ?>
-            <a class="nav-item nav-link<?php
-			if ($active) {
-				echo ' active';
-				$active = false;
-			} ?>" id="nav-book<?= $book->getId() ?>-tab" data-toggle="tab" href="#nav-book<?= $book->getId() ?>"
-               role="tab" aria-controls="nav-book<?= $book->getId() ?>" aria-selected="true">
-				<?= $book->getName() ?>
-            </a>
-		<?php endforeach; ?>
+        <a class="nav-item nav-link active" id="nav-book-1-tab" data-toggle="tab" href="#nav-book-1" role="tab"
+           aria-controls="nav-book-1" aria-selected="true">Épisodes </a>
         <a class="nav-item nav-link" id="nav-comments-tab" data-toggle="tab" href="#nav-comments" role="tab"
            aria-controls="nav-comments" aria-selected="false">Commentaires</a>
         <a class="nav-item nav-link" id="nav-accounts-tab" data-toggle="tab" href="#nav-accounts" role="tab"
@@ -39,16 +27,9 @@ $this->title = 'Panel d\'administration';
     </div>
 </div>
 <div class="tab-content mt-3" id="nav-tabContent">
-	<?php
-	$active = true;
-	foreach ($books as $book): ?>
-        <div class="tab-pane fade<?php
-		if ($active) {
-			echo ' show active';
-			$active = false;
-		} ?>" id="nav-book<?= $book->getId() ?>" role="tabpanel" aria-labelledby="nav-book<?= $book->getId() ?>-tab">
+    <div class="tab-pane fade show active" id="nav-book-1" role="tabpanel" aria-labelledby="nav-book-1-tab">
             <div class="pb-3 pl-2">
-                <a class="btn btn-success" href="index.php?page=admin&action=addEpisode&id=<?= $book->getId() ?>">Ajouter
+                <a class="btn btn-success" href="index.php?page=admin&action=addEpisode">Ajouter
                     un épisode</a>
             </div>
             <table class="table table-hover table-bordered">
@@ -61,8 +42,7 @@ $this->title = 'Panel d\'administration';
                 </tr>
                 </thead>
                 <tbody>
-				<?php foreach ($episodes as $episode):
-					if ($episode->getBook() === $book->getId()) { ?>
+				<?php foreach ($episodes as $episode): ?>
                         <tr>
                             <th scope="row"><?= $episode->getId() ?></th>
                             <td><?= $episode->getTitle() ?></td>
@@ -79,12 +59,10 @@ $this->title = 'Panel d\'administration';
                                    href="index.php?page=admin&action=deleteEpisode&id=<?= $episode->getId() ?>">Supprimer</a>
                             </td>
                         </tr>
-					<?php } ?>
 				<?php endforeach; ?>
                 </tbody>
             </table>
         </div>
-	<?php endforeach; ?>
     <div class="tab-pane fade" id="nav-comments" role="tabpanel" aria-labelledby="nav-comments-tab">
         <div class="accordion" id="accordion">
             <div class="card">
@@ -122,16 +100,14 @@ $this->title = 'Panel d\'administration';
             </div>
 			<?php
 			$count = 2;
-			foreach ($books as $book):
-				foreach ($episodes as $episode):
-					if ($episode->getBook() === $book->getId()) { ?>
-                        <div class="card">
+				foreach ($episodes as $episode):?>
+                    <div class="card">
                             <div class="card-header" id="heading<?= $count ?>">
                                 <h5 class="mb-0 text-center">
                                     <button class="btn btn-light collapsed" type="button" data-toggle="collapse"
                                             data-target="#collapse<?= $count ?>" aria-expanded="false"
                                             aria-controls="collapse<?= $count ?>">
-										<?= $book->getName() . ' - ' . $episode->getTitle() ?>
+										<?= $episode->getTitle() ?>
                                     </button>
                                 </h5>
                             </div>
@@ -168,11 +144,8 @@ $this->title = 'Panel d\'administration';
                             </div>
 
                         </div>
-						<?php $count++;
-					} ?>
-				<?php
-				endforeach;
-			endforeach; ?>
+                    <?php $count++;
+				endforeach; ?>
         </div>
     </div>
     <div class="tab-pane fade" id="nav-accounts" role="tabpanel" aria-labelledby="nav-accounts-tab">
