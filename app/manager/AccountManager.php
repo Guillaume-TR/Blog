@@ -5,7 +5,11 @@ namespace App\app\manager;
 
 class AccountManager extends DatabaseManager
 {
-	public function getAllAccounts() {
+	/** Get accounts on the database
+	 * @return array
+	 */
+	public function getAllAccounts()
+	{
 		$statement = 'SELECT * FROM accounts ORDER BY id DESC';
 		$request = $this->getSql($statement, 'App\app\model\Account');
 		$requestGet = $request->fetchAll();
@@ -13,21 +17,36 @@ class AccountManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	public function getAccount($idAccount) {
+	/** Get account on the database
+	 * @param $idAccount
+	 * @return bool|false|\PDOStatement
+	 */
+	public function getAccount($idAccount)
+	{
 		$statement = 'SELECT * FROM accounts WHERE id = ?';
 		$requestGet = $this->getSql($statement, 'App\app\model\Account', [$idAccount]);
 
 		return $requestGet;
 	}
 
-	public function checkAccount($username) {
+	/** Check account on the database
+	 * @param $username
+	 * @return bool|false|\PDOStatement
+	 */
+	public function checkAccount($username)
+	{
 		$statement = 'SELECT * FROM accounts WHERE username = ?';
 		$requestGet = $this->getSql($statement, 'App\app\model\Account', [$username]);
 
 		return $requestGet;
 	}
 
-	public function addAccount($data) {
+	/** Add account on the database
+	 * @param $data
+	 * @return bool|false|\PDOStatement
+	 */
+	public function addAccount($data)
+	{
 		extract($data);
 		/** @var string $username */
 		/** @var string $password */
@@ -39,7 +58,13 @@ class AccountManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	public function editAccount($data, $idAccount) {
+	/** Edit account on the database
+	 * @param $data
+	 * @param $idAccount
+	 * @return bool|false|\PDOStatement
+	 */
+	public function editAccount($data, $idAccount)
+	{
 		extract($data);
 		/** @var string $password */
 		/** @var string $level */
@@ -50,7 +75,14 @@ class AccountManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	public function deleteAccount($idAccount) {
+	/** Delete account on the database
+	 * @param $data
+	 * @param $idAccount
+	 * @return bool|false|\PDOStatement
+	 */
+	public function deleteAccount($data, $idAccount)
+	{
+		extract($data);
 		$statement = 'DELETE FROM accounts WHERE id = ?';
 		$requestGet = $this->getSql($statement, 'App\app\model\Account', [$idAccount]);
 

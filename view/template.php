@@ -36,7 +36,7 @@
             </ul>
             <ul class="navbar-nav">
 				<?php
-                if (isset($_SESSION['level'])) {
+				if (isset($_SESSION['level'])) {
 					if ($_SESSION['level'] === '2') { ?>
                         <li class="nav-item">
                             <a class="nav-link" href="index.php?page=admin">Espace admin</a>
@@ -60,7 +60,7 @@
 </header>
 <body>
 <div class="container">
-    <div class="content">
+    <div class="content my-3 pb-1 ">
 		<?= $content ?>
     </div>
 </div>

@@ -3,26 +3,39 @@
 namespace App\app\controller;
 
 use App\app\manager\BookManager;
+use App\app\manager\EpisodeManager;
 use App\app\manager\CommentManager;
 use App\app\manager\AccountManager;
 use App\app\model\View;
+
+/** Control the backfront
+ * Class BackController
+ * @package App\app\controller
+ */
 class BackController
 {
 	private $bookManage;
+	private $episodeManage;
 	private $commentManage;
 	private $accountManage;
 	private $view;
 
-	public function __construct() {
+	public function __construct()
+	{
 		$this->bookManage = new BookManager();
+		$this->episodeManage = new EpisodeManager();
 		$this->commentManage = new CommentManager();
 		$this->accountManage = new AccountManager();
 		$this->view = new View;
 	}
 
-	public function admin() {
+	/** Admin panel
+	 *
+	 */
+	public function admin()
+	{
 		$requestBooks = $this->bookManage->getAllBooks(false);
-		$requestEpisodes = $this->bookManage->getAllEpisodes();
+		$requestEpisodes = $this->episodeManage->getAllEpisodes();
 		$requestReportComments = $this->commentManage->getReportComments();
 		$requestAllComments = $this->commentManage->getAllComments();
 		$requestAllAccounts = $this->accountManage->getAllAccounts();
@@ -35,14 +48,18 @@ class BackController
 		], true);
 	}
 
-	public function addEpisode($data) {
+	/** Add episode page
+	 * @param $data
+	 */
+	public function addEpisode($data)
+	{
 		$message = null;
 		$messageType = null;
-		$idBook = (int) $_GET['id'];
+		$idBook = (int)$_GET['id'];
 		if (isset($_POST['submit'])) {
 			if (isset($_POST['title']) && strlen($_POST['title']) > 0) {
 				if (isset($_POST['content']) && strlen($_POST['content']) > 0) {
-					$requestGet = $this->bookManage->addEpisode($data, $idBook);
+					$requestGet = $this->episodeManage->addEpisode($data, $idBook);
 					$message = 'L\'épisode a été ajouté !';
 					$messageType = 'success';
 				} else {
@@ -63,7 +80,11 @@ class BackController
 		], true);
 	}
 
-	public function addAccount($data) {
+	/** Add account page
+	 * @param $data
+	 */
+	public function addAccount($data)
+	{
 		$message = null;
 		$messageType = null;
 		if (isset($_POST['submit'])) {
@@ -103,14 +124,18 @@ class BackController
 		], true);
 	}
 
-	public function editEpisode($data) {
+	/** Edit episode page
+	 * @param $data
+	 */
+	public function editEpisode($data)
+	{
 		$message = null;
 		$messageType = null;
-		$idEpisode = (int) $_GET['id'];
+		$idEpisode = (int)$_GET['id'];
 		if (isset($_POST['submit'])) {
 			if (isset($_POST['title']) && strlen($_POST['title']) > 0) {
 				if (isset($_POST['content']) && strlen($_POST['content']) > 0) {
-					$requestGet = $this->bookManage->editEpisode($data, $idEpisode);
+					$requestGet = $this->episodeManage->editEpisode($data, $idEpisode);
 					$message = 'L\'épisode a été modifié !';
 					$messageType = 'success';
 				} else {
@@ -122,7 +147,7 @@ class BackController
 				$messageType = 'danger';
 			}
 		}
-		$request = $this->bookManage->getEpisode($idEpisode);
+		$request = $this->episodeManage->getEpisode($idEpisode);
 		$requestEpisode = $request->fetch();
 		$this->view->render('editEpisode', [
 			'episodeEdit' => $data,
@@ -132,14 +157,18 @@ class BackController
 		], true);
 	}
 
-	public function editAccount($data) {
+	/** Edit account page
+	 * @param $data
+	 */
+	public function editAccount($data)
+	{
 		$message = null;
 		$messageType = null;
-		$idAccount = (int) $_GET['id'];
+		$idAccount = (int)$_GET['id'];
 		if (isset($_POST['submit'])) {
 			if (isset($_POST['password']) && isset($_POST['confirm'])
 				&& strlen($_POST['password']) >= 5
-				&& $_POST['password'] === $_POST['confirm'] ) {
+				&& $_POST['password'] === $_POST['confirm']) {
 				if (isset($_POST['level']) && $_POST['level'] === '1' || $_POST['level'] === '2') {
 					$requestGet = $this->accountManage->editAccount($data, $idAccount);
 					$message = 'Le compte a été modifié !';
@@ -163,10 +192,14 @@ class BackController
 		], true);
 	}
 
-	public function editComment($data) {
+	/** Edit comment page
+	 * @param $data
+	 */
+	public function editComment($data)
+	{
 		$message = null;
 		$messageType = null;
-		$idComment = (int) $_GET['id'];
+		$idComment = (int)$_GET['id'];
 		if (isset($_POST['submit'])) {
 			if (isset($_POST['content']) && strlen($_POST['content']) > 0) {
 				$requestGet = $this->commentManage->editComment($data, $idComment);
@@ -187,19 +220,22 @@ class BackController
 		], true);
 	}
 
-	public function deleteEpisode($data) {
-		extract($data);
+	/** Delete episode page
+	 * @param $data
+	 */
+	public function deleteEpisode($data)
+	{
 		$message = null;
 		$messageType = null;
 		$idEpisode = (int)$_GET['id'];
 
-		$request = $this->bookManage->getEpisode($idEpisode);
+		$request = $this->episodeManage->getEpisode($idEpisode);
 		$requestCount = $request->rowCount();
 		if ($requestCount === 1) {
 			$requestEpisode = $request->fetch();
 			if (isset($_POST['submit'])) {
 				if ($_POST['title'] === $requestEpisode->getTitle()) {
-					$requestGet = $this->bookManage->deleteEpisode($idEpisode);
+					$requestGet = $this->episodeManage->deleteEpisode($data, $idEpisode);
 					$message = 'L\'épisode a été supprimé !';
 					$messageType = 'success';
 				} else {
@@ -217,8 +253,11 @@ class BackController
 		}
 	}
 
-	public function deleteAccount($data) {
-		extract($data);
+	/** Delete account page
+	 * @param $data
+	 */
+	public function deleteAccount($data)
+	{
 		$message = null;
 		$messageType = null;
 		$idAccount = (int)$_GET['id'];
@@ -229,7 +268,7 @@ class BackController
 			$requestAccount = $request->fetch();
 			if (isset($_POST['submit'])) {
 				if ($_POST['username'] === $requestAccount->getUser()) {
-					$requestGet = $this->accountManage->deleteAccount($idAccount);
+					$requestGet = $this->accountManage->deleteAccount($data, $idAccount);
 					$message = 'L\'utilisateur a été supprimé !';
 					$messageType = 'success';
 				} else {
@@ -247,11 +286,14 @@ class BackController
 		}
 	}
 
-	public function deleteComment($data) {
-		extract($data);
+	/** Delete comment page
+	 * @param $data
+	 */
+	public function deleteComment($data)
+	{
 		$message = null;
 		$messageType = null;
-		$idComment = (int) $_GET['id'];
+		$idComment = (int)$_GET['id'];
 
 		$request = $this->commentManage->getComment($idComment);
 		$requestCount = $request->rowCount();
@@ -259,7 +301,7 @@ class BackController
 			$requestComment = $request->fetch();
 			if (isset($_POST['submit'])) {
 				if ($_POST['id'] === $requestComment->getId()) {
-					$requestGet = $this->commentManage->deleteComment($idComment);
+					$requestGet = $this->commentManage->deleteComment($data, $idComment);
 					$message = 'Le commentaire a été supprimé !';
 					$messageType = 'success';
 				} else {

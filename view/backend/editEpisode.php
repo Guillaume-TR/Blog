@@ -1,6 +1,7 @@
-<?php $this->title = 'Modifier l\'épisode'; ?>
-<?php if (isset($message)) {
-	?><div class="alert alert-<?= $messageType ?> mt-3" role="alert">
+<?php $this->title = 'Modifier l\'épisode';
+if (isset($message)) {
+	?>
+<div class="alert alert-<?= $messageType ?> mt-3" role="alert">
 	<?= $message ?>
     </div><?php
 } ?>
@@ -12,7 +13,7 @@
 			echo ' value="' . $_POST['title'] . '"';
 		} else {
 			echo ' value="' . $episode->getTitle() . '"';
-		}?>>
+		} ?>>
     </div>
     <div class="form-group">
         <label for="content">Contenu</label>

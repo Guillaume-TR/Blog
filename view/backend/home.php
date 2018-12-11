@@ -1,4 +1,21 @@
 <?php
+/** Variables
+ * @var array $books
+ * @var array $book
+ *
+ * @var array $episodes
+ * @var array $episode
+ *
+ * @var array $accounts
+ * @var array $account
+ *
+ * @var array $comments
+ * @var array $comment
+ *
+ * @var array $reportComments
+ * @var array $reportComment
+ */
+
 $this->title = 'Panel d\'administration';
 ?>
 
@@ -49,7 +66,12 @@ $this->title = 'Panel d\'administration';
                         <tr>
                             <th scope="row"><?= $episode->getId() ?></th>
                             <td><?= $episode->getTitle() ?></td>
-                            <td><?= substr($episode->getContent(), 0, 150) . '...' ?></td>
+                            <td><?php
+								if (strlen($episode->getContent()) > 155) {
+									echo substr($episode->getContent(), 0, 150) . '...';
+								} else {
+									echo $episode->getContent();
+								} ?></td>
                             <td class="text-center">
                                 <a class="btn btn-primary mb-2"
                                    href="index.php?page=admin&action=editEpisode&id=<?= $episode->getId() ?>">Modifier</a><br>
@@ -82,8 +104,8 @@ $this->title = 'Panel d\'administration';
                                     <p><strong><?= htmlspecialchars($reportComment->getAuthor()) ?></strong></p>
                                     <p class="mb-0"><?= htmlspecialchars($reportComment->getContent()) ?></p>
                                 </div>
-                                <div class="p-2 bd-highlight align-self-center">
-                                    <a class="btn btn-danger"
+                                <div class="p-2 d-flex flex-column align-self-center">
+                                    <a class="mb-2 btn btn-primary"
                                        href="index.php?page=admin&action=editComment&id=<?= $reportComment->getId() ?>">Modifier</a>
                                     <a class="btn btn-danger"
                                        href="index.php?page=admin&action=deleteComment&id=<?= $reportComment->getId() ?>">Supprimer</a>

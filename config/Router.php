@@ -19,6 +19,9 @@ class Router
 		$this->errorController = new ErrorController();
 	}
 
+	/** Set page
+	 *
+	 */
 	public function run()
 	{
 		try {

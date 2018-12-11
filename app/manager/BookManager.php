@@ -3,8 +3,16 @@
 namespace App\app\manager;
 
 
+/** Manage the book on the database
+ * Class BookManager
+ * @package App\app\manager
+ */
 class BookManager extends DatabaseManager
 {
+	/** Get books on the database
+	 * @param bool $order
+	 * @return array
+	 */
 	public function getAllBooks($order = true)
 	{
 		$statement = 'SELECT * FROM books';
@@ -16,65 +24,15 @@ class BookManager extends DatabaseManager
 		return $requestGet;
 	}
 
+	/** Get book on the database
+	 * @param $idBook
+	 * @return mixed
+	 */
 	public function getBook($idBook)
 	{
 		$statement = 'SELECT * FROM books WHERE id = ?';
 		$request = $this->getSql($statement, 'App\app\model\Book', [$idBook]);
 		$requestGet = $request->fetch();
-
-		return $requestGet;
-	}
-
-	public function getAllEpisodes()
-	{
-		$statement = 'SELECT * FROM episodes';
-		$request = $this->getSql($statement, 'App\app\model\Episode');
-		$requestGet = $request->fetchAll();
-
-		return $requestGet;
-	}
-
-	public function getAllEpisodesBook($idBook)
-	{
-		$statement = 'SELECT * FROM episodes WHERE book_id = ? ORDER BY id';
-		$request = $this->getSql($statement, 'App\app\model\Episode', [$idBook]);
-		$requestGet = $request->fetchAll();
-
-		return $requestGet;
-	}
-
-	public function getEpisode($idEpisode)
-	{
-		$statement = 'SELECT * FROM episodes WHERE id = ?';
-		$requestGet = $this->getSql($statement, 'App\app\model\Episode', [$idEpisode]);
-
-		return $requestGet;
-	}
-
-	public function addEpisode($data, $idBook)
-	{
-		extract($data);
-		/** @var string $title */
-		/** @var string $content */
-		$statement = 'INSERT INTO episodes(title, content, book_id, publication_date) VALUES(?,?,?, NOW())';
-		$requestGet = $this->getSql($statement, 'App\app\model\Episode', [$title, $content,$idBook]);
-
-		return $requestGet;
-	}
-
-	public function editEpisode($data, $idEpisode) {
-		extract($data);
-		/** @var string $title */
-		/** @var string $content */
-		$statement = 'UPDATE episodes SET title = ?, content = ? WHERE id = ?';
-		$requestGet = $this->getSql($statement, 'App\app\model\Episode', [$title, $content, $idEpisode]);
-
-		return $requestGet;
-	}
-
-	public function deleteEpisode($idEpisode) {
-		$statement = 'DELETE FROM episodes WHERE id = ?';
-		$requestGet = $this->getSql($statement, 'App\app\model\Episode', [$idEpisode]);
 
 		return $requestGet;
 	}

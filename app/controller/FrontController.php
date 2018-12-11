@@ -3,32 +3,44 @@
 namespace App\app\controller;
 
 use App\app\manager\BookManager;
+use App\app\manager\EpisodeManager;
 use App\app\manager\CommentManager;
 use App\app\manager\AccountManager;
 use App\app\model\View;
+
 class FrontController
 {
 	private $bookManage;
+	private $episodeManage;
 	private $commentManage;
 	private $accountManage;
 	private $view;
 
-	public function __construct(){
+	public function __construct()
+	{
 		$this->bookManage = new BookManager();
+		$this->episodeManage = new EpisodeManager();
 		$this->commentManage = new CommentManager();
 		$this->accountManage = new AccountManager();
 		$this->view = new View();
 	}
 
-	public function home() {
-
+	/** Book page
+	 *
+	 */
+	public function home()
+	{
 		$requestBooks = $this->bookManage->getAllBooks(false);
 		$this->view->render('home', [
 			'books' => $requestBooks
 		]);
 	}
 
-	public function episodes($idBook) {
+	/** Episodes book page
+	 * @param $idBook
+	 */
+	public function episodes($idBook)
+	{
 		$message = null;
 		$messageType = null;
 		if (isset($_POST['submit'])) {
@@ -50,13 +62,13 @@ class FrontController
 			}
 		}
 		if (isset($_GET['report'])) {
-			$commentId = (int) $_GET['report'];
+			$commentId = (int)$_GET['report'];
 			$request = $this->commentManage->reportComment($commentId);
 			$message = 'Le commentaire à bien été signalé !';
 			$messageType = 'info';
 		}
 		$requestBooks = $this->bookManage->getBook($idBook);
-		$requestEpisodes = $this->bookManage->getAllEpisodesBook($idBook);
+		$requestEpisodes = $this->episodeManage->getAllEpisodesBook($idBook);
 		$requestComments = $this->commentManage->getAllComments();
 		$this->view->render('episodes', [
 			'episodes' => $requestEpisodes,
@@ -67,7 +79,11 @@ class FrontController
 		]);
 	}
 
-	public function connection($data) {
+	/** Connection page
+	 * @param $data
+	 */
+	public function connection($data)
+	{
 		extract($data);
 		$message = null;
 		$messageType = null;
@@ -104,7 +120,11 @@ class FrontController
 		]);
 	}
 
-	public function disconnect() {
+	/** Disconnect page
+	 *
+	 */
+	public function disconnect()
+	{
 		session_destroy();
 		$this->view->render('disconnect', []);
 	}

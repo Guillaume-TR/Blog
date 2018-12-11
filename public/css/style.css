@@ -1,16 +1,4 @@
-.mce-notification {
-    display: none;
-}
-.comment-content div:first-child {
-    background-color: #F3F3F3;
-    border-radius: 5px;
-    margin-top: 0;
-}
-.comment-content div:last-child {
-    text-align: right;
-    font-size: 14px;
-    margin-bottom: 0;
-}
+/* HOME */ /* START */
 .btn-book {
     font-weight: bold;
     color: #333;
@@ -22,10 +10,33 @@
     background-color: #928462;
     border: #928462 1px solid;
 }
-#heading1 {
-    background-color: #dc3545;
+/* HOME */ /* END */
+
+/* COMMENT */ /* START */
+.comment-content div:first-child {
+    margin-top: 0;
+    background-color: #F3F3F3;
+    border-radius: 5px;
+}
+.comment-content div:last-child {
+    margin-bottom: 0;
+    font-size: 14px;
+    text-align: right;
 }
 .comment-content .fas {
     font-size: 20px;
     color: #ff2400;
 }
+/* COMMENT */ /* END */
+
+/* ADMIN COMMENT */ /* START */
+#heading1 {
+    background-color: #dc3545;
+}
+/* ADMIN COMMENT */ /* END */
+
+/* TINY */ /* START */
+.mce-notification {
+    display: none;
+}
+/* TINY */ /* END */

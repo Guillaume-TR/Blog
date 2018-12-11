@@ -3,7 +3,8 @@
 namespace App\app\model;
 
 use \App\app\manager\BookManager;
-/**
+
+/** Get view page
  * Class View
  * @package App\app\model
  */
@@ -17,7 +18,8 @@ class View
 	 * @param array $data
 	 * @param bool $backend
 	 */
-	public function render($view, $data = [], $backend = false) {
+	public function render($view, $data = [], $backend = false)
+	{
 		if ($backend) {
 			$view = 'backend/' . $view;
 		} else {
@@ -42,7 +44,8 @@ class View
 	 * @param $data
 	 * @return false|string
 	 */
-	public function renderFile($file, $data) {
+	public function renderFile($file, $data)
+	{
 		if (file_exists($file)) {
 			extract($data);
 

@@ -1,10 +1,10 @@
-<?php $this->title = 'Modifier un utilisateur'; ?>
-<h2 class="text-center mt-3 mb-4">Modifier un utilisateur</h2>
+<?php $this->title = 'Modifier l\'utilisateur'; ?>
 <div class="alert alert-primary" role="alert">
     <strong>Nom d'utilisateur : </strong><?= $account->getUser() ?>
 </div>
 <?php if (isset($message)) {
-	?><div class="alert alert-<?= $messageType ?>" role="alert">
+	?>
+    <div class="alert alert-<?= $messageType ?>" role="alert">
 	<?= $message ?>
     </div><?php
 } ?>

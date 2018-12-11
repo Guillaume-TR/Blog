@@ -8,80 +8,84 @@
  **/
 $this->title = 'Toutes les publications'; ?>
 
-<h2 class="text-center py-2" ><?= $book->getName(); ?></h2>
+<h2 class="text-center py-2"><?= $book->getName(); ?></h2>
 <ul class="nav nav-pills mb-3 py-2" id="pills-tab" role="tablist">
-    <?php
-    $active = true;
+	<?php
+	$active = true;
 	$number = 1;
 	foreach ($episodes as $episode): ?>
         <li class="nav-item">
             <a class="nav-link<?php
 			if ($active) {
-			    echo ' active';
-			    $active = false;
+				echo ' active';
+				$active = false;
 			} ?>" id="pills-<?= $episode->getId() ?>-tab" data-toggle="pill"
                href="#pills-<?= $episode->getId() ?>" role="tab"
                aria-controls="pills-<?= $episode->getId() ?>" aria-selected="true">
-                <?= $number . '. ' . $episode->getTitle() ?>
+				<?= $number . '. ' . $episode->getTitle() ?>
             </a>
         </li>
-    <?php
-        $number++;
-    endforeach; ?>
+		<?php
+		$number++;
+	endforeach; ?>
 </ul>
 <div class="tab-content" id="pills-tabContent">
-    <?php
+	<?php
 	$active = true;
-    foreach ($episodes as $episode): ?>
+	foreach ($episodes as $episode): ?>
         <div class="tab-pane fade show<?php
 		if ($active) {
 			echo ' active';
 			$active = false;
 		} ?>" id="pills-<?= $episode->getId() ?>" role="tabpanel"
              aria-labelledby="pills-<?= $episode->getId() ?>-tab">
-            <?= $episode->getContent() ?>
+			<?= $episode->getContent() ?>
             <hr>
             <div>
                 <p class="text-center">
-                    <button class="btn btn-dark mb-2" type="button" data-toggle="collapse" data-target="#comments" aria-expanded="false" aria-controls="comments">
+                    <button class="btn btn-dark mb-2" type="button" data-toggle="collapse" data-target="#comments"
+                            aria-expanded="false" aria-controls="comments">
                         Afficher les commentaires
                     </button>
                 </p>
                 <div class="collapse" id="comments">
                     <div class="card py-3">
 						<?php
-                        $count = 0;
+						$count = 0;
 						foreach ($comments as $comment):
 							if ($comment->getEpisode() === $episode->getId()) {
-							    $count++;
-							    ?>
+								$count++;
+								?>
                                 <div class="comment-content mx-3">
                                     <div class="p-2">
                                         <p><strong><?= htmlspecialchars($comment->getAuthor()) ?></strong></p>
 										<?= htmlspecialchars($comment->getContent()) ?>
-                                        <?php if ($comment->getEdited()) { ?>
+										<?php if ($comment->getEdited()) { ?>
                                             <div class="comment-edited">Commentaire édité par l'admin</div>
-                                       <?php } ?>
+										<?php } ?>
                                     </div>
                                     <div class="d-flex justify-content-between my-2">
                                         <em><?= $comment->getDate() ?></em>
-                                        <a href="index.php?page=book&id=<?= $book->getId(); ?>&report=<?= $comment->getId() ?>" title="Signaler"><i class="fas fa-exclamation-circle"></i></a>
+                                        <a href="index.php?page=book&id=<?= $book->getId(); ?>&report=<?= $comment->getId() ?>"
+                                           title="Signaler"><i class="fas fa-exclamation-circle"></i></a>
                                     </div>
                                 </div>
 								<?php
 							}
 						endforeach;
-							if ($count <= 0) {
-							    ?><div class="alert alert-secondary mx-3 mt-2" role="alert">
-                                    Il n'y a aucun commentaire.
-                                </div><?php
-                            } ?>
+						if ($count <= 0) {
+							?>
+                            <div class="alert alert-secondary mx-3 mt-2" role="alert">
+                                Il n'y a aucun commentaire.
+                            </div><?php
+						} ?>
                     </div>
                 </div>
                 <hr>
 				<?php
 				if (isset($message)) {
-					?><div class="alert alert-<?= $messageType ?>" role="alert">
+					?>
+                    <div class="alert alert-<?= $messageType ?>" role="alert">
 					<?= $message ?>
                     </div><?php
 				}
@@ -92,11 +96,14 @@ $this->title = 'Toutes les publications'; ?>
                         <label for="author">Prénom</label>
                         <input type="text" class="form-control" id="author" name="author" placeholder="Votre prénom">
                         <label for="messsage">Message</label>
-                        <textarea id="messsage" class="form-control" name="content" placeholder="Votre message"></textarea>
+                        <textarea id="messsage" class="form-control" name="content"
+                                  placeholder="Votre message"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary text-center" name="submit" value="<?= $episode->getId() ?>">Envoyer</button>
+                    <button type="submit" class="btn btn-primary text-center" name="submit"
+                            value="<?= $episode->getId() ?>">Envoyer
+                    </button>
                 </form>
             </div>
         </div>
-    <?php endforeach; ?>
+	<?php endforeach; ?>
 </div>
