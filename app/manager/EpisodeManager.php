@@ -14,7 +14,7 @@ class EpisodeManager extends DatabaseManager
 	 */
 	public function getEpisodes()
 	{
-		$statement = 'SELECT * FROM episodes';
+		$statement = 'SELECT * FROM episodes ORDER BY publication_date';
 		$request = $this->getSql($statement, 'App\app\model\Episode');
 		$requestGet = $request->fetchAll();
 
@@ -33,6 +33,17 @@ class EpisodeManager extends DatabaseManager
 		return $requestGet;
 	}
 
+	/** Get last episode on the database
+	 * @return mixed
+	 */
+	public function getLastEpisode()
+	{
+		$statement = 'SELECT * FROM episodes ORDER BY publication_date DESC LIMIT 1';
+		$request = $this->getSql($statement, 'App\app\model\Episode');
+		$requestGet = $request->fetch();
+
+		return $requestGet;
+	}
 	/** Add episode on the database
 	 * @param $data
 	 * @return bool|false|\PDOStatement

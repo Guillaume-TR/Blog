@@ -1,26 +1,55 @@
-<?php $this->title = 'Se connection';
-if (isset($message)) { ?>
+<?php $this->title = 'Connection'; ?>
 
-<div class="mt-3 alert alert-<?= $messageType ?>" role="alert">
-    <?= $message ?>
+<header id="head" class="secondary"></header>
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="index.php">Accueil</a></li>
+        <li class="active">Connection</li>
+    </ol>
+    <div class="row">
+		<?php if (!isset($_SESSION['id'])) { ?>
+            <article class="col-xs-12 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">Connection</h1>
+                </header>
+                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="thin text-center">Connectez-vous à votre compte</h3>
+                            <hr>
+                            <form method="post" action="">
+                                <div class="top-margin">
+                                    <label for="username">Nom d'utilisateur</label>
+                                    <input type="text" class="form-control" id="username" name="username"
+                                           placeholder="Nom d'utilisateur">
+                                </div>
+                                <div class="top-margin">
+                                    <label for="password">Mot de passe</label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                           placeholder="******">
+                                </div>
+
+                                <hr>
+								<?php if (isset($message)) { ?>
+                                    <div class="alert alert-<?= $messageType ?>" role="alert">
+										<?= $message ?>
+                                    </div>
+								<?php } ?>
+                                <div class="row">
+                                    <div class="col-lg-offset-3 col-lg-6 text-center">
+                                        <input type="submit" name="submit" class="btn btn-action" role="button"
+                                               value="Se connecter">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </article>
+		<?php
+		} else { ?>
+            <script>window.location = "index.php?page=admin"</script>
+		<?php } ?>
+    </div>
 </div>
-
-<?php }
-if (!isset($_SESSION['id'])) { ?>
-
-    <form class="my-3" method="post" action="">
-        <div class="form-group">
-            <label for="username">Nom d'utilisateur</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Nom d'utilisateur">
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="******">
-        </div>
-        <input type="submit" name="submit" class="btn btn-primary" value="Se connecter">
-    </form>
-
-<?php
-} else { ?>
-    <script>window.location = "index.php?page=admin"</script>
-<?php } ?>

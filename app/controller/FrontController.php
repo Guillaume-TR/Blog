@@ -27,7 +27,10 @@ class FrontController
 	 */
 	public function home()
 	{
-		$this->view->render('home', []);
+		$requestLastEpisode = $this->episodeManage->getLastEpisode();
+		$this->view->render('home', [
+			'lastEpisode' => $requestLastEpisode
+		]);
 	}
 
 	/** Episodes page
@@ -35,15 +38,25 @@ class FrontController
 	 */
 	public function episodes()
 	{
+		$requestEpisodes = $this->episodeManage->getEpisodes();
+		$this->view->render('episodes', [
+			'episodes' => $requestEpisodes
+		]);
+	}
+
+	/** Episode page
+	 * @param $idEpisode
+	 * @param $data
+	 */
+	public function episode($idEpisode, $data)
+	{
+		extract($data);
 		$message = null;
 		$messageType = null;
-		if (isset($_POST['submit'])) {
-			if (isset($_POST['author']) && strlen($_POST['author']) > 0) {
-				if (isset($_POST['content']) && strlen($_POST['content']) > 0) {
-					$_POST['episode_id'] = $_POST['submit'];
-					unset($_POST['submit']);
-
-					$request = $this->commentManage->addComment($_POST);
+		if (isset($submit)) {
+			if (isset($author) && strlen($author) > 0) {
+				if (isset($content) && strlen($content) > 0) {
+					$request = $this->commentManage->addComment($idEpisode, $_POST);
 					$message = 'Le commentaire à bien été ajouté !';
 					$messageType = 'success';
 				} else {
@@ -56,21 +69,22 @@ class FrontController
 			}
 		}
 		if (isset($_GET['report'])) {
-			$commentId = (int)$_GET['report'];
+			$commentId = (int) $_GET['report'];
 			$request = $this->commentManage->reportComment($commentId);
 			$message = 'Le commentaire à bien été signalé !';
 			$messageType = 'info';
 		}
-		$requestEpisodes = $this->episodeManage->getEpisodes();
-		$requestComments = $this->commentManage->getAllComments();
-		$this->view->render('episodes', [
-			'episodes' => $requestEpisodes,
+		$requestEpisode = $this->episodeManage->getEpisode($idEpisode);
+		$requestEpisode = $requestEpisode->fetch();
+		$requestComments = $this->commentManage->getComments($idEpisode);
+		$requestComments = $requestComments->fetchAll();
+		$this->view->render('episode', [
+			'episode' => $requestEpisode,
 			'comments' => $requestComments,
 			'message' => $message,
 			'messageType' => $messageType
 		]);
 	}
-
 	/** Connection page
 	 * @param $data
 	 */
@@ -81,7 +95,7 @@ class FrontController
 		$messageType = null;
 		$requestConnection = null;
 
-		if (isset($_POST['submit'])) {
+		if (isset($submit)) {
 			/** @var string $username */
 			$request = $this->accountManage->checkAccount($username);
 			$countGet = $request->rowCount();

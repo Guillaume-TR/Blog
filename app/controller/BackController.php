@@ -31,15 +31,46 @@ class BackController
 	 */
 	public function admin()
 	{
+		$this->view->render('home', [], true);
+	}
+
+	/** Admin panel
+	 *
+	 */
+	public function episode()
+	{
 		$requestEpisodes = $this->episodeManage->getEpisodes();
-		$requestReportComments = $this->commentManage->getReportComments();
-		$requestAllComments = $this->commentManage->getAllComments();
-		$requestAllAccounts = $this->accountManage->getAllAccounts();
-		$this->view->render('home', [
+		$this->view->render('episode', [
+			'episodes' => $requestEpisodes
+		], true);
+	}
+
+	/** Admin panel
+	 *
+	 */
+	public function user()
+	{
+		$requestAccounts = $this->accountManage->getAllAccounts();
+		$this->view->render('user', [
+			'accounts' => $requestAccounts
+		], true);
+	}
+
+	/** Admin panel
+	 * @param null $id
+	 */
+	public function comment($id = null)
+	{
+		$requestComments = null;
+		$requestCommentsReport = $this->commentManage->getReportComments();
+		if (isset($id)) {
+			$requestComments = $this->commentManage->getComments($id);
+		}
+		$requestEpisodes = $this->episodeManage->getEpisodes();
+		$this->view->render('comment', [
 			'episodes' => $requestEpisodes,
-			'reportComments' => $requestReportComments,
-			'comments' => $requestAllComments,
-			'accounts' => $requestAllAccounts
+			'comments' => $requestComments,
+			'commentsReport' => $requestCommentsReport
 		], true);
 	}
 
@@ -48,11 +79,12 @@ class BackController
 	 */
 	public function addEpisode($data)
 	{
+		extract($data);
 		$message = null;
 		$messageType = null;
-		if (isset($_POST['submit'])) {
-			if (isset($_POST['title']) && strlen($_POST['title']) > 0) {
-				if (isset($_POST['content']) && strlen($_POST['content']) > 0) {
+		if (isset($submit)) {
+			if (isset($title) && strlen($title) > 0) {
+				if (isset($content) && strlen($content) > 0) {
 					$requestGet = $this->episodeManage->addEpisode($data);
 					$message = 'L\'épisode a été ajouté !';
 					$messageType = 'success';
@@ -77,14 +109,15 @@ class BackController
 	 */
 	public function addAccount($data)
 	{
+		extract($data);
 		$message = null;
 		$messageType = null;
-		if (isset($_POST['submit'])) {
-			if (isset($_POST['username']) && strlen($_POST['username']) >= 5) {
-				if (isset($_POST['password']) && isset($_POST['confirm'])
-					&& strlen($_POST['password']) >= 5
-					&& $_POST['password'] === $_POST['confirm']) {
-					if (isset($_POST['level']) && $_POST['level'] === '1' || $_POST['level'] === '2') {
+		if (isset($submit)) {
+			if (isset($username) && strlen($username) >= 5) {
+				if (isset($password) && isset($confirm)
+					&& strlen($password) >= 5
+					&& $password === $confirm) {
+					if (isset($level) && $level === '1' || $level === '2') {
 						$username = $_POST['username'];
 						$requestGet = $this->accountManage->checkAccount($username);
 						$countGet = $requestGet->rowCount();
@@ -93,7 +126,7 @@ class BackController
 							$message = 'Le compte a été ajouté.';
 							$messageType = 'success';
 						} else {
-							$message = 'Ce nom d\'utilisateur existe déjà.';
+							$message = 'Le nom d\'utilisateur existe déjà.';
 							$messageType = 'danger';
 						}
 					} else {
@@ -101,11 +134,11 @@ class BackController
 						$messageType = 'danger';
 					}
 				} else {
-					$message = 'Verifiez que les mots de passe contient au moin 5 caractères et qu\'ils sont identique.';
+					$message = 'Vérifiez que les mots de passe contiennent au moins 5 caractères et qu\'ils sont identiques.';
 					$messageType = 'danger';
 				}
 			} else {
-				$message = 'Verifiez que le nom d\'utilisateur contient au moin 5 caractères';
+				$message = 'Vérifiez que le nom d\'utilisateur contient au moins 5 caractères';
 				$messageType = 'danger';
 			}
 		}
@@ -121,12 +154,13 @@ class BackController
 	 */
 	public function editEpisode($data)
 	{
+		extract($data);
 		$message = null;
 		$messageType = null;
 		$idEpisode = (int)$_GET['id'];
-		if (isset($_POST['submit'])) {
-			if (isset($_POST['title']) && strlen($_POST['title']) > 0) {
-				if (isset($_POST['content']) && strlen($_POST['content']) > 0) {
+		if (isset($submit)) {
+			if (isset($title) && strlen($title) > 0) {
+				if (isset($content) && strlen($content) > 0) {
 					$requestGet = $this->episodeManage->editEpisode($data, $idEpisode);
 					$message = 'L\'épisode a été modifié !';
 					$messageType = 'success';
@@ -154,14 +188,15 @@ class BackController
 	 */
 	public function editAccount($data)
 	{
+		extract($data);
 		$message = null;
 		$messageType = null;
 		$idAccount = (int)$_GET['id'];
-		if (isset($_POST['submit'])) {
-			if (isset($_POST['password']) && isset($_POST['confirm'])
-				&& strlen($_POST['password']) >= 5
-				&& $_POST['password'] === $_POST['confirm']) {
-				if (isset($_POST['level']) && $_POST['level'] === '1' || $_POST['level'] === '2') {
+		if (isset($submit)) {
+			if (isset($password) && isset($confirm)
+				&& strlen($password) >= 5
+				&& $password === $confirm) {
+				if (isset($level) && $level === '1' || $level === '2') {
 					$requestGet = $this->accountManage->editAccount($data, $idAccount);
 					$message = 'Le compte a été modifié !';
 					$messageType = 'success';
@@ -170,7 +205,7 @@ class BackController
 					$messageType = 'danger';
 				}
 			} else {
-				$message = 'Verifiez que les mots de passe contient au moin 5 caractères et qu\'ils sont identique.';
+				$message = 'Verifiez que les mots de passe contiennent au moins 5 caractères et qu\'ils sont identiques.';
 				$messageType = 'danger';
 			}
 		}
@@ -186,13 +221,14 @@ class BackController
 
 	/** Approve comment page
 	 * @param $data
+	 * @param $idComment
 	 */
-	public function approveComment($data)
+	public function approveComment($data, $idComment)
 	{
+		extract($data);
 		$message = null;
 		$messageType = null;
-		$idComment = (int)$_GET['id'];
-		if (isset($_POST['submit'])) {
+		if (isset($submit)) {
 			$requestGet = $this->commentManage->approveComment($data, $idComment);
 			$message = 'Le commentaire a été approuvé !';
 			$messageType = 'success';
@@ -211,6 +247,7 @@ class BackController
 	 */
 	public function deleteEpisode($data)
 	{
+		extract($data);
 		$message = null;
 		$messageType = null;
 		$idEpisode = (int)$_GET['id'];
@@ -219,8 +256,8 @@ class BackController
 		$requestCount = $request->rowCount();
 		if ($requestCount === 1) {
 			$requestEpisode = $request->fetch();
-			if (isset($_POST['submit'])) {
-				if ($_POST['title'] === $requestEpisode->getTitle()) {
+			if (isset($submit)) {
+				if (isset($title) && $title === $requestEpisode->getTitle()) {
 					$requestGet = $this->episodeManage->deleteEpisode($data, $idEpisode);
 					$message = 'L\'épisode a été supprimé !';
 					$messageType = 'success';
@@ -244,6 +281,7 @@ class BackController
 	 */
 	public function deleteAccount($data)
 	{
+		extract($data);
 		$message = null;
 		$messageType = null;
 		$idAccount = (int)$_GET['id'];
@@ -252,8 +290,8 @@ class BackController
 		$requestCount = $request->rowCount();
 		if ($requestCount === 1) {
 			$requestAccount = $request->fetch();
-			if (isset($_POST['submit'])) {
-				if ($_POST['username'] === $requestAccount->getUser()) {
+			if (isset($submit)) {
+				if (isset($username) && $username === $requestAccount->getUser()) {
 					$requestGet = $this->accountManage->deleteAccount($data, $idAccount);
 					$message = 'L\'utilisateur a été supprimé !';
 					$messageType = 'success';
@@ -277,6 +315,7 @@ class BackController
 	 */
 	public function deleteComment($data)
 	{
+		extract($data);
 		$message = null;
 		$messageType = null;
 		$idComment = (int)$_GET['id'];
@@ -285,8 +324,8 @@ class BackController
 		$requestCount = $request->rowCount();
 		if ($requestCount === 1) {
 			$requestComment = $request->fetch();
-			if (isset($_POST['submit'])) {
-				if ($_POST['id'] === $requestComment->getId()) {
+			if (isset($submit)) {
+				if (isset($id) && $id === $requestComment->getId()) {
 					$requestGet = $this->commentManage->deleteComment($data, $idComment);
 					$message = 'Le commentaire a été supprimé !';
 					$messageType = 'success';

@@ -3,20 +3,29 @@
 namespace App\app\controller;
 
 
+use App\app\model\View;
 /** Control the error page
  * Class ErrorController
  * @package App\app\controller
  */
 class ErrorController
 {
+	private $view;
+
+	public function __construct()
+	{
+		$this->view = new View();
+	}
+
 	public function notFound()
 	{
-		require '../view/frontend/notFound.php';
+		$this->view->render('notFound', []);
 	}
 
 	public function error($error)
 	{
-		$error = $error;
-		require '../view/frontend/error.php';
+		$this->view->render('error', [
+			'error' => $error
+		]);
 	}
 }

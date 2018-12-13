@@ -45,18 +45,31 @@ class CommentManager extends DatabaseManager
 		return $requestGet;
 	}
 
+
+	/** Get comments of episode on the database
+	 * @param $idEpisode
+	 * @return bool|false|\PDOStatement
+	 */
+	public function getComments($idEpisode)
+	{
+		$statement = 'SELECT * FROM comments WHERE episode_id = ? ORDER BY creation_date DESC ';
+		$requestGet = $this->getSql($statement, 'App\app\model\Comment', [$idEpisode]);
+
+		return $requestGet;
+	}
+
 	/** Add comment on the database
+	 * @param $idEpisode
 	 * @param $data
 	 * @return bool|false|\PDOStatement
 	 */
-	public function addComment($data)
+	public function addComment($idEpisode, $data)
 	{
 		extract($data);
 		/** @var string $content */
 		/** @var string $author */
-		/** @var string $episode_id */
 		$statement = 'INSERT INTO comments(content, author, episode_id, creation_date) VALUES(?, ?, ?, NOW())';
-		$requestGet = $this->getSql($statement, 'App\app\model\Comment', [$content, $author, $episode_id]);
+		$requestGet = $this->getSql($statement, 'App\app\model\Comment', [$content, $author, $idEpisode]);
 
 		return $requestGet;
 	}
