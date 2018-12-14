@@ -2,9 +2,9 @@
 
 namespace App\app\controller;
 
-
 use App\app\model\View;
-/** Control the error page
+
+/** Error controller
  * Class ErrorController
  * @package App\app\controller
  */
@@ -17,11 +17,17 @@ class ErrorController
 		$this->view = new View();
 	}
 
+	/** Not found page
+	 *
+	 */
 	public function notFound()
 	{
 		$this->view->render('notFound', []);
 	}
 
+	/** Error page
+	 * @param $error
+	 */
 	public function error($error)
 	{
 		$this->view->render('error', [

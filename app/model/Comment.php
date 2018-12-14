@@ -15,7 +15,6 @@ class Comment
 	private $creation_date;
 	private $episode_id;
 	private $report;
-	private $edited;
 
 	// GETTER
 	public function getId()
@@ -48,11 +47,6 @@ class Comment
 		return $this->report;
 	}
 
-	public function getEdited()
-	{
-		return $this->edited;
-	}
-
 	// SETTER
 	public function setId($id)
 	{
@@ -82,10 +76,5 @@ class Comment
 	public function setReport($report)
 	{
 		$this->report = $report;
-	}
-
-	public function setEdited($edited)
-	{
-		$this->edited = $edited;
 	}
 }

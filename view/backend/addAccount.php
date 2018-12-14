@@ -6,7 +6,7 @@
 
     <ol class="breadcrumb">
         <li><a href="index.php?page=admin">Panel d'administration</a></li>
-        <li><a href="index.php?page=admin&action=user">Gérez les utilisateurs</a></li>
+        <li><a href="index.php?page=admin&action=account">Gérez les utilisateurs</a></li>
         <li class="active"><?= $this->title ?></li>
     </ol>
 

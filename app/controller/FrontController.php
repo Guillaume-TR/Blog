@@ -7,6 +7,10 @@ use App\app\manager\CommentManager;
 use App\app\manager\AccountManager;
 use App\app\model\View;
 
+/** Front controller
+ * Class BackController
+ * @package App\app\controller
+ */
 class FrontController
 {
 	private $episodeManage;
@@ -44,7 +48,7 @@ class FrontController
 		]);
 	}
 
-	/** Episode page
+	/** Single episode page
 	 * @param $idEpisode
 	 * @param $data
 	 */
@@ -69,7 +73,7 @@ class FrontController
 			}
 		}
 		if (isset($_GET['report'])) {
-			$commentId = (int) $_GET['report'];
+			$commentId = (int)$_GET['report'];
 			$request = $this->commentManage->reportComment($commentId);
 			$message = 'Le commentaire à bien été signalé !';
 			$messageType = 'info';
@@ -85,6 +89,7 @@ class FrontController
 			'messageType' => $messageType
 		]);
 	}
+
 	/** Connection page
 	 * @param $data
 	 */

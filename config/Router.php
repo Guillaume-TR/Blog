@@ -19,7 +19,7 @@ class Router
 		$this->errorController = new ErrorController();
 	}
 
-	/** Set page
+	/** Check "GET" and set page
 	 *
 	 */
 	public function run()
@@ -31,8 +31,8 @@ class Router
 						if (isset($_GET['action'])) {
 							if ($_GET['action'] === 'episode') {
 								$this->backController->episode();
-							} else if ($_GET['action'] === 'user') {
-								$this->backController->user();
+							} else if ($_GET['action'] === 'account') {
+								$this->backController->account();
 							} else if ($_GET['action'] === 'comment') {
 								if (isset($_GET['id'])) {
 									$this->backController->comment($_GET['id']);
@@ -64,7 +64,7 @@ class Router
 							$this->backController->admin();
 						}
 					} else {
-						$this->frontController->home();
+						$this->errorController->notFound();
 					}
 				} else {
 					if ($_GET['page'] === 'home') {

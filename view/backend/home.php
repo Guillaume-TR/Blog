@@ -14,7 +14,7 @@
             <h3><a href="index.php?page=admin&action=episode">Gérez les épisodes</a></h3>
             <blockquote>Gestion des épisodes du livre "Billet simple pour l'Alaska". Ajouter un épisode, modifier un épisode ou supprimer un épisode.
             </blockquote>
-            <h3><a href="index.php?page=admin&action=user">Gérez les utilisateurs</a></h3>
+            <h3><a href="index.php?page=admin&action=account">Gérez les utilisateurs</a></h3>
             <blockquote>Gestion des utilisateurs du site. Ajouter un utilisateur, modifier un utilisateur ou supprimer un utilisateur.
             </blockquote>
             <h3><a href="index.php?page=admin&action=comment">Gérez les commentaires</a></h3>

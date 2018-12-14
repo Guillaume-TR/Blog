@@ -3,13 +3,13 @@
 namespace App\app\manager;
 
 
-/** Manage the comment on the database
+/** Manage comment on the database
  * Class CommentManager
  * @package App\app\manager
  */
 class CommentManager extends DatabaseManager
 {
-	/** Get comments on the database
+	/** Get comments
 	 * @return array
 	 */
 	public function getAllComments()
@@ -21,32 +21,7 @@ class CommentManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	/** Get report comment on the database
-	 * @return array
-	 */
-	public function getReportComments()
-	{
-		$statement = 'SELECT * FROM comments WHERE report = true';
-		$request = $this->getSql($statement, 'App\app\model\Comment');
-		$requestGet = $request->fetchAll();
-
-		return $requestGet;
-	}
-
-	/** Get comment on the database
-	 * @param $idComment
-	 * @return bool|false|\PDOStatement
-	 */
-	public function getComment($idComment)
-	{
-		$statement = 'SELECT * FROM comments WHERE id = ?';
-		$requestGet = $this->getSql($statement, 'App\app\model\Comment', [$idComment]);
-
-		return $requestGet;
-	}
-
-
-	/** Get comments of episode on the database
+	/** Get comments of episode
 	 * @param $idEpisode
 	 * @return bool|false|\PDOStatement
 	 */
@@ -58,7 +33,31 @@ class CommentManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	/** Add comment on the database
+	/** Get comment
+	 * @param $idComment
+	 * @return bool|false|\PDOStatement
+	 */
+	public function getComment($idComment)
+	{
+		$statement = 'SELECT * FROM comments WHERE id = ?';
+		$requestGet = $this->getSql($statement, 'App\app\model\Comment', [$idComment]);
+
+		return $requestGet;
+	}
+
+	/** Get report comments
+	 * @return array
+	 */
+	public function getReportComments()
+	{
+		$statement = 'SELECT * FROM comments WHERE report = true';
+		$request = $this->getSql($statement, 'App\app\model\Comment');
+		$requestGet = $request->fetchAll();
+
+		return $requestGet;
+	}
+
+	/** Add comment
 	 * @param $idEpisode
 	 * @param $data
 	 * @return bool|false|\PDOStatement
@@ -74,7 +73,7 @@ class CommentManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	/** Report comment on the database
+	/** Set comment as reported
 	 * @param $commentId
 	 * @return bool|false|\PDOStatement
 	 */
@@ -86,7 +85,7 @@ class CommentManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	/** Approve comment on the database
+	/** Set comment as approuved
 	 * @param $data
 	 * @param $idComment
 	 * @return bool|false|\PDOStatement
@@ -100,7 +99,7 @@ class CommentManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	/** Delete comment on the database
+	/** Delete comment
 	 * @param $data
 	 * @param $idComment
 	 * @return bool|false|\PDOStatement

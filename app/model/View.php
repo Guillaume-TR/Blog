@@ -4,7 +4,7 @@ namespace App\app\model;
 
 use \App\app\manager\BookManager;
 
-/** Get view page
+/**
  * Class View
  * @package App\app\model
  */
@@ -13,7 +13,7 @@ class View
 	private $file;
 	private $title;
 
-	/** Set the view
+	/** Set view
 	 * @param $view
 	 * @param array $data
 	 * @param bool $backend
@@ -35,7 +35,7 @@ class View
 		echo $view;
 	}
 
-	/** Get the view file
+	/** Get view file
 	 * @param $file
 	 * @param $data
 	 * @return false|string

@@ -43,7 +43,9 @@
                 <li><a href="index.php">Accueil</a></li>
                 <li><a href="index.php?page=episodes">Tous les épisodes</a></li>
 				<?php if (isset($_SESSION['level'])) { ?>
-                    <li><a class="btn" href="index.php?page=admin">Espace admin</a></li>
+                    <?php if ($_SESSION['level'] === '2') { ?>
+                        <li><a class="btn" href="index.php?page=admin">Espace admin</a></li>
+                    <?php } ?>
                     <li><a class="btn" href="index.php?page=disconnect">Se deconnecter</a></li>
 				<?php } else { ?>
                     <li><a class="btn" href="index.php?page=connection">Se connecter</a></li>
@@ -101,7 +103,9 @@
                                 <a href="index.php">Accueil</a> |
                                 <a href="index.php?page=episodes">Tous les épisodes</a> |
 								<?php if (isset($_SESSION['level'])) { ?>
-                                    <b><a href="index.php?page=admin">Espace admin</a></b> |
+                                    <?php if ($_SESSION['level'] === '2') { ?>
+                                        <b><a href="index.php?page=admin">Espace admin</a></b> |
+                                    <?php } ?>
                                     <b><a href="index.php?page=disconnect">Se deconnecter</a></b>
 								<?php } else { ?>
                                     <b><a href="index.php?page=connection">Se connecter</a></b>
@@ -137,6 +141,7 @@
         selector: '.tiny-editor',
         language: 'fr_FR',
         language_url: '../public/assets/js/tinymce/langs/fr_FR.js',
+        min_height: 250,
     });
 </script>
 </body>

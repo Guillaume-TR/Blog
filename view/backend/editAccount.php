@@ -3,19 +3,25 @@
 <header id="head" class="secondary"></header>
 
 <div class="container">
+
     <ol class="breadcrumb">
         <li><a href="index.php?page=admin">Panel d'administration</a></li>
-        <li><a href="index.php?page=admin&action=user">Gérez les utilisateurs</a></li>
+        <li><a href="index.php?page=admin&action=account">Gérez les utilisateurs</a></li>
         <li class="active"><?= $this->title ?></li>
     </ol>
+
     <div class="row">
         <article class="col-md-12 maincontent">
+
             <header class="page-header">
                 <h1 class="page-title"><?= $this->title ?></h1>
             </header>
+
             <div class="panel panel-default">
                 <div class="panel-body">
+
                     <h3 class="thin text-center">Modifier un utilisateur</h3>
+
                     <hr>
 
                     <form method="post" action="">
@@ -35,6 +41,7 @@
                                 <small class="text-muted">Doit être identique au mot de passe.</small>
                             </div>
                         </div>
+
                         <div class="top-margin">
                             <label for="level">Permission</label>
                             <select class="form-control" id="level" name="level">
@@ -43,22 +50,28 @@
                                 <option value="2">Administrateur</option>
                             </select>
                         </div>
+
                         <small class="text-muted">Choisissez les permissions accordées au compte.</small>
 
                         <hr>
 
-						<?php if (isset($message)) {
-							?>
+						<?php if (isset($message)) { ?>
+
                         <div class="alert alert-<?= $messageType ?>" role="alert">
-							<?= $message ?>
-                            </div><?php
-						} ?>
+                            <?= $message ?>
+                        </div>
+
+                        <?php } ?>
+
                         <div>
                             <input type="submit" name="submit" class="btn btn-primary" value="Modifier">
                         </div>
                     </form>
+
                 </div>
             </div>
+
         </article>
     </div>
+
 </div>

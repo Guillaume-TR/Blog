@@ -1,0 +1,79 @@
+/* GENERAL */ /* START */
+
+.h-caption { margin-top: 40px; }
+
+.h-caption h4 { font-size: 20px; }
+
+.mce-notification { display: none; }
+
+.list-admin { margin-bottom: 100px; }
+
+/* GENERAL */ /* END */
+
+/* PAGE "EPISODES" EPISODE LIST */ /* START */
+
+.episode {
+    margin-bottom: 40px;
+    padding: 5px 10px;
+    text-align: left;
+    border-radius: 5px;
+}
+
+.episode .episode-title {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.episode .episode-date {
+    padding-top: 15px;
+    text-align: right;
+    font-size: 13px;
+    font-style: italic;
+    color: #666;
+}
+
+/* PAGE "EPISODES" EPISODE LIST */ /* END */
+
+/* COMMENT GENERAL */ /* START */
+
+.comment-jumbotron {
+    margin-top: 20px;
+    padding: 15px 30px 2px !important;
+}
+
+.comment-jumbotron .comment-author { font-size: 20px; }
+
+.comment-jumbotron .comment-content {
+    margin: 0;
+    padding-left: 10px;
+}
+
+/* COMMENT GENERAL */ /* END */
+
+/* PAGE "COMMENT" */ /* START */
+
+.comment-list { margin-bottom: 100px; }
+
+.comment-list .comment {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+    background-color: #FFF;
+}
+
+.comment-list .comment .h-caption { margin: 0; }
+
+.comment-list .comment .comment-content { padding-bottom: 15px; }
+
+.comment-list .comment .comment-btn,
+.comment-episode-list .jumbotron-comment{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.comment-list .comment .comment-btn .btn { margin: 5px; }
+
+.comment-episode-list .jumbotron-comment .highlight { margin: 0 5px; }
+
+/* PAGE "COMMENT" */ /* END */

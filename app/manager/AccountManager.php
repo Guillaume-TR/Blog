@@ -3,9 +3,13 @@
 namespace App\app\manager;
 
 
+/** Manage account on the database
+ * Class CommentManager
+ * @package App\app\manager
+ */
 class AccountManager extends DatabaseManager
 {
-	/** Get accounts on the database
+	/** Get accounts
 	 * @return array
 	 */
 	public function getAllAccounts()
@@ -17,7 +21,7 @@ class AccountManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	/** Get account on the database
+	/** Get single account
 	 * @param $idAccount
 	 * @return bool|false|\PDOStatement
 	 */
@@ -29,7 +33,7 @@ class AccountManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	/** Check account on the database
+	/** Check account
 	 * @param $username
 	 * @return bool|false|\PDOStatement
 	 */
@@ -41,7 +45,7 @@ class AccountManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	/** Add account on the database
+	/** Add account
 	 * @param $data
 	 * @return bool|false|\PDOStatement
 	 */
@@ -58,7 +62,7 @@ class AccountManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	/** Edit account on the database
+	/** Edit account
 	 * @param $data
 	 * @param $idAccount
 	 * @return bool|false|\PDOStatement
@@ -75,7 +79,7 @@ class AccountManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	/** Delete account on the database
+	/** Delete account
 	 * @param $data
 	 * @param $idAccount
 	 * @return bool|false|\PDOStatement

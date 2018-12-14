@@ -3,48 +3,49 @@
 namespace App\app\manager;
 
 
-/** Manage the Episode on the database
+/** Manage episode on the database
  * Class EpisodeManager
  * @package App\app\manager
  */
 class EpisodeManager extends DatabaseManager
 {
-	/** Get episodes on the database
+	/** Get episodes
 	 * @return array
 	 */
 	public function getEpisodes()
 	{
-		$statement = 'SELECT * FROM episodes ORDER BY publication_date';
+		$statement = 'SELECT id, title, content, DATE_FORMAT(publication_date, \'%d / %m / %Y\')  AS publication_date FROM episodes ORDER BY publication_date';
 		$request = $this->getSql($statement, 'App\app\model\Episode');
 		$requestGet = $request->fetchAll();
 
 		return $requestGet;
 	}
 
-	/** Get episode on the database
+	/** Get episode
 	 * @param $idEpisode
 	 * @return bool|false|\PDOStatement
 	 */
 	public function getEpisode($idEpisode)
 	{
-		$statement = 'SELECT * FROM episodes WHERE id = ?';
+		$statement = 'SELECT id, title, content, DATE_FORMAT(publication_date, \'%d / %m / %Y\')  AS publication_date FROM episodes WHERE id = ?';
 		$requestGet = $this->getSql($statement, 'App\app\model\Episode', [$idEpisode]);
 
 		return $requestGet;
 	}
 
-	/** Get last episode on the database
+	/** Get last episode posted
 	 * @return mixed
 	 */
 	public function getLastEpisode()
 	{
-		$statement = 'SELECT * FROM episodes ORDER BY publication_date DESC LIMIT 1';
+		$statement = 'SELECT id, title, content, DATE_FORMAT(publication_date, \'%d / %m / %Y\')  AS publication_date FROM episodes ORDER BY publication_date DESC LIMIT 1';
 		$request = $this->getSql($statement, 'App\app\model\Episode');
 		$requestGet = $request->fetch();
 
 		return $requestGet;
 	}
-	/** Add episode on the database
+
+	/** Add episode
 	 * @param $data
 	 * @return bool|false|\PDOStatement
 	 */
@@ -59,7 +60,7 @@ class EpisodeManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	/** Edit episode on the database
+	/** Edit episode
 	 * @param $data
 	 * @param $idEpisode
 	 * @return bool|false|\PDOStatement
@@ -75,7 +76,7 @@ class EpisodeManager extends DatabaseManager
 		return $requestGet;
 	}
 
-	/** Delete episode on the database
+	/** Delete episode
 	 * @param $data
 	 * @param $idEpisode
 	 * @return bool|false|\PDOStatement

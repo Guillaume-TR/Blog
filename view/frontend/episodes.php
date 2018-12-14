@@ -1,4 +1,5 @@
-<?php $this->title = 'Toutes les publications'; ?>
+<?php
+$this->title = 'Toutes les publications'; ?>
 
 <header id="head">
     <div class="container">
@@ -31,7 +32,7 @@
 							} ?></p>
                     </div>
                     <div class="episode-date">
-                        Date de publication - <?= $episode->getDate(); ?>.
+                        Publié le <?= $episode->getDate(); ?>
                     </div>
                     <hr>
                     <div class="text-center">

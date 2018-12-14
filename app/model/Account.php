@@ -31,7 +31,7 @@ class Account
 		return $this->password;
 	}
 
-	public function getCreationDate()
+	public function getDate()
 	{
 		return $this->creation_date;
 	}
@@ -57,7 +57,7 @@ class Account
 		$this->password = $password;
 	}
 
-	public function setCreationDate($creation_date)
+	public function setDate($creation_date)
 	{
 		$this->creation_date = $creation_date;
 	}

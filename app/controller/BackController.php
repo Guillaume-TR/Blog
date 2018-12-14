@@ -7,7 +7,7 @@ use App\app\manager\CommentManager;
 use App\app\manager\AccountManager;
 use App\app\model\View;
 
-/** Control the backfront
+/** Admin panel controller
  * Class BackController
  * @package App\app\controller
  */
@@ -26,7 +26,7 @@ class BackController
 		$this->view = new View;
 	}
 
-	/** Admin panel
+	/** Home page
 	 *
 	 */
 	public function admin()
@@ -34,7 +34,7 @@ class BackController
 		$this->view->render('home', [], true);
 	}
 
-	/** Admin panel
+	/** Episode page
 	 *
 	 */
 	public function episode()
@@ -42,35 +42,6 @@ class BackController
 		$requestEpisodes = $this->episodeManage->getEpisodes();
 		$this->view->render('episode', [
 			'episodes' => $requestEpisodes
-		], true);
-	}
-
-	/** Admin panel
-	 *
-	 */
-	public function user()
-	{
-		$requestAccounts = $this->accountManage->getAllAccounts();
-		$this->view->render('user', [
-			'accounts' => $requestAccounts
-		], true);
-	}
-
-	/** Admin panel
-	 * @param null $id
-	 */
-	public function comment($id = null)
-	{
-		$requestComments = null;
-		$requestCommentsReport = $this->commentManage->getReportComments();
-		if (isset($id)) {
-			$requestComments = $this->commentManage->getComments($id);
-		}
-		$requestEpisodes = $this->episodeManage->getEpisodes();
-		$this->view->render('comment', [
-			'episodes' => $requestEpisodes,
-			'comments' => $requestComments,
-			'commentsReport' => $requestCommentsReport
 		], true);
 	}
 
@@ -101,6 +72,85 @@ class BackController
 			'episode' => $data,
 			'message' => $message,
 			'messageType' => $messageType
+		], true);
+	}
+
+	/** Edit episode page
+	 * @param $data
+	 */
+	public function editEpisode($data)
+	{
+		extract($data);
+		$message = null;
+		$messageType = null;
+		$idEpisode = (int)$_GET['id'];
+		if (isset($submit)) {
+			if (isset($title) && strlen($title) > 0) {
+				if (isset($content) && strlen($content) > 0) {
+					$requestGet = $this->episodeManage->editEpisode($data, $idEpisode);
+					$message = 'L\'épisode a été modifié !';
+					$messageType = 'success';
+				} else {
+					$message = 'Le contenu de l\'épisode ne doit pas être vide.';
+					$messageType = 'danger';
+				}
+			} else {
+				$message = 'Veuillez entrer un titre';
+				$messageType = 'danger';
+			}
+		}
+		$request = $this->episodeManage->getEpisode($idEpisode);
+		$requestEpisode = $request->fetch();
+		$this->view->render('editEpisode', [
+			'episodeEdit' => $data,
+			'episode' => $requestEpisode,
+			'message' => $message,
+			'messageType' => $messageType
+		], true);
+	}
+
+	/** Delete episode page
+	 * @param $data
+	 */
+	public function deleteEpisode($data)
+	{
+		extract($data);
+		$message = null;
+		$messageType = null;
+		$idEpisode = (int)$_GET['id'];
+
+		$request = $this->episodeManage->getEpisode($idEpisode);
+		$requestCount = $request->rowCount();
+		if ($requestCount === 1) {
+			$requestEpisode = $request->fetch();
+			if (isset($submit)) {
+				if (isset($title) && $title === $requestEpisode->getTitle()) {
+					$requestGet = $this->episodeManage->deleteEpisode($data, $idEpisode);
+					$message = 'L\'épisode a été supprimé !';
+					$messageType = 'success';
+				} else {
+					$message = 'Le titre n\'est pas le même.';
+					$messageType = 'warning';
+				}
+			}
+			$this->view->render('deleteEpisode', [
+				'episode' => $requestEpisode,
+				'message' => $message,
+				'messageType' => $messageType
+			], true);
+		} else {
+			$this->admin();
+		}
+	}
+
+	/** Account page
+	 *
+	 */
+	public function account()
+	{
+		$requestAccounts = $this->accountManage->getAllAccounts();
+		$this->view->render('account', [
+			'accounts' => $requestAccounts
 		], true);
 	}
 
@@ -149,40 +199,6 @@ class BackController
 		], true);
 	}
 
-	/** Edit episode page
-	 * @param $data
-	 */
-	public function editEpisode($data)
-	{
-		extract($data);
-		$message = null;
-		$messageType = null;
-		$idEpisode = (int)$_GET['id'];
-		if (isset($submit)) {
-			if (isset($title) && strlen($title) > 0) {
-				if (isset($content) && strlen($content) > 0) {
-					$requestGet = $this->episodeManage->editEpisode($data, $idEpisode);
-					$message = 'L\'épisode a été modifié !';
-					$messageType = 'success';
-				} else {
-					$message = 'Le contenu de l\'épisode ne doit pas être vide.';
-					$messageType = 'danger';
-				}
-			} else {
-				$message = 'Veuillez entrer un titre';
-				$messageType = 'danger';
-			}
-		}
-		$request = $this->episodeManage->getEpisode($idEpisode);
-		$requestEpisode = $request->fetch();
-		$this->view->render('editEpisode', [
-			'episodeEdit' => $data,
-			'episode' => $requestEpisode,
-			'message' => $message,
-			'messageType' => $messageType
-		], true);
-	}
-
 	/** Edit account page
 	 * @param $data
 	 */
@@ -219,63 +235,6 @@ class BackController
 		], true);
 	}
 
-	/** Approve comment page
-	 * @param $data
-	 * @param $idComment
-	 */
-	public function approveComment($data, $idComment)
-	{
-		extract($data);
-		$message = null;
-		$messageType = null;
-		if (isset($submit)) {
-			$requestGet = $this->commentManage->approveComment($data, $idComment);
-			$message = 'Le commentaire a été approuvé !';
-			$messageType = 'success';
-		}
-		$request = $this->commentManage->getComment($idComment);
-		$requestComment = $request->fetch();
-		$this->view->render('approveComment', [
-			'comment' => $requestComment,
-			'message' => $message,
-			'messageType' => $messageType
-		], true);
-	}
-
-	/** Delete episode page
-	 * @param $data
-	 */
-	public function deleteEpisode($data)
-	{
-		extract($data);
-		$message = null;
-		$messageType = null;
-		$idEpisode = (int)$_GET['id'];
-
-		$request = $this->episodeManage->getEpisode($idEpisode);
-		$requestCount = $request->rowCount();
-		if ($requestCount === 1) {
-			$requestEpisode = $request->fetch();
-			if (isset($submit)) {
-				if (isset($title) && $title === $requestEpisode->getTitle()) {
-					$requestGet = $this->episodeManage->deleteEpisode($data, $idEpisode);
-					$message = 'L\'épisode a été supprimé !';
-					$messageType = 'success';
-				} else {
-					$message = 'Le titre n\'est pas le même.';
-					$messageType = 'warning';
-				}
-			}
-			$this->view->render('deleteEpisode', [
-				'episode' => $requestEpisode,
-				'message' => $message,
-				'messageType' => $messageType
-			], true);
-		} else {
-			$this->admin();
-		}
-	}
-
 	/** Delete account page
 	 * @param $data
 	 */
@@ -308,6 +267,47 @@ class BackController
 		} else {
 			$this->admin();
 		}
+	}
+
+	/** Comment page
+	 * @param $id
+	 */
+	public function comment($id = null)
+	{
+		$requestComments = null;
+		$requestCommentsReport = $this->commentManage->getReportComments();
+		if (isset($id)) {
+			$requestComments = $this->commentManage->getComments($id);
+		}
+		$requestEpisodes = $this->episodeManage->getEpisodes();
+		$this->view->render('comment', [
+			'episodes' => $requestEpisodes,
+			'comments' => $requestComments,
+			'commentsReport' => $requestCommentsReport
+		], true);
+	}
+
+	/** Approve comment page
+	 * @param $data
+	 * @param $idComment
+	 */
+	public function approveComment($data, $idComment)
+	{
+		extract($data);
+		$message = null;
+		$messageType = null;
+		if (isset($submit)) {
+			$requestGet = $this->commentManage->approveComment($data, $idComment);
+			$message = 'Le commentaire a été approuvé !';
+			$messageType = 'success';
+		}
+		$request = $this->commentManage->getComment($idComment);
+		$requestComment = $request->fetch();
+		$this->view->render('approveComment', [
+			'comment' => $requestComment,
+			'message' => $message,
+			'messageType' => $messageType
+		], true);
 	}
 
 	/** Delete comment page
