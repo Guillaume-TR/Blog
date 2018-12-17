@@ -45,7 +45,7 @@
 
                 <?php } ?>
 
-                <input type="submit" name="submit" class="btn btn-success" value="Modifier">
+                <input type="submit" name="submit" class="btn btn-warning" value="Modifier">
             </form>
 
         </article>

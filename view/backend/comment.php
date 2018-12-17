@@ -20,15 +20,15 @@
                 <div class="jumbotron top-space comment-list">
                     <div class="container">
 
-                        <h3 class="text-center thin">
+                        <h2 class="text-center thin">
                             <a href="index.php?page=admin&action=comment">Revenir en arrière</a>
-                        </h3>
+                        </h2>
 
 						<?php foreach ($comments as $comment): ?>
                             <div class="highlight comment">
                                 <div class="comment-content">
                                     <div class="h-caption">
-                                        <h4 class="text-left"><?= $comment->getAuthor(); ?></h4>
+                                        <h3 class="text-left"><?= $comment->getAuthor(); ?></h3>
                                     </div>
                                     <div class="h-body">
 										<?= $comment->getContent(); ?>
@@ -48,13 +48,13 @@
                 <div class="jumbotron top-space comment-episode-list">
                     <div class="container">
 
-                        <h3 class="text-center thin">Commentaires par épisode</h3>
+                        <h2 class="text-center thin">Commentaires par épisode</h2>
 
                         <div class="jumbotron-comment">
 
 							<?php foreach ($episodes as $episode): ?>
                                 <div class="highlight">
-                                    <div class="h-caption"><h4><?= $episode->getTitle(); ?></h4></div>
+                                    <div class="h-caption"><h3><?= $episode->getTitle(); ?></h3></div>
                                     <div class="h-body text-center">
                                         <p><a href="index.php?page=admin&action=comment&id=<?= $episode->getId(); ?>"
                                               class="btn btn-action">Gérer les commentaires</a></p>
@@ -69,7 +69,7 @@
                 <div class="jumbotron top-space comment-list">
                     <div class="container">
 
-                        <h3 class="text-center thin">Commentaires signalés</h3>
+                        <h2 class="text-center thin">Commentaires signalés</h2>
 
                         <div class="jumbotron-comment-admin">
 							<?php if (count($commentsReport) > 0) { ?>
@@ -78,7 +78,7 @@
                                     <div class="highlight comment">
                                         <div class="comment-content">
                                             <div class="h-caption">
-                                                <h4 class="text-left"><?= htmlspecialchars($commentReport->getAuthor()); ?></h4>
+                                                <h3 class="text-left"><?= htmlspecialchars($commentReport->getAuthor()); ?></h3>
                                             </div>
                                             <div class="h-body">
 												<?= htmlspecialchars($commentReport->getContent()); ?>

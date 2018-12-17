@@ -21,7 +21,7 @@
 			<?php foreach ($episodes as $episode): ?>
                 <div class="jumbotron top-space episode-manage">
 
-                    <h3><?= $episode->getTitle(); ?></h3>
+                    <h2><?= $episode->getTitle(); ?></h2>
 
                     <div class="episode-content"><?= substr($episode->getContent(), 0, 200) . '...'; ?></div>
 

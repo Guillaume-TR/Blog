@@ -21,7 +21,7 @@
 			<?php foreach ($accounts as $account): ?>
 				<div class="jumbotron top-space text-center">
 
-					<h3><?= $account->getUser(); ?></h3>
+					<h2><?= $account->getUser(); ?></h2>
 
 					<hr>
 

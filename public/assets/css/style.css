@@ -1,12 +1,28 @@
 /* GENERAL */ /* START */
 
+a { color: #175a93; }
+
+label { color: #575757; }
+
 .h-caption { margin-top: 40px; }
 
-.h-caption h4 { font-size: 20px; }
+.h-caption h3 {
+    font-size: 25px;
+    font-weight: bold;
+    color: #382526;
+    margin-bottom: 20px;
+}
 
 .mce-notification { display: none; }
 
 .list-admin { margin-bottom: 100px; }
+
+blockquote, .text-muted,.breadcrumb .active { color: #575757; }
+
+.widget-body { color: #a6a6a6;}
+
+.jumbotron .btn-action, .btn-primary,
+.episode .btn-action, .btn-primary { color: #252525; }
 
 /* GENERAL */ /* END */
 

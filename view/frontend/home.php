@@ -29,7 +29,7 @@
 
         <div class="row">
             <div class="col-md-offset-2 col-md-8">
-                <div class="h-caption"><h4><?= $lastEpisode->getTitle(); ?></h4></div>
+                <div class="h-caption"><h3><?= $lastEpisode->getTitle(); ?></h3></div>
                 <div class="h-body">
                     <p><?php if (strlen($lastEpisode->getContent()) > 310) {
 							echo substr($lastEpisode->getContent(), 0, 300) . '...';

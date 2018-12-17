@@ -36,7 +36,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="index.php">Jean Forteroche</a>
+            <span class="navbar-brand">Jean Forteroche</span>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">

@@ -64,7 +64,7 @@
                         <?php } ?>
 
                         <div>
-                            <input type="submit" name="submit" class="btn btn-primary" value="Modifier">
+                            <input type="submit" name="submit" class="btn btn-warning" value="Modifier">
                         </div>
                     </form>
 

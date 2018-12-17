@@ -65,7 +65,7 @@
                                 </div><?php
 							} ?>
                             <div>
-                                <input type="submit" name="submit" class="btn btn-primary" value="Enregistrer">
+                                <input type="submit" name="submit" class="btn btn-success" value="Enregistrer">
                             </div>
                     </form>
                 </div>
