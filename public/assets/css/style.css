@@ -24,6 +24,8 @@ blockquote, .text-muted,.breadcrumb .active { color: #575757; }
 .jumbotron .btn-action, .btn-primary,
 .episode .btn-action, .btn-primary { color: #252525; }
 
+.maincontent { margin-bottom: 40px; }
+
 /* GENERAL */ /* END */
 
 /* PAGE "EPISODES" EPISODE LIST */ /* START */

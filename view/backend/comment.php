@@ -31,7 +31,7 @@
                                         <h3 class="text-left"><?= $comment->getAuthor(); ?></h3>
                                     </div>
                                     <div class="h-body">
-										<?= $comment->getContent(); ?>
+										<?= htmlspecialchars($comment->getContent()); ?>
                                     </div>
                                 </div>
                                 <div class="comment-btn">

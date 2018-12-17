@@ -24,12 +24,12 @@
 			<?php } ?>
 
             <div class="alert alert-info" role="alert">
-                <strong>Auteur : </strong><?= $comment->getAuthor() ?>
+                <strong>Auteur : </strong><?= htmlspecialchars($comment->getAuthor()) ?>
             </div>
 
             <div class="alert alert-info" role="alert">
                 <p><strong>Contenu du commentaire</strong></p>
-                <p><?= $comment->getcontent() ?></p>
+                <p><?= htmlspecialchars($comment->getcontent()) ?></p>
             </div>
 
             <form method="post" action="#">

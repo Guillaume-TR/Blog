@@ -11,7 +11,7 @@
     </ol>
 
     <div class="row">
-        <article class="col-md-12 maincontent episodes-admin">
+        <article class="col-md-12 maincontent">
 
             <header class="page-header">
                 <h1 class="page-title"><?= $this->title ?></h1>

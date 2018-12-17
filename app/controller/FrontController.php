@@ -57,37 +57,44 @@ class FrontController
 		extract($data);
 		$message = null;
 		$messageType = null;
-		if (isset($submit)) {
-			if (isset($author) && strlen($author) > 0) {
-				if (isset($content) && strlen($content) > 0) {
-					$request = $this->commentManage->addComment($idEpisode, $_POST);
-					$message = 'Le commentaire à bien été ajouté !';
-					$messageType = 'success';
+		$requestEpisode = $this->episodeManage->getEpisode($idEpisode);
+		$requestCount = $requestEpisode->rowCount();
+		if ($requestCount === 1) {
+			$requestEpisode = $requestEpisode->fetch();
+			if (isset($submit)) {
+				if (isset($author) && strlen($author) > 0) {
+					if (isset($content) && strlen($content) > 0) {
+						$request = $this->commentManage->addComment($idEpisode, $_POST);
+						$message = 'Le commentaire à bien été ajouté !';
+						$messageType = 'success';
+					} else {
+						$message = 'Le contenu de votre message est vide.';
+						$messageType = 'danger';
+					}
 				} else {
-					$message = 'Le contenu de votre message est vide.';
+					$message = 'Indiquez votre prénom.';
 					$messageType = 'danger';
 				}
-			} else {
-				$message = 'Indiquez votre prénom.';
-				$messageType = 'danger';
 			}
+			if (isset($_GET['report'])) {
+				$commentId = (int)$_GET['report'];
+				$request = $this->commentManage->reportComment($commentId);
+				$message = 'Le commentaire à bien été signalé !';
+				$messageType = 'info';
+			}
+			$requestComments = $this->commentManage->getComments($idEpisode);
+			$requestComments = $requestComments->fetchAll();
+			$this->view->render('episode', [
+				'episode' => $requestEpisode,
+				'comments' => $requestComments,
+				'message' => $message,
+				'messageType' => $messageType
+			]);
+		} else {
+			$this->view->render('episode', [
+				'notfound' => true
+			]);
 		}
-		if (isset($_GET['report'])) {
-			$commentId = (int)$_GET['report'];
-			$request = $this->commentManage->reportComment($commentId);
-			$message = 'Le commentaire à bien été signalé !';
-			$messageType = 'info';
-		}
-		$requestEpisode = $this->episodeManage->getEpisode($idEpisode);
-		$requestEpisode = $requestEpisode->fetch();
-		$requestComments = $this->commentManage->getComments($idEpisode);
-		$requestComments = $requestComments->fetchAll();
-		$this->view->render('episode', [
-			'episode' => $requestEpisode,
-			'comments' => $requestComments,
-			'message' => $message,
-			'messageType' => $messageType
-		]);
 	}
 
 	/** Connection page

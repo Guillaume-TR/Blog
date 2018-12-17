@@ -1,3 +1,7 @@
+<?php if (isset($notfound)) { ?>
+<script>window.location = "index.php?page=notFound"</script>
+<?php } ?>
+
 <?php $this->title = $episode->getTitle(); ?>
 
 <header id="head">
@@ -29,7 +33,7 @@
             <div>
                 <h3 class="page-title">Ajouter un commentaire</h3>
                 <hr>
-                <form method="post" action="#article">
+                <form method="post" action="#">
                     <div class="form-group">
                         <label for="author">Auteur</label>
                         <input type="text" class="form-control" id="author" name="author"<?php
