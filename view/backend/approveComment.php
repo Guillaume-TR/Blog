@@ -32,7 +32,7 @@
                 <p><?= $comment->getcontent() ?></p>
             </div>
 
-            <form method="post" action="">
+            <form method="post" action="#">
                 <input class="btn btn-success" type="submit" name="submit" value="Approuver">
             </form>
 

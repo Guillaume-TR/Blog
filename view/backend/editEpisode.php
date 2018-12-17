@@ -17,7 +17,7 @@
                 <h1 class="page-title"><?= $this->title ?></h1>
             </header>
 
-            <form method="post" action="">
+            <form method="post" action="#">
                 <div class="form-group">
                     <label for="title">Titre</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="Titre de l'épisode"<?php

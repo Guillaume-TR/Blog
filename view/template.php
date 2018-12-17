@@ -116,8 +116,7 @@
                     <div class="col-md-6 widget">
                         <div class="widget-body">
                             <p class="text-right">
-                                Copyright &#169; 2018, Jean Forteroche. Design de <a href="http://gettemplate.com/"
-                                                                                     rel="designer">gettemplate</a>
+                                Copyright &#169; 2018, Jean Forteroche. Design de <a href="http://gettemplate.com/">gettemplate</a>
                             </p>
                         </div>
                     </div>

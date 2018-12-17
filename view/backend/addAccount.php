@@ -24,7 +24,7 @@
 
                     <hr>
 
-                    <form method="post" action="">
+                    <form method="post" action="#">
                         <div class="top-margin">
                             <label for="username">Nom d'utilisateur</label>
                             <input type="text" class="form-control" id="username" name="username"<?php

@@ -18,7 +18,7 @@
                         <div class="panel-body">
                             <h3 class="thin text-center">Connectez-vous à votre compte</h3>
                             <hr>
-                            <form method="post" action="">
+                            <form method="post" action="#">
                                 <div class="top-margin">
                                     <label for="username">Nom d'utilisateur</label>
                                     <input type="text" class="form-control" id="username" name="username"
@@ -38,8 +38,7 @@
 								<?php } ?>
                                 <div class="row">
                                     <div class="col-lg-offset-3 col-lg-6 text-center">
-                                        <input type="submit" name="submit" class="btn btn-action" role="button"
-                                               value="Se connecter">
+                                        <input type="submit" name="submit" class="btn btn-action" value="Se connecter">
                                     </div>
                                 </div>
                             </form>

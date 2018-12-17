@@ -40,7 +40,7 @@
 						<?= $message ?>
                     </div>
 
-                    <form method="post" action="">
+                    <form method="post" action="#">
                         <div class="form-group">
                             <input class="form-control" type="text" name="title">
                         </div>
@@ -51,7 +51,7 @@
 
                     <div class="alert alert-info" role="alert">
                         <p><strong>Contenu de l'épisode :</strong></p>
-                        <p><?= $episode->getcontent() ?></p>
+                        <div><?= $episode->getcontent() ?></div>
                     </div>
 
 				<?php }
@@ -61,7 +61,7 @@
                     <strong>Nom de l'épisode : </strong><?= $episode->getTitle() ?>
                 </div>
 
-                <form method="post" action="">
+                <form method="post" action="#">
                     <div class="form-group">
                         <input class="form-control" type="text" name="title">
                     </div>
@@ -71,8 +71,8 @@
                 <hr>
 
                 <div class="alert alert-info" role="alert">
-                    <p"><strong>Contenu de l'épisode :</strong></p>
-                    <p><?= $episode->getcontent() ?></p>
+                    <p><strong>Contenu de l'épisode :</strong></p>
+                    <div><?= $episode->getcontent() ?></div>
                 </div>
 
 			<?php } ?>

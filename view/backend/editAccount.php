@@ -24,7 +24,7 @@
 
                     <hr>
 
-                    <form method="post" action="">
+                    <form method="post" action="#">
                         <div class="alert alert-info" role="alert">
                             <strong>Nom d'utilisateur : </strong><?= $account->getUser() ?>
                         </div>

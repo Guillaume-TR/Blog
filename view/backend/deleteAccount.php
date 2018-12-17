@@ -38,7 +38,7 @@
 						<?= $message ?>
                     </div>
 
-                    <form method="post" action="">
+                    <form method="post" action="#">
                         <div class="form-group">
                             <input class="form-control" type="text" name="username">
                         </div>
@@ -54,7 +54,7 @@
                     <strong>Nom de l'utilisateur : </strong><?= $account->getUser() ?>
                 </div>
 
-                <form method="post" action="">
+                <form method="post" action="#">
                     <div class="form-group">
                         <input class="form-control" type="text" name="username">
                     </div>

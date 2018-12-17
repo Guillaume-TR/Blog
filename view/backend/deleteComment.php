@@ -38,7 +38,7 @@
 						<?= $message ?>
                     </div>
 
-                    <form method="post" action="">
+                    <form method="post" action="#">
                         <div class="form-group">
                             <input class="form-control" type="text" name="id">
                         </div>
@@ -59,7 +59,7 @@
                     <strong>Identifiant : </strong><?= $comment->getId() ?>
                 </div>
 
-                <form method="post" action="">
+                <form method="post" action="#">
                     <div class="form-group">
                         <input class="form-control" type="text" name="id">
                     </div>

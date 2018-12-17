@@ -19,11 +19,11 @@
             <a href="index.php?page=admin&action=addEpisode" class="btn btn-success">Ajouter un épisode</a>
 
 			<?php foreach ($episodes as $episode): ?>
-                <div class="jumbotron top-space">
+                <div class="jumbotron top-space episode-manage">
 
                     <h3><?= $episode->getTitle(); ?></h3>
 
-                    <h4><?= substr($episode->getContent(), 0, 200) . '...'; ?></h4>
+                    <div class="episode-content"><?= substr($episode->getContent(), 0, 200) . '...'; ?></div>
 
                     <p class="text-right">
                         <a href="index.php?page=admin&action=editEpisode&id=<?= $episode->getId(); ?>"
