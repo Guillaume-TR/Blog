@@ -10,7 +10,7 @@ namespace App\app\model;
 class Comment
 {
 	private $id;
-	private $author;
+	private $pseudo;
 	private $content;
 	private $creation_date;
 	private $episode_id;
@@ -22,9 +22,9 @@ class Comment
 		return $this->id;
 	}
 
-	public function getAuthor()
+	public function getPseudo()
 	{
-		return $this->author;
+		return $this->pseudo;
 	}
 
 	public function getContent()
@@ -53,9 +53,9 @@ class Comment
 		$this->id = $id;
 	}
 
-	public function setAuthor($author)
+	public function setPseudo($pseudo)
 	{
-		$this->author = $author;
+		$this->pseudo = $pseudo;
 	}
 
 	public function setContent($content)

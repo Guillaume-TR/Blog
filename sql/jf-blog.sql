@@ -56,7 +56,7 @@ DROP TABLE IF EXISTS `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` longtext NOT NULL,
-  `author` varchar(255) NOT NULL,
+  `pseudo` varchar(255) NOT NULL,
   `episode_id` int(11) NOT NULL,
   `creation_date` date NOT NULL,
   `report` tinyint(1) NOT NULL DEFAULT '0',
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
 -- Déchargement des données de la table `comments`
 --
 
-INSERT INTO `comments` (`id`, `content`, `author`, `episode_id`, `creation_date`, `report`) VALUES
+INSERT INTO `comments` (`id`, `content`, pseudo, `episode_id`, `creation_date`, `report`) VALUES
 (4, 'Ange, le site est en construction ...', 'Manon', 2, '2018-11-27', 0),
 (2, 'Pas mal, mais ça manque de contenu, non ?', 'Guillaume', 3, '2018-11-27', 0),
 (5, 'Ouai, mais ne t\'inquiète pas, ça arrive.', 'Julien', 3, '2018-11-27', 0),

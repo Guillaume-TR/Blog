@@ -17,7 +17,9 @@ label { color: #575757; }
 
 .list-admin { margin-bottom: 100px; }
 
-blockquote, .text-muted,.breadcrumb .active { color: #575757; }
+blockquote,
+.text-muted,
+.breadcrumb .active { color: #575757; }
 
 .widget-body { color: #a6a6a6;}
 

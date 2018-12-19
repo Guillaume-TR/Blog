@@ -65,10 +65,8 @@ class CommentManager extends DatabaseManager
 	public function addComment($idEpisode, $data)
 	{
 		extract($data);
-		/** @var string $content */
-		/** @var string $author */
-		$statement = 'INSERT INTO comments(content, author, episode_id, creation_date) VALUES(?, ?, ?, NOW())';
-		$requestGet = $this->getSql($statement, 'App\app\model\Comment', [$content, $author, $idEpisode]);
+		$statement = 'INSERT INTO comments(content, pseudo, episode_id, creation_date) VALUES(?, ?, ?, NOW())';
+		$requestGet = $this->getSql($statement, 'App\app\model\Comment', [$content, $pseudo, $idEpisode]);
 
 		return $requestGet;
 	}

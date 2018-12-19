@@ -28,7 +28,7 @@
                             <div class="highlight comment">
                                 <div class="comment-content">
                                     <div class="h-caption">
-                                        <h3 class="text-left"><?= $comment->getAuthor(); ?></h3>
+                                        <h3 class="text-left"><?= htmlspecialchars($comment->getPseudo()); ?></h3>
                                     </div>
                                     <div class="h-body">
 										<?= htmlspecialchars($comment->getContent()); ?>
@@ -78,7 +78,7 @@
                                     <div class="highlight comment">
                                         <div class="comment-content">
                                             <div class="h-caption">
-                                                <h3 class="text-left"><?= htmlspecialchars($commentReport->getAuthor()); ?></h3>
+                                                <h3 class="text-left"><?= htmlspecialchars($commentReport->getPseudo()); ?></h3>
                                             </div>
                                             <div class="h-body">
 												<?= htmlspecialchars($commentReport->getContent()); ?>

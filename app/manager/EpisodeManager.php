@@ -14,7 +14,7 @@ class EpisodeManager extends DatabaseManager
 	 */
 	public function getEpisodes()
 	{
-		$statement = 'SELECT id, title, content, DATE_FORMAT(publication_date, \'%d / %m / %Y\')  AS publication_date FROM episodes ORDER BY publication_date';
+		$statement = 'SELECT id, title, content, DATE_FORMAT(publication_date, \'%d / %m / %Y\')  AS publication_date FROM episodes ORDER BY publication_date DESC';
 		$request = $this->getSql($statement, 'App\app\model\Episode');
 		$requestGet = $request->fetchAll();
 

@@ -62,7 +62,7 @@ class FrontController
 		if ($requestCount === 1) {
 			$requestEpisode = $requestEpisode->fetch();
 			if (isset($submit)) {
-				if (isset($author) && strlen($author) > 0) {
+				if (isset($pseudo) && strlen($pseudo) > 0) {
 					if (isset($content) && strlen($content) > 0) {
 						$request = $this->commentManage->addComment($idEpisode, $_POST);
 						$message = 'Le commentaire à bien été ajouté !';
