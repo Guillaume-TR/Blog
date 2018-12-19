@@ -72,7 +72,7 @@ blockquote,
     padding: 15px 30px 2px !important;
 }
 
-.comment-jumbotron .comment-author { font-size: 20px; }
+.comment-jumbotron .comment-pseudo { font-size: 20px; }
 
 .comment-jumbotron .comment-content {
     margin: 0;

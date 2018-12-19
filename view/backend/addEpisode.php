@@ -17,7 +17,7 @@
                 <h1 class="page-title"><?= $this->title ?></h1>
             </header>
 
-            <form method="post" action="#">
+            <form method="post" action="index.php?page=admin&action=addEpisode">
                 <div class="form-group">
                     <label for="title">Titre</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="Titre de l'épisode"<?php
@@ -31,11 +31,14 @@
 							echo $_POST['content'];
 						} ?></textarea>
                 </div>
-				<?php if (isset($message)) {
-					?><div class="alert alert-<?= $messageType ?>" role="alert">
-					<?= $message ?>
-                    </div><?php
-				} ?>
+				<?php if (isset($_SESSION['message'])) { ?>
+                    <div class="alert alert-<?= $_SESSION['messageType'] ?>" role="alert">
+						<?php
+						echo $_SESSION['message'];
+						unset($_SESSION['message'], $_SESSION['messageType']);
+						?>
+                    </div>
+				<?php } ?>
                 <input type="submit" name="submit" class="btn btn-success" value="Ajouter l'épisode">
             </form>
 

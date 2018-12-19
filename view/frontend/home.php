@@ -34,7 +34,7 @@
                     <p><?php if (strlen($lastEpisode->getContent()) > 310) {
 							echo substr($lastEpisode->getContent(), 0, 300) . '...';
 						} else {
-							echo $LastEpisode->getContent();
+							echo $lastEpisode->getContent();
 						} ?></p>
                     <p class="text-center"><a class="btn btn-action btn-lg" role="button" href="index.php?page=episode&id=<?= $lastEpisode->getId(); ?>">Lire l'épisode</a></p>
                 </div>

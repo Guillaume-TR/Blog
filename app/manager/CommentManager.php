@@ -110,4 +110,19 @@ class CommentManager extends DatabaseManager
 
 		return $requestGet;
 	}
+
+
+	/** Delete comments of episode
+	 * @param $data
+	 * @param $idEpisode
+	 * @return bool|false|\PDOStatement
+	 */
+	public function deleteComments($data, $idEpisode)
+	{
+		extract($data);
+		$statement = 'DELETE FROM comments WHERE episode_id = ?';
+		$requestGet = $this->getSql($statement, 'App\app\model\Comment', [$idEpisode]);
+
+		return $requestGet;
+	}
 }

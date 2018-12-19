@@ -24,7 +24,7 @@
 
                     <hr>
 
-                    <form method="post" action="#">
+                    <form method="post" action="index.php?page=admin&action=editAccount&id=<?= $account->getId() ?>">
                         <div class="alert alert-info" role="alert">
                             <strong>Nom d'utilisateur : </strong><?= $account->getUser() ?>
                         </div>
@@ -55,13 +55,16 @@
 
                         <hr>
 
-						<?php if (isset($message)) { ?>
+						<?php if (isset($_SESSION['message'])) { ?>
 
-                        <div class="alert alert-<?= $messageType ?>" role="alert">
-                            <?= $message ?>
-                        </div>
+                            <div class="alert alert-<?= $_SESSION['messageType'] ?>" role="alert">
+								<?php
+								echo $_SESSION['message'];
+								unset($_SESSION['message'], $_SESSION['messageType']);
+								?>
+                            </div>
 
-                        <?php } ?>
+						<?php } ?>
 
                         <div>
                             <input type="submit" name="submit" class="btn btn-warning" value="Modifier">

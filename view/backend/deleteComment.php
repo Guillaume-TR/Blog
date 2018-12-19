@@ -22,11 +22,14 @@
                     Veuillez noter l'identifiant du commentaire pour confirmer la suppression.</p>
             </div>
 
-			<?php if (isset($message)) {
+			<?php if (isset($_SESSION['message'])) {
 
-				if ($messageType === 'success') { ?>
+				if ($_SESSION['messageType'] === 'success') { ?>
                     <div class="alert alert-success" role="alert">
-						<?= $message ?>
+						<?php
+						echo $_SESSION['message'];
+						unset($_SESSION['message'], $_SESSION['messageType']);
+						?>
                     </div>
 				<?php } else { ?>
 
@@ -34,11 +37,14 @@
                         <strong>Identifiant : </strong><?= $comment->getId() ?>
                     </div>
 
-                    <div class="alert alert-<?= $messageType ?>" role="alert">
-						<?= $message ?>
+                    <div class="alert alert-<?= $_SESSION['messageType'] ?>" role="alert">
+						<?php
+						echo $_SESSION['message'];
+						unset($_SESSION['message'], $_SESSION['messageType']);
+						?>
                     </div>
 
-                    <form method="post" action="#">
+                    <form method="post" action="index.php?page=admin&action=deletecomment&id=<?= $comment->getId() ?>">
                         <div class="form-group">
                             <input class="form-control" type="text" name="id">
                         </div>
@@ -59,7 +65,7 @@
                     <strong>Identifiant : </strong><?= $comment->getId() ?>
                 </div>
 
-                <form method="post" action="#">
+                <form method="post" action="index.php?page=admin&action=deleteComment&id=<?= $comment->getId() ?>">
                     <div class="form-group">
                         <input class="form-control" type="text" name="id">
                     </div>

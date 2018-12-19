@@ -22,23 +22,31 @@
                     Veuillez noter le nom d'utilisateur pour confirmer la suppression.</p>
             </div>
 
-			<?php if (isset($message)) {
+			<?php if (isset($_SESSION['message'])) {
 
-				if ($messageType === 'success') { ?>
+				if ($_SESSION['messageType'] === 'success') { ?>
+
                     <div class="alert alert-success" role="alert">
-						<?= $message ?>
+						<?php
+						echo $_SESSION['message'];
+						unset($_SESSION['message'], $_SESSION['messageType']);
+						?>
                     </div>
+
 				<?php } else { ?>
 
                     <div class="alert alert-info" role="alert">
                         <strong>Nom de l'utilisateur : </strong><?= $account->getUser() ?>
                     </div>
 
-                    <div class="alert alert-<?= $messageType ?>" role="alert">
-						<?= $message ?>
+                    <div class="alert alert-<?= $_SESSION['messageType'] ?>" role="alert">
+						<?php
+						echo $_SESSION['message'];
+						unset($_SESSION['message'], $_SESSION['messageType']);
+						?>
                     </div>
 
-                    <form method="post" action="#">
+                    <form method="post" action="index.php?page=admin&action=deleteAccount&id=<?= $account->getId() ?>">
                         <div class="form-group">
                             <input class="form-control" type="text" name="username">
                         </div>
@@ -54,7 +62,7 @@
                     <strong>Nom de l'utilisateur : </strong><?= $account->getUser() ?>
                 </div>
 
-                <form method="post" action="#">
+                <form method="post" action="index.php?page=admin&action=deleteAccount&id=<?= $account->getId() ?>">
                     <div class="form-group">
                         <input class="form-control" type="text" name="username">
                     </div>

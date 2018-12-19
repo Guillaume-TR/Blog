@@ -55,8 +55,6 @@ class FrontController
 	public function episode($idEpisode, $data)
 	{
 		extract($data);
-		$message = null;
-		$messageType = null;
 		$requestEpisode = $this->episodeManage->getEpisode($idEpisode);
 		$requestCount = $requestEpisode->rowCount();
 		if ($requestCount === 1) {
@@ -65,30 +63,28 @@ class FrontController
 				if (isset($pseudo) && strlen($pseudo) > 0) {
 					if (isset($content) && strlen($content) > 0) {
 						$request = $this->commentManage->addComment($idEpisode, $_POST);
-						$message = 'Le commentaire à bien été ajouté !';
-						$messageType = 'success';
+						$_SESSION['message'] = 'Le commentaire à bien été ajouté !';
+						$_SESSION['messageType'] = 'success';
 					} else {
-						$message = 'Le contenu de votre message est vide.';
-						$messageType = 'danger';
+						$_SESSION['message'] = 'Le contenu de votre message est vide.';
+						$_SESSION['messageType'] = 'danger';
 					}
 				} else {
-					$message = 'Indiquez votre prénom.';
-					$messageType = 'danger';
+					$_SESSION['message'] = 'Indiquez votre prénom.';
+					$_SESSION['messageType'] = 'danger';
 				}
 			}
-			if (isset($_GET['report'])) {
-				$commentId = (int)$_GET['report'];
+			if (isset($reportComment)) {
+				$commentId = (int) $reportComment;
 				$request = $this->commentManage->reportComment($commentId);
-				$message = 'Le commentaire à bien été signalé !';
-				$messageType = 'info';
+				$_SESSION['message'] = 'Le commentaire à bien été signalé !';
+				$_SESSION['messageType'] = 'info';
 			}
 			$requestComments = $this->commentManage->getComments($idEpisode);
 			$requestComments = $requestComments->fetchAll();
 			$this->view->render('episode', [
 				'episode' => $requestEpisode,
-				'comments' => $requestComments,
-				'message' => $message,
-				'messageType' => $messageType
+				'comments' => $requestComments
 			]);
 		} else {
 			$this->view->render('episode', [
@@ -103,8 +99,6 @@ class FrontController
 	public function connection($data)
 	{
 		extract($data);
-		$message = null;
-		$messageType = null;
 		$requestConnection = null;
 
 		if (isset($submit)) {
@@ -123,18 +117,16 @@ class FrontController
 					$_SESSION['level'] = $requestConnection->getLevel();
 
 				} else {
-					$message = 'Nom d\'utilisateur ou mot de passe incorrect';
-					$messageType = 'danger';
+					$_SESSION['message'] = 'Nom d\'utilisateur ou mot de passe incorrect';
+					$_SESSION['messageType'] = 'danger';
 				}
 			} else {
-				$message = 'Nom d\'utilisateur ou mot de passe incorrect';
-				$messageType = 'danger';
+				$_SESSION['message'] = 'Nom d\'utilisateur ou mot de passe incorrect';
+				$_SESSION['messageType'] = 'danger';
 			}
 		}
 		$this->view->render('connection', [
-			'connection' => $requestConnection,
-			'message' => $message,
-			'messageType' => $messageType
+			'connection' => $requestConnection
 		]);
 	}
 

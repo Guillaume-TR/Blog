@@ -24,13 +24,10 @@
 
                     <hr>
 
-                    <form method="post" action="#">
+                    <form method="post" action="index.php?page=admin&action=addAccount">
                         <div class="top-margin">
                             <label for="username">Nom d'utilisateur</label>
-                            <input type="text" class="form-control" id="username" name="username"<?php
-							if (isset($_POST['username'])) {
-								echo ' value="' . $_POST['username'] . '"';
-							} ?>>
+                            <input type="text" class="form-control" id="username" name="username">
                             <small class="text-muted">Le nom d'utilisateur doit comporter au moins 5 caractères.</small>
                         </div>
 
@@ -58,12 +55,14 @@
 
                         <hr>
 
-							<?php if (isset($message)) {
+						<?php if (isset($_SESSION['message'])) { ?>
+                            <div class="alert alert-<?= $_SESSION['messageType'] ?>" role="alert">
+								<?php
+								echo $_SESSION['message'];
+								unset($_SESSION['message'], $_SESSION['messageType']);
 								?>
-                            <div class="alert alert-<?= $messageType ?>" role="alert">
-								<?= $message ?>
-                                </div><?php
-							} ?>
+                            </div>
+						<?php } ?>
                             <div>
                                 <input type="submit" name="submit" class="btn btn-success" value="Enregistrer">
                             </div>

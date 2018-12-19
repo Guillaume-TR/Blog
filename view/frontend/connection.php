@@ -18,7 +18,7 @@
                         <div class="panel-body">
                             <h2 class="thin text-center">Connectez-vous à votre compte</h2>
                             <hr>
-                            <form method="post" action="#">
+                            <form method="post" action="index.php?page=connection">
                                 <div class="top-margin">
                                     <label for="username">Nom d'utilisateur</label>
                                     <input type="text" class="form-control" id="username" name="username"
@@ -31,11 +31,16 @@
                                 </div>
 
                                 <hr>
-								<?php if (isset($message)) { ?>
-                                    <div class="alert alert-<?= $messageType ?>" role="alert">
-										<?= $message ?>
+
+								<?php if (isset($_SESSION['message'])) { ?>
+                                    <div class="alert alert-<?= $_SESSION['messageType'] ?>" role="alert">
+										<?php
+										echo $_SESSION['message'];
+										unset($_SESSION['message'], $_SESSION['messageType']);
+										?>
                                     </div>
 								<?php } ?>
+
                                 <div class="row">
                                     <div class="col-lg-offset-3 col-lg-6 text-center">
                                         <input type="submit" name="submit" class="btn btn-action" value="Se connecter">
@@ -48,7 +53,7 @@
             </article>
 		<?php
 		} else { ?>
-            <script>window.location = "index.php?page=admin"</script>
+            <script>window.location = "index.php?page=home"</script>
 		<?php } ?>
     </div>
 </div>

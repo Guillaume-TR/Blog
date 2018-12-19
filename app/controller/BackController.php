@@ -51,27 +51,23 @@ class BackController
 	public function addEpisode($data)
 	{
 		extract($data);
-		$message = null;
-		$messageType = null;
 		if (isset($submit)) {
 			if (isset($title) && strlen($title) > 0) {
 				if (isset($content) && strlen($content) > 0) {
 					$requestGet = $this->episodeManage->addEpisode($data);
-					$message = 'L\'épisode a été ajouté !';
-					$messageType = 'success';
+					$_SESSION['message'] = 'L\'épisode a été ajouté !';
+					$_SESSION['messageType'] = 'success';
 				} else {
-					$message = 'Le contenu de l\'épisode ne doit pas être vide.';
-					$messageType = 'danger';
+					$_SESSION['message'] = 'Le contenu de l\'épisode ne doit pas être vide.';
+					$_SESSION['messageType'] = 'danger';
 				}
 			} else {
-				$message = 'Veuillez entrer un titre';
-				$messageType = 'danger';
+				$_SESSION['message'] = 'Veuillez entrer un titre';
+				$_SESSION['messageType'] = 'danger';
 			}
 		}
 		$this->view->render('addEpisode', [
-			'episode' => $data,
-			'message' => $message,
-			'messageType' => $messageType
+			'episode' => $data
 		], true);
 	}
 
@@ -81,31 +77,27 @@ class BackController
 	public function editEpisode($data)
 	{
 		extract($data);
-		$message = null;
-		$messageType = null;
 		$idEpisode = (int)$_GET['id'];
 		if (isset($submit)) {
 			if (isset($title) && strlen($title) > 0) {
 				if (isset($content) && strlen($content) > 0) {
 					$requestGet = $this->episodeManage->editEpisode($data, $idEpisode);
-					$message = 'L\'épisode a été modifié !';
-					$messageType = 'success';
+					$_SESSION['message'] = 'L\'épisode a été modifié !';
+					$_SESSION['messageType'] = 'success';
 				} else {
-					$message = 'Le contenu de l\'épisode ne doit pas être vide.';
-					$messageType = 'danger';
+					$_SESSION['message'] = 'Le contenu de l\'épisode ne doit pas être vide.';
+					$_SESSION['messageType'] = 'danger';
 				}
 			} else {
-				$message = 'Veuillez entrer un titre';
-				$messageType = 'danger';
+				$_SESSION['message'] = 'Veuillez entrer un titre';
+				$_SESSION['messageType'] = 'danger';
 			}
 		}
 		$request = $this->episodeManage->getEpisode($idEpisode);
 		$requestEpisode = $request->fetch();
 		$this->view->render('editEpisode', [
 			'episodeEdit' => $data,
-			'episode' => $requestEpisode,
-			'message' => $message,
-			'messageType' => $messageType
+			'episode' => $requestEpisode
 		], true);
 	}
 
@@ -115,8 +107,6 @@ class BackController
 	public function deleteEpisode($data)
 	{
 		extract($data);
-		$message = null;
-		$messageType = null;
 		$idEpisode = (int)$_GET['id'];
 
 		$request = $this->episodeManage->getEpisode($idEpisode);
@@ -126,17 +116,16 @@ class BackController
 			if (isset($submit)) {
 				if (isset($title) && $title === $requestEpisode->getTitle()) {
 					$requestGet = $this->episodeManage->deleteEpisode($data, $idEpisode);
-					$message = 'L\'épisode a été supprimé !';
-					$messageType = 'success';
+					$requestGet = $this->commentManage->deleteComments($data, $idEpisode);
+					$_SESSION['message'] = 'L\'épisode a été supprimé !';
+					$_SESSION['messageType'] = 'success';
 				} else {
-					$message = 'Le titre n\'est pas le même.';
-					$messageType = 'warning';
+					$_SESSION['message'] = 'Le titre n\'est pas le même.';
+					$_SESSION['messageType'] = 'warning';
 				}
 			}
 			$this->view->render('deleteEpisode', [
-				'episode' => $requestEpisode,
-				'message' => $message,
-				'messageType' => $messageType
+				'episode' => $requestEpisode
 			], true);
 		} else {
 			$this->admin();
@@ -160,8 +149,6 @@ class BackController
 	public function addAccount($data)
 	{
 		extract($data);
-		$message = null;
-		$messageType = null;
 		if (isset($submit)) {
 			if (isset($username) && strlen($username) >= 5) {
 				if (isset($password) && isset($confirm)
@@ -173,29 +160,27 @@ class BackController
 						$countGet = $requestGet->rowCount();
 						if ($countGet === 0) {
 							$requestGet = $this->accountManage->addAccount($data);
-							$message = 'Le compte a été ajouté.';
-							$messageType = 'success';
+							$_SESSION['message'] = 'Le compte a été ajouté.';
+							$_SESSION['messageType'] = 'success';
 						} else {
-							$message = 'Le nom d\'utilisateur existe déjà.';
-							$messageType = 'danger';
+							$_SESSION['message'] = 'Le nom d\'utilisateur existe déjà.';
+							$_SESSION['messageType'] = 'danger';
 						}
 					} else {
-						$message = 'Choisissez un niveau de permission.';
-						$messageType = 'danger';
+						$_SESSION['message'] = 'Choisissez un niveau de permission.';
+						$_SESSION['messageType'] = 'danger';
 					}
 				} else {
-					$message = 'Vérifiez que les mots de passe contiennent au moins 5 caractères et qu\'ils sont identiques.';
-					$messageType = 'danger';
+					$_SESSION['message'] = 'Vérifiez que les mots de passe contiennent au moins 5 caractères et qu\'ils sont identiques.';
+					$_SESSION['messageType'] = 'danger';
 				}
 			} else {
-				$message = 'Vérifiez que le nom d\'utilisateur contient au moins 5 caractères';
-				$messageType = 'danger';
+				$_SESSION['message'] = 'Vérifiez que le nom d\'utilisateur contient au moins 5 caractères';
+				$_SESSION['messageType'] = 'danger';
 			}
 		}
 		$this->view->render('addAccount', [
-			'account' => $data,
-			'message' => $message,
-			'messageType' => $messageType
+			'account' => $data
 		], true);
 	}
 
@@ -205,8 +190,6 @@ class BackController
 	public function editAccount($data)
 	{
 		extract($data);
-		$message = null;
-		$messageType = null;
 		$idAccount = (int)$_GET['id'];
 		if (isset($submit)) {
 			if (isset($password) && isset($confirm)
@@ -214,24 +197,22 @@ class BackController
 				&& $password === $confirm) {
 				if (isset($level) && $level === '1' || $level === '2') {
 					$requestGet = $this->accountManage->editAccount($data, $idAccount);
-					$message = 'Le compte a été modifié !';
-					$messageType = 'success';
+					$_SESSION['message'] = 'Le compte a été modifié !';
+					$_SESSION['messageType'] = 'success';
 				} else {
-					$message = 'Choisissez un niveau de permission.';
-					$messageType = 'danger';
+					$_SESSION['message'] = 'Choisissez un niveau de permission.';
+					$_SESSION['messageType'] = 'danger';
 				}
 			} else {
-				$message = 'Verifiez que les mots de passe contiennent au moins 5 caractères et qu\'ils sont identiques.';
-				$messageType = 'danger';
+				$_SESSION['message'] = 'Verifiez que les mots de passe contiennent au moins 5 caractères et qu\'ils sont identiques.';
+				$_SESSION['messageType'] = 'danger';
 			}
 		}
 		$request = $this->accountManage->getAccount($idAccount);
 		$requestAccount = $request->fetch();
 		$this->view->render('editAccount', [
 			'accountEdit' => $data,
-			'account' => $requestAccount,
-			'message' => $message,
-			'messageType' => $messageType
+			'account' => $requestAccount
 		], true);
 	}
 
@@ -241,8 +222,6 @@ class BackController
 	public function deleteAccount($data)
 	{
 		extract($data);
-		$message = null;
-		$messageType = null;
 		$idAccount = (int)$_GET['id'];
 
 		$request = $this->accountManage->getAccount($idAccount);
@@ -252,17 +231,15 @@ class BackController
 			if (isset($submit)) {
 				if (isset($username) && $username === $requestAccount->getUser()) {
 					$requestGet = $this->accountManage->deleteAccount($data, $idAccount);
-					$message = 'L\'utilisateur a été supprimé !';
-					$messageType = 'success';
+					$_SESSION['message'] = 'L\'utilisateur a été supprimé !';
+					$_SESSION['messageType'] = 'success';
 				} else {
-					$message = 'Le nom d\'utilisateur n\'est pas le même.';
-					$messageType = 'warning';
+					$_SESSION['message'] = 'Le nom d\'utilisateur n\'est pas le même.';
+					$_SESSION['messageType'] = 'warning';
 				}
 			}
 			$this->view->render('deleteAccount', [
-				'account' => $requestAccount,
-				'message' => $message,
-				'messageType' => $messageType
+				'account' => $requestAccount
 			], true);
 		} else {
 			$this->admin();
@@ -294,19 +271,15 @@ class BackController
 	public function approveComment($data, $idComment)
 	{
 		extract($data);
-		$message = null;
-		$messageType = null;
 		if (isset($submit)) {
 			$requestGet = $this->commentManage->approveComment($data, $idComment);
-			$message = 'Le commentaire a été approuvé !';
-			$messageType = 'success';
+			$_SESSION['message'] = 'Le commentaire a été approuvé !';
+			$_SESSION['messageType'] = 'success';
 		}
 		$request = $this->commentManage->getComment($idComment);
 		$requestComment = $request->fetch();
 		$this->view->render('approveComment', [
-			'comment' => $requestComment,
-			'message' => $message,
-			'messageType' => $messageType
+			'comment' => $requestComment
 		], true);
 	}
 
@@ -316,8 +289,6 @@ class BackController
 	public function deleteComment($data)
 	{
 		extract($data);
-		$message = null;
-		$messageType = null;
 		$idComment = (int)$_GET['id'];
 
 		$request = $this->commentManage->getComment($idComment);
@@ -327,17 +298,15 @@ class BackController
 			if (isset($submit)) {
 				if (isset($id) && $id === $requestComment->getId()) {
 					$requestGet = $this->commentManage->deleteComment($data, $idComment);
-					$message = 'Le commentaire a été supprimé !';
-					$messageType = 'success';
+					$_SESSION['message'] = 'Le commentaire a été supprimé !';
+					$_SESSION['messageType'] = 'success';
 				} else {
-					$message = 'L\'identifiant du commentaire n\'est pas le même.';
-					$messageType = 'warning';
+					$_SESSION['message'] = 'L\'identifiant du commentaire n\'est pas le même.';
+					$_SESSION['messageType'] = 'warning';
 				}
 			}
 			$this->view->render('deleteComment', [
-				'comment' => $requestComment,
-				'message' => $message,
-				'messageType' => $messageType
+				'comment' => $requestComment
 			], true);
 		} else {
 			$this->admin();

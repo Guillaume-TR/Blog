@@ -18,16 +18,19 @@
             </header>
 
             <div class="alert alert-danger" role="alert">
-                <p>Vous êtes sur le point de <strong>supprimer définitivement</strong> un épisode.<br>
+                <p>Vous êtes sur le point de <strong>supprimer définitivement</strong> un épisode ainsi que les commentaires associer à l'épisode.<br>
                     Veuillez noter le nom de l'épisode pour confirmer la suppression.</p>
             </div>
 
-			<?php if (isset($message)) {
+			<?php if (isset($_SESSION['message'])) {
 
-				if ($messageType === 'success') { ?>
+				if ($_SESSION['messageType'] === 'success') { ?>
 
                     <div class="alert alert-success" role="alert">
-						<?= $message ?>
+						<?php
+						echo $_SESSION['message'];
+						unset($_SESSION['message'], $_SESSION['messageType']);
+						?>
                     </div>
 
 				<?php } else { ?>
@@ -36,11 +39,14 @@
                         <strong>Nom de l'épisode : </strong><?= $episode->getTitle() ?>
                     </div>
 
-                    <div class="alert alert-<?= $messageType ?>" role="alert">
-						<?= $message ?>
+                    <div class="alert alert-<?= $_SESSION['messageType'] ?>" role="alert">
+						<?php
+						echo $_SESSION['message'];
+						unset($_SESSION['message'], $_SESSION['messageType']);
+						?>
                     </div>
 
-                    <form method="post" action="#">
+                    <form method="post" action="index.php?page=admin&action=deletEpisode&id=<?= $episode->getId() ?>">
                         <div class="form-group">
                             <input class="form-control" type="text" name="title">
                         </div>
@@ -61,7 +67,7 @@
                     <strong>Nom de l'épisode : </strong><?= $episode->getTitle() ?>
                 </div>
 
-                <form method="post" action="#">
+                <form method="post" action="index.php?page=admin&action=deleteEpisode&id=<?= $episode->getId() ?>">
                     <div class="form-group">
                         <input class="form-control" type="text" name="title">
                     </div>

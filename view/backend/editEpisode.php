@@ -17,7 +17,7 @@
                 <h1 class="page-title"><?= $this->title ?></h1>
             </header>
 
-            <form method="post" action="#">
+            <form method="post" action="index.php?page=admin&action=editEpisode&id=<?= $episode->getId() ?>">
                 <div class="form-group">
                     <label for="title">Titre</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="Titre de l'épisode"<?php
@@ -37,13 +37,16 @@
 						} ?></textarea>
                 </div>
 
-				<?php if (isset($message)) { ?>
+				<?php if (isset($_SESSION['message'])) { ?>
 
-                <div class="alert alert-<?= $messageType ?>" role="alert">
-					<?= $message ?>
+                <div class="alert alert-<?= $_SESSION['messageType'] ?>" role="alert">
+					<?php
+					echo $_SESSION['message'];
+					unset($_SESSION['message'], $_SESSION['messageType']);
+					?>
                 </div>
 
-                <?php } ?>
+				<?php } ?>
 
                 <input type="submit" name="submit" class="btn btn-warning" value="Modifier">
             </form>

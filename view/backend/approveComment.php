@@ -17,14 +17,18 @@
                 <h1 class="page-title"><?= $this->title ?></h1>
             </header>
 
-			<?php if (isset($message)) { ?>
-                <div class="alert alert-<?= $messageType ?>" role="alert">
-					<?= $message ?>
+			<?php if (isset($_SESSION['message'])) { ?>
+                <hr>
+                <div class="alert alert-<?= $_SESSION['messageType'] ?>" role="alert">
+					<?php
+					echo $_SESSION['message'];
+					unset($_SESSION['message'], $_SESSION['messageType']);
+					?>
                 </div>
 			<?php } ?>
 
             <div class="alert alert-info" role="alert">
-                <strong>Auteur : </strong><?= htmlspecialchars($comment->getAuthor()) ?>
+                <strong>Pseudo : </strong><?= htmlspecialchars($comment->getPseudo()) ?>
             </div>
 
             <div class="alert alert-info" role="alert">
@@ -32,7 +36,7 @@
                 <p><?= htmlspecialchars($comment->getcontent()) ?></p>
             </div>
 
-            <form method="post" action="#">
+            <form method="post" action="index.php?page=admin&action=approveComment&id=<?= $comment->getId() ?>">
                 <input class="btn btn-success" type="submit" name="submit" value="Approuver">
             </form>
 
