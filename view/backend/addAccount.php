@@ -31,6 +31,11 @@
                             <small class="text-muted">Le nom d'utilisateur doit comporter au moins 5 caractères.</small>
                         </div>
 
+                        <div class="top-margin">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+
                         <div class="row top-margin">
                             <div class="col-md-6">
                                 <label for="password">Mot de passe</label>

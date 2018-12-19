@@ -52,12 +52,9 @@ class AccountManager extends DatabaseManager
 	public function addAccount($data)
 	{
 		extract($data);
-		/** @var string $username */
-		/** @var string $password */
-		/** @var string $level */
 		$password = password_hash($password, PASSWORD_DEFAULT);
-		$statement = 'INSERT INTO accounts(username, password, level, creation_date) VALUES(?, ?, ?, NOW())';
-		$requestGet = $this->getSql($statement, 'App\app\model\Account', [$username, $password, $level]);
+		$statement = 'INSERT INTO accounts(username, email, password, level, creation_date) VALUES(?, ?, ?, ?, NOW())';
+		$requestGet = $this->getSql($statement, 'App\app\model\Account', [$username, $email, $password, $level]);
 
 		return $requestGet;
 	}
@@ -70,11 +67,9 @@ class AccountManager extends DatabaseManager
 	public function editAccount($data, $idAccount)
 	{
 		extract($data);
-		/** @var string $password */
-		/** @var string $level */
 		$password = password_hash($password, PASSWORD_DEFAULT);
-		$statement = 'UPDATE accounts SET password = ?, level = ? WHERE id = ?';
-		$requestGet = $this->getSql($statement, 'App\app\model\Account', [$password, $level, $idAccount]);
+		$statement = 'UPDATE accounts SET email = ?, password = ?, level = ? WHERE id = ?';
+		$requestGet = $this->getSql($statement, 'App\app\model\Account', [$email, $password, $level, $idAccount]);
 
 		return $requestGet;
 	}

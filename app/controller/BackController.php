@@ -151,27 +151,32 @@ class BackController
 		extract($data);
 		if (isset($submit)) {
 			if (isset($username) && strlen($username) >= 5) {
-				if (isset($password) && isset($confirm)
-					&& strlen($password) >= 5
-					&& $password === $confirm) {
-					if (isset($level) && $level === '1' || $level === '2') {
-						$username = $_POST['username'];
-						$requestGet = $this->accountManage->checkAccount($username);
-						$countGet = $requestGet->rowCount();
-						if ($countGet === 0) {
-							$requestGet = $this->accountManage->addAccount($data);
-							$_SESSION['message'] = 'Le compte a été ajouté.';
-							$_SESSION['messageType'] = 'success';
+				if (isset($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+					if (isset($password) && isset($confirm)
+						&& strlen($password) >= 5
+						&& $password === $confirm) {
+						if (isset($level) && $level === '1' || $level === '2') {
+							$username = $_POST['username'];
+							$requestGet = $this->accountManage->checkAccount($username);
+							$countGet = $requestGet->rowCount();
+							if ($countGet === 0) {
+								$requestGet = $this->accountManage->addAccount($data);
+								$_SESSION['message'] = 'Le compte a été ajouté.';
+								$_SESSION['messageType'] = 'success';
+							} else {
+								$_SESSION['message'] = 'Le nom d\'utilisateur existe déjà.';
+								$_SESSION['messageType'] = 'danger';
+							}
 						} else {
-							$_SESSION['message'] = 'Le nom d\'utilisateur existe déjà.';
+							$_SESSION['message'] = 'Choisissez un niveau de permission.';
 							$_SESSION['messageType'] = 'danger';
 						}
 					} else {
-						$_SESSION['message'] = 'Choisissez un niveau de permission.';
+						$_SESSION['message'] = 'Vérifiez que les mots de passe contiennent au moins 5 caractères et qu\'ils sont identiques.';
 						$_SESSION['messageType'] = 'danger';
 					}
 				} else {
-					$_SESSION['message'] = 'Vérifiez que les mots de passe contiennent au moins 5 caractères et qu\'ils sont identiques.';
+					$_SESSION['message'] = 'Vérifiez que l\'email soit valide.';
 					$_SESSION['messageType'] = 'danger';
 				}
 			} else {
@@ -192,19 +197,24 @@ class BackController
 		extract($data);
 		$idAccount = (int)$_GET['id'];
 		if (isset($submit)) {
-			if (isset($password) && isset($confirm)
-				&& strlen($password) >= 5
-				&& $password === $confirm) {
-				if (isset($level) && $level === '1' || $level === '2') {
-					$requestGet = $this->accountManage->editAccount($data, $idAccount);
-					$_SESSION['message'] = 'Le compte a été modifié !';
-					$_SESSION['messageType'] = 'success';
+			if (isset($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+				if (isset($password) && isset($confirm)
+					&& strlen($password) >= 5
+					&& $password === $confirm) {
+					if (isset($level) && $level === '1' || $level === '2') {
+						$requestGet = $this->accountManage->editAccount($data, $idAccount);
+						$_SESSION['message'] = 'Le compte a été modifié !';
+						$_SESSION['messageType'] = 'success';
+					} else {
+						$_SESSION['message'] = 'Choisissez un niveau de permission.';
+						$_SESSION['messageType'] = 'danger';
+					}
 				} else {
-					$_SESSION['message'] = 'Choisissez un niveau de permission.';
+					$_SESSION['message'] = 'Verifiez que les mots de passe contiennent au moins 5 caractères et qu\'ils sont identiques.';
 					$_SESSION['messageType'] = 'danger';
 				}
 			} else {
-				$_SESSION['message'] = 'Verifiez que les mots de passe contiennent au moins 5 caractères et qu\'ils sont identiques.';
+				$_SESSION['message'] = 'Vérifiez que l\'email soit valide.';
 				$_SESSION['messageType'] = 'danger';
 			}
 		}

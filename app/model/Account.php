@@ -11,6 +11,7 @@ class Account
 {
 	private $id;
 	private $username;
+	private $email;
 	private $password;
 	private $creation_date;
 	private $level;
@@ -24,6 +25,12 @@ class Account
 	public function getUser()
 	{
 		return $this->username;
+	}
+
+
+	public function getMail()
+	{
+		return $this->email;
 	}
 
 	public function getPass()
@@ -45,6 +52,11 @@ class Account
 	public function setId($id)
 	{
 		$this->id = $id;
+	}
+
+	public function setMail($email)
+	{
+		$this->email = $email;
 	}
 
 	public function setUser($username)
