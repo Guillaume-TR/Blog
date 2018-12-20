@@ -45,6 +45,18 @@ class AccountManager extends DatabaseManager
 		return $requestGet;
 	}
 
+	/** Check account by email
+	 * @param $email
+	 * @return bool|false|\PDOStatement
+	 */
+	public function checkAccountByEmail($email)
+	{
+		$statement = 'SELECT * FROM accounts WHERE email = ?';
+		$requestGet = $this->getSql($statement, 'App\app\model\Account', [$email]);
+
+		return $requestGet;
+	}
+
 	/** Add account
 	 * @param $data
 	 * @return bool|false|\PDOStatement
@@ -84,6 +96,46 @@ class AccountManager extends DatabaseManager
 		extract($data);
 		$statement = 'DELETE FROM accounts WHERE id = ?';
 		$requestGet = $this->getSql($statement, 'App\app\model\Account', [$idAccount]);
+
+		return $requestGet;
+	}
+
+	/** Add an ticket to the account
+	 * @param $ticket
+	 * @param $idAccount
+	 * @return bool|false|\PDOStatement
+	 */
+	public function addTicket($ticket, $idAccount)
+	{
+		$statement = 'UPDATE accounts SET ticket = ? WHERE id = ?';
+		$requestGet = $this->getSql($statement, 'App\app\model\Account', [$ticket, $idAccount]);
+
+		return $requestGet;
+	}
+
+	/** Check ticket to the account
+	 * @param $ticket
+	 * @return bool|false|\PDOStatement
+	 */
+	public function checkTicket($ticket)
+	{
+		$statement = 'SELECT * FROM accounts WHERE ticket = ?';
+		$requestGet = $this->getSql($statement, 'App\app\model\Account', [$ticket]);
+
+		return $requestGet;
+	}
+
+	/** Change an password to the account
+	 * @param $data
+	 * @param $ticket
+	 * @return bool|false|\PDOStatement
+	 */
+	public function changePassword($data, $ticket)
+	{
+		extract($data);
+		$password = password_hash($password, PASSWORD_DEFAULT);
+		$statement = 'UPDATE accounts SET password = ?, ticket = ? WHERE ticket = ?';
+		$requestGet = $this->getSql($statement, 'App\app\model\Account', [$password, null, $ticket]);
 
 		return $requestGet;
 	}

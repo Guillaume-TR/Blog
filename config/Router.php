@@ -43,22 +43,22 @@ class Router
 								$this->backController->addAccount($_POST);
 							} else if ($_GET['action'] === 'addEpisode') {
 								$this->backController->addEpisode($_POST);
-							} else {
-								if (isset($_GET['id'])) {
-									if ($_GET['action'] === 'editEpisode') {
-										$this->backController->editEpisode($_POST);
-									} else if ($_GET['action'] === 'deleteEpisode') {
-										$this->backController->deleteEpisode($_POST);
-									} else if ($_GET['action'] === 'approveComment') {
-										$this->backController->approveComment($_POST, $_GET['id']);
-									} else if ($_GET['action'] === 'deleteComment') {
-										$this->backController->deleteComment($_POST);
-									} else if ($_GET['action'] === 'editAccount') {
-										$this->backController->editAccount($_POST);
-									} else if ($_GET['action'] === 'deleteAccount') {
-										$this->backController->deleteAccount($_POST);
-									}
+							} else if (isset($_GET['id'])) {
+								if ($_GET['action'] === 'editEpisode') {
+									$this->backController->editEpisode($_POST, $_GET['id']);
+								} else if ($_GET['action'] === 'deleteEpisode') {
+									$this->backController->deleteEpisode($_POST, $_GET['id']);
+								} else if ($_GET['action'] === 'approveComment') {
+									$this->backController->approveComment($_POST, $_GET['id']);
+								} else if ($_GET['action'] === 'deleteComment') {
+									$this->backController->deleteComment($_POST, $_GET['id']);
+								} else if ($_GET['action'] === 'editAccount') {
+									$this->backController->editAccount($_POST, $_GET['id']);
+								} else if ($_GET['action'] === 'deleteAccount') {
+									$this->backController->deleteAccount($_POST, $_GET['id']);
 								}
+							} else {
+								$this->errorController->notFound();
 							}
 						} else {
 							$this->backController->admin();
@@ -75,6 +75,14 @@ class Router
 						$this->frontController->episodes();
 					} else if ($_GET['page'] === 'connection') {
 						$this->frontController->connection($_POST);
+					} else if ($_GET['page'] === 'forgotPassword') {
+						$this->frontController->forgotPassword($_POST);
+					} else if ($_GET['page'] === 'resetPassword') {
+						if (isset($_GET['key'])) {
+							$this->frontController->resetPassword($_GET['key'], $_POST);
+						} else {
+							$this->errorController->notFound();
+						}
 					} else if ($_GET['page'] === 'disconnect') {
 						$this->frontController->disconnect();
 					} else {

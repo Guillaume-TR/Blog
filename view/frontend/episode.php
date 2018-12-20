@@ -1,7 +1,3 @@
-<?php if (isset($notfound)) { ?>
-    <script>window.location = "index.php?page=notFound"</script>
-<?php } ?>
-
 <?php $this->title = $episode->getTitle(); ?>
 
 <header id="head">

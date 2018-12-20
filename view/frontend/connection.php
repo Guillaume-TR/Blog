@@ -5,13 +5,13 @@
 <div class="container">
     <ol class="breadcrumb">
         <li><a href="index.php">Accueil</a></li>
-        <li class="active">Connection</li>
+        <li class="active"><?= $this->title ?></li>
     </ol>
     <div class="row">
 		<?php if (!isset($_SESSION['id'])) { ?>
             <article class="col-xs-12 maincontent">
                 <header class="page-header">
-                    <h1 class="page-title">Connection</h1>
+                    <h1 class="page-title"><?= $this->title ?></h1>
                 </header>
                 <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                     <div class="panel panel-default">
@@ -43,7 +43,8 @@
 
                                 <div class="row">
                                     <div class="col-lg-offset-3 col-lg-6 text-center">
-                                        <input type="submit" name="submit" class="btn btn-action" value="Se connecter">
+                                        <input type="submit" name="submit" class="btn btn-action" value="Se connecter"><br>
+                                        <a href="index.php?page=forgotPassword">Mot de passe oublié</a>
                                     </div>
                                 </div>
                             </form>
