@@ -6,54 +6,40 @@
 
     <title>Jean Forteroche | <?= $title ?></title>
 
-    <link rel="shortcut icon" href="assets/images/favicon.png">
-
+    <link rel="shortcut icon" href="assets/img/favicon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
 
     <!-- Custom styles -->
-    <link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/style.css">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="assets/js/html5shiv.js"></script>
-    <script src="assets/js/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body class="home">
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container py-3">
+        <a class="navbar-brand" href="#">Jean Forteroche</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<div class="navbar navbar-inverse navbar-fixed-top headroom">
-    <div class="container">
-        <div class="navbar-header">
-            <!-- Button for mobile version -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <span class="navbar-brand">Jean Forteroche</span>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav pull-right">
-                <li><a href="index.php">Accueil</a></li>
-                <li><a href="index.php?page=episodes">Tous les épisodes</a></li>
-				<?php if (isset($_SESSION['level'])) { ?>
-                    <?php if ($_SESSION['level'] === '2') { ?>
-                        <li><a class="btn" href="index.php?page=admin">Espace admin</a></li>
-                    <?php } ?>
-                    <li><a class="btn" href="index.php?page=disconnect">Se deconnecter</a></li>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li class="nav-item active"><a class="nav-link" href="index.php">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.php?page=episodes">Tous les épisodes</a></li>
+				<?php if (isset($_SESSION['level'])) {
+					    if ($_SESSION['level'] === '2') { ?>
+                        <li><a class="btn btn-outline-primary m-1" href="index.php?page=admin"><strong>Espace admin</strong></a></li>
+					<?php } ?>
+                    <li><a class="btn btn-outline-danger m-1" href="index.php?page=disconnect"><strong>Se deconnecter</strong></a></li>
 				<?php } else { ?>
-                    <li><a class="btn" href="index.php?page=connection">Se connecter</a></li>
+                    <li><a class="btn btn-outline-success m-1" href="index.php?page=connection"><strong>Se connecter</strong></a></li>
 				<?php } ?>
             </ul>
         </div>
     </div>
-</div>
+</nav>
 
 <div>
 	<?= $content ?>
@@ -116,7 +102,7 @@
                     <div class="col-md-6 widget">
                         <div class="widget-body">
                             <p class="text-right">
-                                Copyright &#169; 2018, Jean Forteroche. Design de <a href="http://gettemplate.com/">gettemplate</a>
+                                Copyright &#169; 2019, Jean Forteroche. Design de <a href="http://gettemplate.com/">gettemplate</a>
                             </p>
                         </div>
                     </div>
@@ -125,9 +111,11 @@
         </div>
     </footer>
 <?php } ?>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
 <!-- Custom scripts -->
 <script src="assets/js/headroom.min.js"></script>

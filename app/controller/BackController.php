@@ -40,6 +40,7 @@ class BackController
 	public function episode()
 	{
 		$requestEpisodes = $this->episodeManage->getEpisodes();
+
 		$this->view->render('episode', [
 			'episodes' => $requestEpisodes
 		], true);
@@ -51,10 +52,12 @@ class BackController
 	public function addEpisode($data)
 	{
 		extract($data);
+
 		if (isset($submit)) {
 			if (isset($title) && strlen($title) > 0) {
 				if (isset($content) && strlen($content) > 0) {
 					$requestGet = $this->episodeManage->addEpisode($data);
+
 					$_SESSION['message'] = 'L\'épisode a été ajouté !';
 					$_SESSION['messageType'] = 'success';
 				} else {
@@ -78,13 +81,16 @@ class BackController
 	public function editEpisode($data, $idEpisode)
 	{
 		extract($data);
+
 		$request = $this->episodeManage->getEpisode($idEpisode);
 		$requestCount = $request->rowCount();
+
 		if ($requestCount === 1) {
 			if (isset($submit)) {
 				if (isset($title) && strlen($title) > 0) {
 					if (isset($content) && strlen($content) > 0) {
 						$requestGet = $this->episodeManage->editEpisode($data, $idEpisode);
+
 						$_SESSION['message'] = 'L\'épisode a été modifié !';
 						$_SESSION['messageType'] = 'success';
 					} else {
@@ -98,6 +104,7 @@ class BackController
 			}
 			$request = $this->episodeManage->getEpisode($idEpisode);
 			$requestEpisode = $request->fetch();
+
 			$this->view->render('editEpisode', [
 				'episodeEdit' => $data,
 				'episode' => $requestEpisode
@@ -124,6 +131,7 @@ class BackController
 				if (isset($title) && $title === $requestEpisode->getTitle()) {
 					$requestGet = $this->episodeManage->deleteEpisode($data, $idEpisode);
 					$requestGet = $this->commentManage->deleteComments($data, $idEpisode);
+
 					$_SESSION['message'] = 'L\'épisode a été supprimé !';
 					$_SESSION['messageType'] = 'success';
 				} else {
@@ -145,6 +153,7 @@ class BackController
 	public function account()
 	{
 		$requestAccounts = $this->accountManage->getAllAccounts();
+
 		$this->view->render('account', [
 			'accounts' => $requestAccounts
 		], true);
@@ -156,6 +165,7 @@ class BackController
 	public function addAccount($data)
 	{
 		extract($data);
+
 		if (isset($submit)) {
 			if (isset($username) && strlen($username) >= 5) {
 				if (isset($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -163,11 +173,12 @@ class BackController
 						&& strlen($password) >= 5
 						&& $password === $confirm) {
 						if (isset($level) && $level === '1' || $level === '2') {
-							$username = $_POST['username'];
 							$requestGet = $this->accountManage->checkAccount($username);
 							$countGet = $requestGet->rowCount();
+
 							if ($countGet === 0) {
 								$requestGet = $this->accountManage->addAccount($data);
+
 								$_SESSION['message'] = 'Le compte a été ajouté.';
 								$_SESSION['messageType'] = 'success';
 							} else {
@@ -206,6 +217,7 @@ class BackController
 
 		$request = $this->accountManage->getAccount($idAccount);
 		$requestCount = $request->rowCount();
+
 		if ($requestCount === 1) {
 			if (isset($submit)) {
 				if (isset($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -214,6 +226,7 @@ class BackController
 						&& $password === $confirm) {
 						if (isset($level) && $level === '1' || $level === '2') {
 							$requestGet = $this->accountManage->editAccount($data, $idAccount);
+
 							$_SESSION['message'] = 'Le compte a été modifié !';
 							$_SESSION['messageType'] = 'success';
 						} else {
@@ -231,6 +244,7 @@ class BackController
 			}
 			$request = $this->accountManage->getAccount($idAccount);
 			$requestAccount = $request->fetch();
+
 			$this->view->render('editAccount', [
 				'accountEdit' => $data,
 				'account' => $requestAccount
@@ -250,11 +264,13 @@ class BackController
 
 		$request = $this->accountManage->getAccount($idAccount);
 		$requestCount = $request->rowCount();
+
 		if ($requestCount === 1) {
 			$requestAccount = $request->fetch();
 			if (isset($submit)) {
 				if (isset($username) && $username === $requestAccount->getUser()) {
 					$requestGet = $this->accountManage->deleteAccount($data, $idAccount);
+
 					$_SESSION['message'] = 'L\'utilisateur a été supprimé !';
 					$_SESSION['messageType'] = 'success';
 				} else {
@@ -277,10 +293,14 @@ class BackController
 	{
 		$requestComments = null;
 		$requestCommentsReport = $this->commentManage->getReportComments();
+
 		if (isset($id)) {
-			$requestComments = $this->commentManage->getComments($id);
+			$request = $this->commentManage->getComments($id);
+			$requestComments = $request->fetchAll();
 		}
+
 		$requestEpisodes = $this->episodeManage->getEpisodes();
+
 		$this->view->render('comment', [
 			'episodes' => $requestEpisodes,
 			'comments' => $requestComments,
@@ -298,14 +318,17 @@ class BackController
 
 		$request = $this->commentManage->getComment($idComment);
 		$requestCount = $request->rowCount();
+
 		if ($requestCount === 1) {
 			if (isset($submit)) {
 				$requestGet = $this->commentManage->approveComment($data, $idComment);
+
 				$_SESSION['message'] = 'Le commentaire a été approuvé !';
 				$_SESSION['messageType'] = 'success';
 			}
 			$request = $this->commentManage->getComment($idComment);
 			$requestComment = $request->fetch();
+
 			$this->view->render('approveComment', [
 				'comment' => $requestComment
 			], true);
@@ -324,11 +347,13 @@ class BackController
 
 		$request = $this->commentManage->getComment($idComment);
 		$requestCount = $request->rowCount();
+
 		if ($requestCount === 1) {
 			$requestComment = $request->fetch();
 			if (isset($submit)) {
 				if (isset($id) && $id === $requestComment->getId()) {
 					$requestGet = $this->commentManage->deleteComment($data, $idComment);
+
 					$_SESSION['message'] = 'Le commentaire a été supprimé !';
 					$_SESSION['messageType'] = 'success';
 				} else {
