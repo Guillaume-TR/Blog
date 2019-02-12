@@ -191,7 +191,7 @@ class FrontController
 		$request = $this->accountManage->checkTicket($key);
 		$countGet = $request->rowCount();
 		if ($countGet === 1) {
-			if ($submit) {
+			if (isset($submit)) {
 				if ($password === $confirm) {
 					$request = $this->accountManage->changePassword($data, $key);
 

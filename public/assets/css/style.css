@@ -1,3 +1,9 @@
+.navbar {
+    opacity: .9;
+    position: absolute;
+    right: 0;
+    left: 0;
+}
 /* GENERAL */ /* START */
 
 a { color: #175a93; }
@@ -28,6 +34,12 @@ blockquote,
 /* GENERAL */ /* END */
 
 /* NAVBAR */ /* START */
+.navbar {
+    opacity: .9;
+    position: absolute;
+    right: 0;
+    left: 0;
+}
 .btn-lg {
     font-size: 14px;
     font-weight: bold;
