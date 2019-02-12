@@ -128,7 +128,7 @@ class BackController
 					$_SESSION['messageType'] = 'success';
 				} else {
 					$_SESSION['message'] = 'Le titre n\'est pas le même.';
-					$_SESSION['messageType'] = 'warning';
+					$_SESSION['messageType'] = 'danger';
 				}
 			}
 			$this->view->render('deleteEpisode', [

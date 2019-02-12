@@ -12,7 +12,9 @@
         <header class="page-header">
             <h1 class="page-title"><?= $this->title ?></h1>
         </header>
-        <a href="index.php?page=admin&action=addEpisode" class="btn btn-success btn-lg">Ajouter un épisode</a>
+        <div class="text-center mt-4 mb-2">
+            <a href="index.php?page=admin&action=addEpisode" class="nav-link btn btn-success">Ajouter un nouvel épisode</a>
+        </div>
 		<?php foreach ($episodes as $episode): ?>
             <div class="card my-3">
                 <h4 class="card-header"><?= $episode->getTitle(); ?></h4>
