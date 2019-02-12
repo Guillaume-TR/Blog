@@ -1,5 +1,4 @@
 <?php $this->title = 'Accueil'; ?>
-
 <header id="head" class="jumbotron">
     <h1 class="display-4"><strong>Billet simple pour l'Alaska</strong></h1>
     <p>Le dernier livre de Jean Forteroche</p>

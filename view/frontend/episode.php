@@ -1,20 +1,16 @@
 <?php $this->title = $episode->getTitle(); ?>
 
-<header id="head">
-    <div class="container">
-        <div class="row">
-            <h1 class="lead">Billet simple pour l'Alaska</h1>
-        </div>
-    </div>
+<header id="head" class="jumbotron">
+    <h1 class="display-4">Billet simple pour l'Alaska</h1>
 </header>
 
 <div class="container">
-
-    <ol class="breadcrumb">
-        <li><a href="index.php?page=episodes">Billet simple pour l'Alaska</a></li>
-        <li class="active"><?= $episode->getTitle(); ?></li>
-    </ol>
-    <div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.php?page=episodes">Billet simple pour l'Alaska</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><?= $episode->getTitle(); ?></li>
+        </ol>
+    </nav>
         <article id="article" class="col-md-12 maincontent">
 
             <header class="page-header">
@@ -60,11 +56,8 @@
                         <p class="comment-content"><?= htmlspecialchars($comment->getContent()); ?></p>
 						<?php if ($comment->getReport() === '0') { ?>
                             <p class="text-right">
-                                <button type="button" class="btn btn-danger" data-toggle="modal"
-                                        data-target="#reportModal<?= $comment->getId(); ?>">
-                                    Signaler
-                                </button>
-
+                                <button type="button" class="btn btn-danger" data-toggle="modal"data-target="#reportModal<?= $comment->getId(); ?>">Signaler</button>
+                            </p>
                             <div class="modal fade" id="reportModal<?= $comment->getId(); ?>" tabindex="-1" role="dialog"
                                  aria-labelledby="commentReport<?= $comment->getId(); ?>" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -81,12 +74,10 @@
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                                             <button type="submit" name="reportComment" class="btn btn-danger" value="<?= $comment->getId(); ?>">Signaler</button>
                                             </form>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            </p>
 						<?php } else { ?>
                             <p class="text-right">
                                 Ce commentaire a été signalé.
@@ -95,8 +86,5 @@
                     </div>
 				<?php endforeach; ?>
             </div>
-
         </article>
-    </div>
-
 </div>
