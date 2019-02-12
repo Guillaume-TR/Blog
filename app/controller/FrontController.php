@@ -32,7 +32,6 @@ class FrontController
 	public function home()
 	{
 		$requestLastEpisode = $this->episodeManage->getLastEpisode();
-
 		$this->view->render('home', [
 			'lastEpisode' => $requestLastEpisode
 		]);
@@ -44,7 +43,6 @@ class FrontController
 	public function episodes()
 	{
 		$requestEpisodes = $this->episodeManage->getEpisodes();
-
 		$this->view->render('episodes', [
 			'episodes' => $requestEpisodes
 		]);
@@ -57,17 +55,14 @@ class FrontController
 	public function episode($idEpisode, $data)
 	{
 		extract($data);
-
 		$requestEpisode = $this->episodeManage->getEpisode($idEpisode);
 		$requestCount = $requestEpisode->rowCount();
-
 		if ($requestCount === 1) {
 			$requestEpisode = $requestEpisode->fetch();
 			if (isset($submit)) {
 				if (isset($pseudo) && strlen($pseudo) > 0) {
 					if (isset($content) && strlen($content) > 0) {
 						$request = $this->commentManage->addComment($idEpisode, $_POST);
-
 						$_SESSION['message'] = 'Le commentaire à bien été ajouté !';
 						$_SESSION['messageType'] = 'success';
 					} else {
@@ -82,13 +77,11 @@ class FrontController
 			if (isset($reportComment)) {
 				$commentId = (int)$reportComment;
 				$request = $this->commentManage->reportComment($commentId);
-
 				$_SESSION['message'] = 'Le commentaire à bien été signalé !';
 				$_SESSION['messageType'] = 'info';
 			}
 			$requestComments = $this->commentManage->getComments($idEpisode);
 			$requestComments = $requestComments->fetchAll();
-
 			$this->view->render('episode', [
 				'episode' => $requestEpisode,
 				'comments' => $requestComments
@@ -112,7 +105,7 @@ class FrontController
 
 			if (isset($countGet) && $countGet === 1) {
 				$requestConnection = $request->fetch();
-
+				/** @var string $password */
 				$passwordCheck = password_verify($password, $requestConnection->getPass());
 
 				if ($passwordCheck) {
@@ -146,13 +139,10 @@ class FrontController
 			if (isset($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
 				$request = $this->accountManage->checkAccountByEmail($email);
 				$countGet = $request->rowCount();
-
 				if ($countGet === 1) {
 					$requestAccount = $request->fetch();
 					$idAccount = $requestAccount->getId();
-
 					$ticket = hash('sha512', session_id() . microtime() . rand(0, 999999999));
-
 					$request = $this->accountManage->addTicket($ticket, $idAccount);
 
 					$to = $email;
@@ -200,7 +190,6 @@ class FrontController
 
 		$request = $this->accountManage->checkTicket($key);
 		$countGet = $request->rowCount();
-
 		if ($countGet === 1) {
 			if ($submit) {
 				if ($password === $confirm) {
@@ -227,7 +216,6 @@ class FrontController
 	public function disconnect()
 	{
 		session_destroy();
-
 		$this->view->render('disconnect', []);
 	}
 }

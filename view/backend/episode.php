@@ -23,11 +23,7 @@
 
                     <h2><?= $episode->getTitle(); ?></h2>
 
-                    <div class="episode-content"><?php if (strlen($episode->getContent()) > 260) {
-							echo substr($episode->getContent(), 0, 250) . '...';
-						} else {
-							echo $episode->getContent();
-						} ?></div>
+                    <div class="episode-content"><?= substr($episode->getContent(), 0, 200) . '...'; ?></div>
 
                     <p class="text-right">
                         <a href="index.php?page=admin&action=editEpisode&id=<?= $episode->getId(); ?>"

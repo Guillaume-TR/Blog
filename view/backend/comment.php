@@ -23,32 +23,24 @@
                         <h2 class="text-center thin">
                             <a href="index.php?page=admin&action=comment">Revenir en arrière</a>
                         </h2>
-						<?php if (count($comments) > 0) { ?>
 
-							<?php foreach ($comments as $comment): ?>
-                                <div class="highlight comment">
-                                    <div class="comment-content">
-                                        <div class="h-caption">
-                                            <h3 class="text-left"><?= htmlspecialchars($comment->getPseudo()); ?></h3>
-                                        </div>
-                                        <div class="h-body">
-											<?= htmlspecialchars($comment->getContent()); ?>
-                                        </div>
+						<?php foreach ($comments as $comment): ?>
+                            <div class="highlight comment">
+                                <div class="comment-content">
+                                    <div class="h-caption">
+                                        <h3 class="text-left"><?= htmlspecialchars($comment->getPseudo()); ?></h3>
                                     </div>
-                                    <div class="comment-btn">
-                                        <a href="index.php?page=admin&action=deleteComment&id=<?= $comment->getId(); ?>"
-                                           class="btn btn-danger">Supprimer</a>
+                                    <div class="h-body">
+										<?= htmlspecialchars($comment->getContent()); ?>
                                     </div>
                                 </div>
-							<?php endforeach; ?>
-
-						<?php } else { ?>
-
-                            <div class="alert alert-info" role="alert">
-                                Il n'y a pas de commentaire.
+                                <div class="comment-btn">
+                                    <a href="index.php?page=admin&action=deleteComment&id=<?= $comment->getId(); ?>"
+                                       class="btn btn-danger">Supprimer</a>
+                                </div>
                             </div>
+						<?php endforeach; ?>
 
-						<?php } ?>
                     </div>
                 </div>
 
@@ -102,11 +94,9 @@
 								<?php endforeach; ?>
 
 							<?php } else { ?>
-
                                 <div class="alert alert-info" role="alert">
-                                    Il n'y a pas de commentaire signalé.
+                                    Il n'y a pas de commentaires signalés
                                 </div>
-
 							<?php } ?>
 
                         </div>
