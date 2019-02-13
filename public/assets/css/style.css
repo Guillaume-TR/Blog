@@ -1,11 +1,4 @@
-.navbar {
-    opacity: .9;
-    position: absolute;
-    right: 0;
-    left: 0;
-}
 /* GENERAL */ /* START */
-
 a { color: #175a93; }
 
 label { color: #575757; }
@@ -19,7 +12,7 @@ label { color: #575757; }
     margin-bottom: 20px;
 }
 
-.mce-notification { display: none; }
+.mce-notification { display: none; } /* Disable notification for Tiny MCE */
 
 .list-admin { margin-bottom: 100px; }
 
@@ -30,7 +23,6 @@ blockquote,
 .widget-body { color: #a6a6a6;}
 
 .maincontent { margin-bottom: 40px; }
-
 /* GENERAL */ /* END */
 
 /* NAVBAR */ /* START */
@@ -46,15 +38,13 @@ blockquote,
     padding-left: 40px;
     padding-right: 40px;
 }
-.navbar-brand {
-    font-size: 24px;
-}
-.jumbotron {
-    border-radius: 0;
-}
-.navbar {
-    background-color:#111;
-}
+
+.navbar-brand { font-size: 24px; }
+
+.jumbotron { border-radius: 0; }
+
+.navbar { background-color:#111; }
+
 .navbar-expand-lg .navbar-nav .nav-link {
     padding-right: 1rem;
     padding-left: 1rem;
@@ -62,7 +52,6 @@ blockquote,
 /* NAVBAR */ /* END */
 
 /* PAGE "EPISODES" EPISODE LIST */ /* START */
-
 .episode {
     margin-bottom: 40px;
     padding: 5px 10px;
@@ -82,22 +71,17 @@ blockquote,
     font-style: italic;
     color: #666;
 }
-
 /* PAGE "EPISODES" EPISODE LIST */ /* END */
 
 /* PAGE "EPISODE" MANAGE EPISODE */ /* START */
-
 .episode-manage .episode-content {
     padding: 5px 10px;
     font-size: 16px;
     color: #555;
 }
-
-
 /* PAGE "EPISODE" MANAGE EPISODE */ /* END */
 
 /* COMMENT GENERAL */ /* START */
-
 .comment-jumbotron {
     margin-top: 20px;
     padding: 15px 30px 2px !important;
@@ -109,33 +93,12 @@ blockquote,
     margin: 0;
     padding-left: 10px;
 }
-
 /* COMMENT GENERAL */ /* END */
 
 /* PAGE "COMMENT" */ /* START */
+.accordion .card .card { border-bottom: 1px solid rgba(0,0,0,.125) !important; }
 
-.comment-list { margin-bottom: 100px; }
+.accordion .card #heading1 { background: #de4f4f; }
 
-.comment-list .comment {
-    display: flex;
-    flex-direction: column;
-    padding: 20px 30px;
-    background-color: #FFF;
-}
-
-.comment-list .comment .h-caption { margin: 0; }
-
-.comment-list .comment .comment-content { padding-bottom: 15px; }
-
-.comment-list .comment .comment-btn,
-.comment-episode-list .jumbotron-comment{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.comment-list .comment .comment-btn .btn { margin: 5px; }
-
-.comment-episode-list .jumbotron-comment .highlight { margin: 0 5px; }
-
+.accordion .card #heading1 button { color: #FFF; }
 /* PAGE "COMMENT" */ /* END */

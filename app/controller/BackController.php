@@ -275,11 +275,8 @@ class BackController
 	 */
 	public function comment($id = null)
 	{
-		$requestComments = null;
 		$requestCommentsReport = $this->commentManage->getReportComments();
-		if (isset($id)) {
-			$requestComments = $this->commentManage->getComments($id);
-		}
+		$requestComments = $this->commentManage->getAllComments();
 		$requestEpisodes = $this->episodeManage->getEpisodes();
 		$this->view->render('comment', [
 			'episodes' => $requestEpisodes,

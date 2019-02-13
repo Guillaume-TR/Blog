@@ -1,110 +1,91 @@
 <?php $this->title = 'Gérez les commentaires'; ?>
-
 <header id="head" class="secondary"></header>
 
 <div class="container">
-
-    <ol class="breadcrumb">
-        <li><a href="index.php?page=admin">Panel d'administration</a></li>
-        <li class="active"><?= $this->title ?></li>
-    </ol>
-
-    <div class="row">
-        <article class="col-md-12 maincontent">
-
-            <header class="page-header">
-                <h1 class="page-title"><?= $this->title; ?></h1>
-            </header>
-
-			<?php if (isset($_GET['id'])) { ?>
-                <div class="jumbotron top-space comment-list">
-                    <div class="container">
-
-                        <h2 class="text-center thin">
-                            <a href="index.php?page=admin&action=comment">Revenir en arrière</a>
-                        </h2>
-
-						<?php foreach ($comments as $comment): ?>
-                            <div class="highlight comment">
-                                <div class="comment-content">
-                                    <div class="h-caption">
-                                        <h3 class="text-left"><?= htmlspecialchars($comment->getPseudo()); ?></h3>
-                                    </div>
-                                    <div class="h-body">
-										<?= htmlspecialchars($comment->getContent()); ?>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.php?page=admin">Panel d'administration</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><?= $this->title ?></li>
+        </ol>
+    </nav>
+    <article class="col-md-12 maincontent">
+        <header class="page-header">
+            <h1 class="page-title"><?= $this->title; ?></h1>
+        </header>
+        <div class="accordion" id="accordionComments">
+            <div class="card">
+                <div class="card-header" id="heading1">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse1"
+                                aria-expanded="true" aria-controls="collapse1">
+                            Commentaires signalés
+                        </button>
+                    </h5>
+                </div>
+				<?php if (count($commentsReport) > 0) { ?>
+					<?php foreach ($commentsReport as $commentReport): ?>
+                        <div id="collapse1" class="collapse show" aria-labelledby="heading1"
+                             data-parent="#accordionComments">
+                            <div class="card-body">
+                                <div class="card">
+                                    <h5 class="card-header"><?= htmlspecialchars($commentReport->getPseudo()); ?></h5>
+                                    <div class="card-body">
+                                        <p class="card-text"><?= htmlspecialchars($commentReport->getContent()); ?></p>
+                                        <div class="text-center">
+                                            <a href="index.php?page=admin&action=approveComment&id=<?= $commentReport->getId(); ?>"
+                                               class="btn btn-success m-2">Approuver</a>
+                                            <a href="index.php?page=admin&action=deleteComment&id=<?= $commentReport->getId(); ?>"
+                                               class="btn btn-danger m-2">Supprimer</a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="comment-btn">
+                            </div>
+                        </div>
+					<?php endforeach; ?>
+				<?php } else { ?>
+                    <div id="collapse1" class="collapse show" aria-labelledby="heading1"
+                         data-parent="#accordionComments">
+                        <div class="card-body">
+                            <div class="alert alert-info" role="alert">
+                                Il n'y a pas de commentaires signalés
+                            </div>
+                        </div>
+                    </div>
+				<?php } ?>
+            </div>
+			<?php
+            $countId = 1;
+			foreach ($episodes as $episode):
+                $countId++; ?>
+            <div class="card">
+                <div class="card-header" id="heading<?= $countId ?>">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                data-target="#collapse<?= $countId ?>" aria-expanded="false" aria-controls="collapse<?= $countId ?>">
+							<?= $episode->getTitle(); ?>
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapse<?= $countId ?>" class="collapse" aria-labelledby="heading<?= $countId ?>" data-parent="#accordionComments">
+                    <div class="card-body">
+                       <?php foreach ($comments as $comment):
+                       if ($episode->getId() === $comment->getEpisode()) { ?>
+                        <div class="card my-3">
+                            <h5 class="card-header"><?= htmlspecialchars($comment->getPseudo()); ?></h5>
+                            <div class="card-body">
+                                <p class="card-text"><?= htmlspecialchars($comment->getContent()); ?></p>
+                                <div class="text-right">
                                     <a href="index.php?page=admin&action=deleteComment&id=<?= $comment->getId(); ?>"
                                        class="btn btn-danger">Supprimer</a>
                                 </div>
                             </div>
-						<?php endforeach; ?>
-
-                    </div>
-                </div>
-
-			<?php } else { ?>
-                <div class="jumbotron top-space comment-episode-list">
-                    <div class="container">
-
-                        <h2 class="text-center thin">Commentaires par épisode</h2>
-
-                        <div class="jumbotron-comment">
-
-							<?php foreach ($episodes as $episode): ?>
-                                <div class="highlight">
-                                    <div class="h-caption"><h3><?= $episode->getTitle(); ?></h3></div>
-                                    <div class="h-body text-center">
-                                        <p><a href="index.php?page=admin&action=comment&id=<?= $episode->getId(); ?>"
-                                              class="btn btn-action">Gérer les commentaires</a></p>
-                                    </div>
-                                </div>
-							<?php endforeach; ?>
-
                         </div>
+					   <?php }
+                       endforeach; ?>
                     </div>
                 </div>
-
-                <div class="jumbotron top-space comment-list">
-                    <div class="container">
-
-                        <h2 class="text-center thin">Commentaires signalés</h2>
-
-                        <div class="jumbotron-comment-admin">
-							<?php if (count($commentsReport) > 0) { ?>
-
-								<?php foreach ($commentsReport as $commentReport): ?>
-                                    <div class="highlight comment">
-                                        <div class="comment-content">
-                                            <div class="h-caption">
-                                                <h3 class="text-left"><?= htmlspecialchars($commentReport->getPseudo()); ?></h3>
-                                            </div>
-                                            <div class="h-body">
-												<?= htmlspecialchars($commentReport->getContent()); ?>
-                                            </div>
-                                        </div>
-                                        <div class="comment-btn">
-                                            <a href="index.php?page=admin&action=approveComment&id=<?= $commentReport->getId(); ?>"
-                                               class="btn btn-success">Approuver</a>
-                                            <a href="index.php?page=admin&action=deleteComment&id=<?= $commentReport->getId(); ?>"
-                                               class="btn btn-danger">Supprimer</a>
-                                        </div>
-                                    </div>
-								<?php endforeach; ?>
-
-							<?php } else { ?>
-                                <div class="alert alert-info" role="alert">
-                                    Il n'y a pas de commentaires signalés
-                                </div>
-							<?php } ?>
-
-                        </div>
-                    </div>
-                </div>
-
-			<?php } ?>
-        </article>
-    </div>
-
+            </div>
+			<?php endforeach; ?>
+        </div>
+    </article>
 </div>
