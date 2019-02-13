@@ -4,7 +4,7 @@
 <div class="container">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.php">Accueil</a></li>
+            <li class="breadcrumb-item"><a href="index.php?page=admin">Panel d'administration</a></li>
             <li class="breadcrumb-item active" aria-current="page"><?= $this->title ?></li>
         </ol>
     </nav>

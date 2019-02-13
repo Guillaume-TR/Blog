@@ -12,6 +12,7 @@
     <header class="page-header">
         <h1 class="page-title"><?= $this->title ?></h1>
     </header>
+    <hr>
     <form method="post" action="index.php?page=admin&action=addEpisode" class="mb-5">
         <div class="form-group">
             <label for="title">Titre</label>
