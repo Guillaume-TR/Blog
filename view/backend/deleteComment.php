@@ -12,10 +12,8 @@
     <header class="page-header">
         <h1 class="page-title"><?= $this->title ?></h1>
     </header>
-    <div class="alert alert-danger" role="alert">
-        <p>Vous êtes sur le point de <strong>supprimer définitivement</strong> un commentaire.<br>
-            Veuillez noter l'identifiant du commentaire pour confirmer la suppression.</p>
-    </div>
+    <hr>
+
 	<?php if (isset($_SESSION['message'])) {
 		if ($_SESSION['messageType'] === 'success') { ?>
             <div class="alert alert-success" role="alert">
@@ -47,6 +45,10 @@
             </div>
 		<?php }
 	} else { ?>
+        <div class="alert alert-danger" role="alert">
+            <p>Vous êtes sur le point de <strong>supprimer définitivement</strong> un commentaire.<br>
+                Veuillez noter l'identifiant du commentaire pour confirmer la suppression.</p>
+        </div>
         <div class="alert alert-info" role="alert">
             <strong>Identifiant : </strong><?= $comment->getId() ?>
         </div>

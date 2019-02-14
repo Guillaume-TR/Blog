@@ -22,10 +22,10 @@
                         </button>
                     </h5>
                 </div>
+                <div id="collapse1" class="collapse show" aria-labelledby="heading1"
+                           data-parent="#accordionComments">
 				<?php if (count($commentsReport) > 0) { ?>
 					<?php foreach ($commentsReport as $commentReport): ?>
-                        <div id="collapse1" class="collapse show" aria-labelledby="heading1"
-                             data-parent="#accordionComments">
                             <div class="card-body">
                                 <div class="card">
                                     <h5 class="card-header"><?= htmlspecialchars($commentReport->getPseudo()); ?></h5>
@@ -40,18 +40,15 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
 					<?php endforeach; ?>
 				<?php } else { ?>
-                    <div id="collapse1" class="collapse show" aria-labelledby="heading1"
-                         data-parent="#accordionComments">
                         <div class="card-body">
                             <div class="alert alert-info" role="alert">
                                 Il n'y a pas de commentaires signalés
                             </div>
                         </div>
-                    </div>
 				<?php } ?>
+            </div>
             </div>
 			<?php
 			$countId = 1;
