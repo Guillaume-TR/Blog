@@ -330,7 +330,7 @@ class BackController
 					$_SESSION['messageType'] = 'success';
 				} else {
 					$_SESSION['message'] = 'L\'identifiant du commentaire n\'est pas le même.';
-					$_SESSION['messageType'] = 'warning';
+					$_SESSION['messageType'] = 'danger';
 				}
 			}
 			$this->view->render('deleteComment', [

@@ -10,7 +10,7 @@
     </nav>
     <article class="col-md-12 maincontent">
         <header class="page-header">
-            <h1 class="page-title"><?= $this->title; ?></h1>
+            <h1 class="page-title mb-4"><?= $this->title; ?></h1>
         </header>
         <div class="accordion" id="accordionComments">
             <div class="card">
@@ -54,37 +54,39 @@
 				<?php } ?>
             </div>
 			<?php
-            $countId = 1;
+			$countId = 1;
 			foreach ($episodes as $episode):
-                $countId++; ?>
-            <div class="card">
-                <div class="card-header" id="heading<?= $countId ?>">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                data-target="#collapse<?= $countId ?>" aria-expanded="false" aria-controls="collapse<?= $countId ?>">
-							<?= $episode->getTitle(); ?>
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapse<?= $countId ?>" class="collapse" aria-labelledby="heading<?= $countId ?>" data-parent="#accordionComments">
-                    <div class="card-body">
-                       <?php foreach ($comments as $comment):
-                       if ($episode->getId() === $comment->getEpisode()) { ?>
-                        <div class="card my-3">
-                            <h5 class="card-header"><?= htmlspecialchars($comment->getPseudo()); ?></h5>
-                            <div class="card-body">
-                                <p class="card-text"><?= htmlspecialchars($comment->getContent()); ?></p>
-                                <div class="text-right">
-                                    <a href="index.php?page=admin&action=deleteComment&id=<?= $comment->getId(); ?>"
-                                       class="btn btn-danger">Supprimer</a>
-                                </div>
-                            </div>
+				$countId++; ?>
+                <div class="card">
+                    <div class="card-header" id="heading<?= $countId ?>">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                    data-target="#collapse<?= $countId ?>" aria-expanded="false"
+                                    aria-controls="collapse<?= $countId ?>">
+								<?= $episode->getTitle(); ?>
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapse<?= $countId ?>" class="collapse" aria-labelledby="heading<?= $countId ?>"
+                         data-parent="#accordionComments">
+                        <div class="card-body">
+							<?php foreach ($comments as $comment):
+								if ($episode->getId() === $comment->getEpisode()) { ?>
+                                    <div class="card my-3">
+                                        <h5 class="card-header"><?= htmlspecialchars($comment->getPseudo()); ?></h5>
+                                        <div class="card-body">
+                                            <p class="card-text"><?= htmlspecialchars($comment->getContent()); ?></p>
+                                            <div class="text-right">
+                                                <a href="index.php?page=admin&action=deleteComment&id=<?= $comment->getId(); ?>"
+                                                   class="btn btn-danger">Supprimer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php }
+							endforeach; ?>
                         </div>
-					   <?php }
-                       endforeach; ?>
                     </div>
                 </div>
-            </div>
 			<?php endforeach; ?>
         </div>
     </article>
